@@ -88,6 +88,7 @@
 		</repository>
 	</repositories>
 	<modules>
-		<module>task-sl</module>
+		<module>sl</module>
+		<module>reptile</module>
 	</modules>
 </project>
