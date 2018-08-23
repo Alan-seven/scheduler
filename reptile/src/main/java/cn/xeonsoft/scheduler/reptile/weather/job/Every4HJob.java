@@ -8,6 +8,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +28,14 @@ import cn.xeonsoft.scheduler.reptile.weather.service.WeatherService;
  * @author wantwantxu
  */
 public class Every4HJob extends QuartzJobBean {
+	Logger logger = LogManager.getLogger(getClass());
 	@Autowired
 	private WeatherService weatherService;
 	
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 		String json = doGet("http://d1.weather.com.cn/dingzhi/101290101.html?_=1534820965041");
+		logger.warn(json);
 		String[] jsonArr = json.split(";");
 		if (null != jsonArr && jsonArr.length > 0) {
 			String cityDZStr = jsonArr[0];

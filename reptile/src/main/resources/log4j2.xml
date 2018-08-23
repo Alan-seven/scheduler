@@ -6,30 +6,15 @@
 				<pattern>%d %p %C{1.} [%t] %m%n</pattern>
 			</PatternLayout>
 		</Console>
-		<File name="File" fileName="/task-sl.log">
+		<File name="File" fileName="/scheduler-reptile.log">
 			<PatternLayout>
 				<pattern>%d %p %C{1.} [%t] %m%n</pattern>
 			</PatternLayout>
 		</File>
 	</Appenders>
 	<Loggers>
-		<!-- mybatis loggers
-        <logger name="com.ibatis" level="DEBUG" />
-        <logger name="com.ibatis.common.jdbc.SimpleDataSource" level="DEBUG" />
-        <logger name="com.ibatis.common.jdbc.ScriptRunner" level="DEBUG" />
-        <logger name="com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate" level="DEBUG" /> -->
-         <!-- sql loggers -->
-        <logger name="java.sql.Connection" level="DEBUG"  additivity="true"/>
-        <logger name="java.sql.Statement" level="DEBUG" additivity="true" />
-        <logger name="java.sql.PreparedStatement" level="DEBUG"  additivity="true"/>
-        <logger name="java.sql.ResultSet" level="DEBUG"  additivity="true"/>
-        
-		<Logger name="org.apache.catalina.util.LifecycleBase" level="ERROR" />
-		<Logger name="org.apache.coyote.http11.Http11NioProtocol" level="WARN" />
-		<Logger name="org.apache.tomcat.util.net.NioSelectorPool" level="WARN" />
-		<Logger name="org.springframework" level="warn" />
-		<Root level="DEBUG">
-			<AppenderRef ref="Console" />
+		<Root level="Warn">
+			<AppenderRef ref="File" />
 		</Root>
 	</Loggers>
 </Configuration>  

@@ -1,9 +1,9 @@
 package cn.xeonsoft.scheduler.reptile;
 
 import org.mybatis.spring.annotation.MapperScan;
+import org.quartz.CronScheduleBuilder;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
-import org.quartz.SimpleScheduleBuilder;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.springframework.boot.SpringApplication;
@@ -27,9 +27,6 @@ public class SpringbootApplication {
 
 	@Bean
 	public Trigger every4HJobTrigger() {
-		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(2)
-				.repeatForever();
-		return TriggerBuilder.newTrigger().forJob(every4HJobDetail()).withIdentity("Every4HJobTrigger")
-				.withSchedule(scheduleBuilder).build();
+		return TriggerBuilder.newTrigger().forJob(every4HJobDetail()).withIdentity("Every4HJobTrigger").withSchedule(CronScheduleBuilder.cronSchedule("0 0 8-20/6 * * ?")).build();
 	}
 }
