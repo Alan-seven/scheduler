@@ -9,7 +9,7 @@
 		<version>0.1</version>
 	</parent>
 	<groupId>cn.xeonsoft.scheduler.sl</groupId>
-	<artifactId>sl</artifactId>
+	<artifactId>scheduler-sl</artifactId>
 	<version>0.1</version>
 	<name>sl</name>
 	<url>http://maven.apache.org</url>
