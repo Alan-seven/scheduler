@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 
 import cn.xeonsoft.scheduler.sl.job.Every1HJob;
 
-@MapperScan(basePackages = "cn.xeonsoft.worker.task.respository")
+@MapperScan(basePackages = "cn.xeonsoft.scheduler.sl.respository")
 @SpringBootApplication()
 public class SpringbootApplication {
 

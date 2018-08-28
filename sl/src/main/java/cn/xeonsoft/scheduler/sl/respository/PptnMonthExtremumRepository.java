@@ -24,6 +24,6 @@ public interface PptnMonthExtremumRepository {
 	void updateRainDays(@Param("stcd") String stcd,@Param("yr") int yr,@Param("mnth") int mnth,@Param("days") Integer days);
 	
 
-	@Update("update STATIS_DYP set mxdyp = #{mxdyp} where stcd = #{stcd} AND yr >= #{yr} AND mnth = #{mnth}")
-	void updateMxDyp(@Param("stcd") String stcd,@Param("yr") int yr,@Param("mnth") int mnth,@Param("mxdyp") Float mxdyp);
+	@Update("update STATIS_DYP set mxdyp = #{mxdyp},mxtm = #{mxtm} where stcd = #{stcd} AND yr >= #{yr} AND mnth = #{mnth}")
+	void updateMxDyp(@Param("stcd") String stcd,@Param("yr") int yr,@Param("mnth") int mnth,@Param("mxdyp") Float mxdyp,@Param("mxtm") Date mxtm);
 }
