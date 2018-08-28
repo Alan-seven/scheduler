@@ -90,5 +90,6 @@
 	<modules>
 		<module>sl</module>
 		<module>reptile</module>
+		<module>ipc</module>
 	</modules>
 </project>
