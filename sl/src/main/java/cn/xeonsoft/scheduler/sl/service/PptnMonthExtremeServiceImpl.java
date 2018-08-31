@@ -33,7 +33,7 @@ public class PptnMonthExtremeServiceImpl implements PptnMonthExtremeService {
 				pptnMonthExtremumRepository.save(_pptnExtremum.getStcd(), yr, mnth, _pptnExtremum.getMaxdrp(),
 						_pptnExtremum.getTm());
 			} else {
-				pptnMonthExtremumRepository.updateMxDyp(_pptnExtremum.getStcd(), yr, mnth, _pptnExtremum.getMaxdrp());
+				pptnMonthExtremumRepository.updateMxDyp(_pptnExtremum.getStcd(), yr, mnth, _pptnExtremum.getMaxdrp(),_pptnExtremum.getTm());
 			}
 		}
 	}

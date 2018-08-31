@@ -13,7 +13,7 @@ import cn.xeonsoft.scheduler.sl.domain.StPstatR;
 import cn.xeonsoft.scheduler.sl.respository.AccpRepository;
 import cn.xeonsoft.scheduler.sl.utils.DateUtils;
 
-@Component("sumDrpService")
+@Component("accpService")
 @Transactional
 class AccpServiceImpl implements AccpService {
 
