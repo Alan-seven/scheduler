@@ -35,7 +35,7 @@ public interface PptnRtRepository {
 	List<RainDays> findRainDay(@Param("sttdrcd") String sttdrcd, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
 	@Select("select top 1 stcd,idtm as tm,MAX(accp) as maxdrp from ST_PSTAT_R where "
-			+ "STTDRCD = #{sttdrcd} and STCD = #{stcd} and IDTM >= #{startDate} and IDTM <= #{endDate}" + " group by stcd,idtm order by idtm desc")
+			+ "STTDRCD = #{sttdrcd} and STCD = #{stcd} and IDTM >= #{startDate} and IDTM <= #{endDate}" + " group by stcd,idtm order by maxdrp desc")
 	PptnExtremum findMaxDrpAndTm(@Param("sttdrcd") String sttdrcd,@Param("stcd") String stcd, @Param("startDate") Date startDate,
 			@Param("endDate") Date endDate);
 }
