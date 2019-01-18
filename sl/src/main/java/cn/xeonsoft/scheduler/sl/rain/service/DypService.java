@@ -19,4 +19,6 @@ public interface DypService {
 	void saveOrUpdateYear(List<Accp> accp);
 
 	void saveOrUpdate(Date idtm, String sttdrcd, List<Accp> accp);
+
+	void saveOrUpdateHour(List<Accp> accp);
 }

@@ -7,6 +7,7 @@ import cn.xeonsoft.scheduler.sl.Constant;
 import cn.xeonsoft.scheduler.sl.rain.domain.Accp;
 import cn.xeonsoft.scheduler.sl.rain.domain.StPstatR;
 import cn.xeonsoft.scheduler.sl.rain.respository.AccpRepository;
+import cn.xeonsoft.scheduler.utils.DateInterval;
 import cn.xeonsoft.scheduler.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -52,4 +53,20 @@ class DypServiceImpl implements DypService {
 		}
 	}
 
+	@Override
+	public void saveOrUpdateHour(List<Accp> accp) {
+		StPstatR stPstatR = null;
+		for (Accp _accp : accp) {
+			stPstatR = new StPstatR();
+			stPstatR.setStcd(_accp.getStcd());
+			stPstatR.setAccp(_accp.getAccp());
+			stPstatR.setIdtm(_accp.getTm());
+			stPstatR.setSttdrcd(DateInterval.HOUR.getType()+"");
+			if (accpRepository.findCount(stPstatR) > 0) {
+				accpRepository.update(stPstatR);
+			} else {
+				accpRepository.save(stPstatR);
+			}
+		}
+	}
 }

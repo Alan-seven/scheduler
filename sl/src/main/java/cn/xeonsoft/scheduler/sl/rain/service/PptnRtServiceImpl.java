@@ -57,6 +57,18 @@ class PptnRtServiceImpl implements PptnRtService {
 		return this.pptnRtRepository.findList(startDate, endDate);
 	}
 
+	@Override
+	public List<Accp> findAccpByHour() {
+		return this.findAccpByHour(new Date());
+	}
+
+	@Override
+	public List<Accp> findAccpByHour(Date tm) {
+		Date startDate = DateUtils.get8hBeginDate(DateInterval.DAY,tm);
+		Date endDate = DateUtils.get8hEndDate(DateInterval.DAY,tm);
+		return this.pptnRtRepository.findAccpByHour(startDate,endDate);
+	}
+
 	//-----------------------------------------------------得到累计降雨量
 	public List<Accp> findAccp() {
 		return this.findAccp(DateInterval.DAY);

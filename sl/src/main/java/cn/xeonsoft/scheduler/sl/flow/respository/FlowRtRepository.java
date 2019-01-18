@@ -33,7 +33,7 @@ public interface FlowRtRepository {
 	 * @param endDate
 	 * @return
 	 */
-	@Select("SELECT CONVERT(CHAR(13),a.tm,20) as tm,SUM(a.Q) as sumq FROM ST_RIVER_R a,STATION_EXTEND b WHERE a.stcd = b.stcd and b.type = #{type} and a.tm >= #{startDate} and a.tm <= #{endDate} group by CONVERT(CHAR(13),a.tm,20)")
+	@Select("SELECT CONVERT(CHAR(13),a.tm,20)+':00:00' as tm,SUM(a.Q) as sumq FROM ST_RIVER_R a,STATION_EXTEND b WHERE a.stcd = b.stcd and b.type = #{type} and a.tm >= #{startDate} and a.tm <= #{endDate} group by CONVERT(CHAR(13),a.tm,20)")
 	List<FlowSum> findHourSum(@Param("type") String type, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
 	/**

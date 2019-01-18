@@ -24,6 +24,8 @@ public interface PptnRtRepository {
 	@Select("SELECT stcd,SUM(drp) as accp FROM ST_PPTN_R WHERE tm >= #{startDate} AND tm <= #{endDate} GROUP BY stcd")
 	List<Accp> findAccp(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
+	@Select("SELECT stcd,CONVERT(CHAR(13),tm,20)+':00:00' as tm,SUM(drp) as accp FROM ST_PPTN_R WHERE tm >= #{startDate} and tm <= #{endDate} group by stcd,CONVERT(CHAR(13),tm,20)")
+	List<Accp> findAccpByHour(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 	/**
 	 * 从ST_PSTAT_R表的日雨量得出每月有多少天下雨
 	 * 

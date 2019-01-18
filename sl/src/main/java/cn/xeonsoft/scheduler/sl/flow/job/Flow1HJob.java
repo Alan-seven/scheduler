@@ -34,6 +34,7 @@ public class Flow1HJob extends QuartzJobBean {
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 		saveSumq(DateInterval.DAY,DateInterval.MINUTE,FlowConstant.TYPE_INSTATION);
+		saveSumq(DateInterval.DAY,DateInterval.HOUR,FlowConstant.TYPE_INSTATION);
 		saveSumq(DateInterval.DAY,DateInterval.DAY,FlowConstant.TYPE_INSTATION);
 		saveSumq(DateInterval.MONTH,DateInterval.MONTH,FlowConstant.TYPE_INSTATION);
 		saveSumq(DateInterval.THREEDAYS,DateInterval.THREEDAYS,FlowConstant.TYPE_INSTATION);
@@ -49,6 +50,9 @@ public class Flow1HJob extends QuartzJobBean {
 		switch (dataInterval2){
 			case MINUTE:
 				inFlowSums = flowRtService.findMinuteSum(FlowConstant.TYPE_INSTATION,beginDate,endDate);
+				break;
+			case HOUR:
+				inFlowSums = flowRtService.findHourSum(FlowConstant.TYPE_INSTATION,beginDate,endDate);
 				break;
 			case DAY:
 				inFlowSums = flowRtService.findDaySum(FlowConstant.TYPE_INSTATION,beginDate,endDate);

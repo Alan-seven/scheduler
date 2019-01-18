@@ -22,8 +22,6 @@ public class FlowSumServiceImpl implements FlowSumService {
 
 	@Override
 	public Integer findCount(String tm, String type, String sttdrcd) {
-
-		System.out.println("=========================================================="+tm);
 		return flowSumRepository.findCount(tm,type,sttdrcd);
 	}
 
@@ -45,8 +43,15 @@ public class FlowSumServiceImpl implements FlowSumService {
 	public void saveSumq(List<FlowSum> flowSums, String type, String sttdrcd) {
 		for(FlowSum flowsum : flowSums){
 			String tm = flowsum.getTm();
+			if(null==tm){
+				continue;
+			}
+			if(null==DateUtils.parseDate(tm)){
+				continue;
+			}
+			tm = DateUtils.formatDateTime(DateUtils.parseDate(tm));
 			Float sumq = flowsum.getSumq();
-			saveSumq(tm,sumq,type,sttdrcd);
+			saveSumq(tm,sumq * 15 * 60,type,sttdrcd);
 		}
 	}
 }

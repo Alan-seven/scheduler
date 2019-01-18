@@ -25,6 +25,14 @@ public interface PptnRtService {
 	List<PptnSt> findList(Date startDate, Date endDate);
 
 	/**
+	 * 得到小时累计雨量
+	 *
+	 * @return
+	 */
+	List<Accp> findAccpByHour();
+
+	List<Accp> findAccpByHour(Date tm);
+	/**
 	 * 得到当日日累计雨量
 	 *
 	 * @return

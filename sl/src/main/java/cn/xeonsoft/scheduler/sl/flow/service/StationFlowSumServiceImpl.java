@@ -51,7 +51,8 @@ public class StationFlowSumServiceImpl implements StationFlowSumService {
 				continue;
 			}
 			Float sumq = flowsum.getSumq();
-			saveSumq(stcd, _tm,sumq,sttdrcd);
+			//计算水量
+			saveSumq(stcd, _tm,sumq * 15 * 60,sttdrcd);
 		}
 	}
 }
