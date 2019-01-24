@@ -4,6 +4,7 @@ import cn.xeonsoft.scheduler.sl.flow.bo.FlowSum;
 import cn.xeonsoft.scheduler.sl.flow.respository.FlowSumRepository;
 import cn.xeonsoft.scheduler.sl.flow.respository.StationFlowRtRepository;
 import cn.xeonsoft.scheduler.sl.flow.respository.StationFlowSumRepository;
+import cn.xeonsoft.scheduler.utils.DateInterval;
 import cn.xeonsoft.scheduler.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -52,7 +53,8 @@ public class StationFlowSumServiceImpl implements StationFlowSumService {
 			}
 			Float sumq = flowsum.getSumq();
 			//计算水量
-			saveSumq(stcd, _tm,sumq * 15 * 60,sttdrcd);
+			float w = sumq * 15 * 60 / 10000;
+			saveSumq(stcd, _tm,w,sttdrcd);
 		}
 	}
 }

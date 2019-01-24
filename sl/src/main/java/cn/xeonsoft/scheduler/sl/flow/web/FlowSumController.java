@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -93,8 +94,18 @@ public class FlowSumController {
 	private void save(DateInterval dateInterval,DateInterval dateInterval2,String tm){
 		Date beginDate = DateUtils.getBeginDate(dateInterval,DateUtils.parseDate(tm));
 		Date endDate = DateUtils.getEndDate(dateInterval,DateUtils.parseDate(tm));
-		List<FlowSum> inFlowSums = flowRtService.findYearSum(FlowConstant.TYPE_INSTATION,beginDate,endDate);
-		List<FlowSum> outFlowSums = flowRtService.findYearSum(FlowConstant.TYPE_OUTSTATION,beginDate,endDate);
+		List<FlowSum> inFlowSums = new ArrayList<>();
+		List<FlowSum> outFlowSums = new ArrayList<>();
+		if(dateInterval2.equals(DateInterval.DAY)){
+			inFlowSums = flowRtService.findDaySum(FlowConstant.TYPE_INSTATION,beginDate,endDate);
+			outFlowSums = flowRtService.findDaySum(FlowConstant.TYPE_OUTSTATION,beginDate,endDate);
+		}else if(dateInterval2.equals(DateInterval.MONTH)){
+			inFlowSums = flowRtService.findMonthSum(FlowConstant.TYPE_INSTATION,beginDate,endDate);
+			outFlowSums = flowRtService.findMonthSum(FlowConstant.TYPE_OUTSTATION,beginDate,endDate);
+		}else if(dateInterval2.equals(DateInterval.YEAR)){
+			inFlowSums = flowRtService.findYearSum(FlowConstant.TYPE_INSTATION,beginDate,endDate);
+			outFlowSums = flowRtService.findYearSum(FlowConstant.TYPE_OUTSTATION,beginDate,endDate);
+		}
 		flowSumService.saveSumq(inFlowSums,FlowConstant.TYPE_INSTATION,dateInterval2.getType()+"");
 		flowSumService.saveSumq(outFlowSums,FlowConstant.TYPE_OUTSTATION,dateInterval2.getType()+"");
 	}

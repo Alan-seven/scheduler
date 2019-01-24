@@ -37,10 +37,13 @@ public interface PptnRtService {
 	 *
 	 * @return
 	 */
-	List<Accp> findAccp();
+	List<Accp> findDayAccp();
 
-	List<Accp> findAccp(Date tm);
+	List<Accp> findDayAccp(Date tm);
 
+	List<Accp> findFiveDaysAccp();
+
+	List<Accp> findTenDaysAccp();
 	/**
 	 * 得到当月月累计雨量
 	 * @return

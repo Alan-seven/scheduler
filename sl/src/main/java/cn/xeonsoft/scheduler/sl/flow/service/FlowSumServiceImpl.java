@@ -2,6 +2,7 @@ package cn.xeonsoft.scheduler.sl.flow.service;
 
 import cn.xeonsoft.scheduler.sl.flow.bo.FlowSum;
 import cn.xeonsoft.scheduler.sl.flow.respository.FlowSumRepository;
+import cn.xeonsoft.scheduler.utils.DateInterval;
 import cn.xeonsoft.scheduler.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -51,7 +52,9 @@ public class FlowSumServiceImpl implements FlowSumService {
 			}
 			tm = DateUtils.formatDateTime(DateUtils.parseDate(tm));
 			Float sumq = flowsum.getSumq();
-			saveSumq(tm,sumq * 15 * 60,type,sttdrcd);
+			//计算水量
+			float w = sumq * 15 * 60 /10000;
+			saveSumq(tm,w,type,sttdrcd);
 		}
 	}
 }

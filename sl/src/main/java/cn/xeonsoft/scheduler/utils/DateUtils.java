@@ -186,7 +186,8 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 			}
 			break;
 		case YEAR:
-			cal.roll(Calendar.DAY_OF_YEAR, -1);
+			cal.add(Calendar.YEAR, 1);
+			cal.set(Calendar.DAY_OF_YEAR, -1);
 			break;
 		}
 		cal.set(Calendar.HOUR_OF_DAY, 23);

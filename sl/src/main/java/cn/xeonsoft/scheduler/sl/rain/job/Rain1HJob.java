@@ -35,15 +35,24 @@ public class Rain1HJob extends QuartzJobBean {
 
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-		// 最高雨量及发生时间
+		// 月最高雨量及发生时间
 		List<PptnExtremum> maxDrpAndTm = pptnRtService.findMaxDrpAndTmByMonth();
-		// 雨日
+		// 月雨日
 		List<RainDays> rainDayOfMonth = pptnRtService.findRainDaysByMonth();
 
 		// 1.保存累计雨量(日、月)
+		//小时累计雨量
 		List<Accp> accpOfHour = pptnRtService.findAccpByHour();
-		List<Accp> accp = pptnRtService.findAccp();
+		//日累计雨量
+		List<Accp> accp = pptnRtService.findDayAccp();
+		//五日累计
+		List<Accp> accpOfFiveDays = pptnRtService.findFiveDaysAccp();
+		//十日累计
+		List<Accp> accpOfTenDays = pptnRtService.findTenDaysAccp();
+		//月累计雨量
 		List<Accp> accpOfMonth = pptnRtService.findAccpByMonth();
+		sumDrpService.saveOrUpdate(new Date(),DateInterval.FIVEDAYS.getType()+"",accpOfFiveDays);
+		sumDrpService.saveOrUpdate(new Date(),DateInterval.TENDAYS.getType()+"",accpOfTenDays);
 		sumDrpService.saveOrUpdateHour(accpOfHour);
 		sumDrpService.saveOrUpdate(accp);
 		sumDrpService.saveOrUpdateMonth(accpOfMonth);

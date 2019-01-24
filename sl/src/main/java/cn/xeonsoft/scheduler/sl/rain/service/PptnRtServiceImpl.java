@@ -70,12 +70,63 @@ class PptnRtServiceImpl implements PptnRtService {
 	}
 
 	//-----------------------------------------------------得到累计降雨量
-	public List<Accp> findAccp() {
+	public List<Accp> findDayAccp() {
 		return this.findAccp(DateInterval.DAY);
 	}
 
-	public List<Accp> findAccp(Date tm) {
+	public List<Accp> findDayAccp(Date tm) {
 		return this.findAccp(DateInterval.DAY, tm);
+	}
+
+	@Override
+	public List<Accp> findFiveDaysAccp() {
+		String currDate = DateUtils.getDate();
+		String day = DateUtils.getDay();
+		int d = Integer.parseInt(day);
+		Date date = DateUtils.parseDate(currDate);
+		Date startDate = null;
+		Date endDate = null;
+		if(d>=1 && d<=5){
+			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,1));
+			endDate = DateUtils.get8hEndDate(DateInterval.DAY,DateUtils.setDays(date,5));
+		}else if(d>5 && d<=10){
+			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,5));
+			endDate = DateUtils.get8hEndDate(DateInterval.DAY,DateUtils.setDays(date,10));
+		}else if(d>11 && d<=15){
+			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,11));
+			endDate = DateUtils.get8hEndDate(DateInterval.DAY,DateUtils.setDays(date,15));
+		}else if(d>15 && d<=20){
+			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,15));
+			endDate = DateUtils.get8hEndDate(DateInterval.DAY,DateUtils.setDays(date,20));
+		}else if(d>20 && d<=25){
+			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,20));
+			endDate = DateUtils.get8hEndDate(DateInterval.DAY,DateUtils.setDays(date,25));
+		}else if(d>25){
+			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,25));
+			endDate = DateUtils.get8hEndDate(DateInterval.MONTH,date);
+		}
+		return this.pptnRtRepository.findAccp(startDate,endDate);
+	}
+
+	@Override
+	public List<Accp> findTenDaysAccp() {
+		String currDate = DateUtils.getDate();
+		String day = DateUtils.getDay();
+		int d = Integer.parseInt(day);
+		Date date = DateUtils.parseDate(currDate);
+		Date startDate = null;
+		Date endDate = null;
+		if(d>=1 && d<=10){
+			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,1));
+			endDate = DateUtils.get8hEndDate(DateInterval.DAY,DateUtils.setDays(date,10));
+		}else if(d>10 && d<=20){
+			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,11));
+			endDate = DateUtils.get8hEndDate(DateInterval.DAY,DateUtils.setDays(date,20));
+		}else if(d>20 && d<=31){
+			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,21));
+			endDate = DateUtils.get8hEndDate(DateInterval.MONTH,date);
+		}
+		return this.pptnRtRepository.findAccp(startDate,endDate);
 	}
 
 	public List<Accp> findAccpByMonth() {

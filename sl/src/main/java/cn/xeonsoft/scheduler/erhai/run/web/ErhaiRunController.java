@@ -1,11 +1,11 @@
-package cn.xeonsoft.scheduler.sl.rain.web;
+package cn.xeonsoft.scheduler.erhai.run.web;
 
-import java.util.Date;
-import java.util.List;
-
-import cn.xeonsoft.scheduler.sl.Constant;
-import cn.xeonsoft.scheduler.sl.rain.bo.PptnExtremum;
-import cn.xeonsoft.scheduler.sl.rain.bo.RainDays;
+import cn.xeonsoft.scheduler.sl.water.bo.Extreme;
+import cn.xeonsoft.scheduler.sl.water.service.RiverDayService;
+import cn.xeonsoft.scheduler.sl.water.service.RiverMonthAvgService;
+import cn.xeonsoft.scheduler.sl.water.service.RiverMonthExtremeService;
+import cn.xeonsoft.scheduler.sl.water.service.RiverRtService;
+import cn.xeonsoft.scheduler.utils.DateUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,26 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import cn.xeonsoft.scheduler.sl.rain.domain.Accp;
-import cn.xeonsoft.scheduler.sl.rain.service.DypService;
-import cn.xeonsoft.scheduler.sl.rain.service.PptnMonthDrpService;
-import cn.xeonsoft.scheduler.sl.rain.service.PptnMonthExtremeService;
-import cn.xeonsoft.scheduler.sl.rain.service.PptnRtService;
-import cn.xeonsoft.scheduler.utils.DateUtils;
+import java.util.Date;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/pptnRt")
-public class PptnRtController {
-	@Autowired
-	private PptnRtService pptnRtService;
-
-	@Autowired
-	private DypService sumDrpService;
-	@Autowired
-	private PptnMonthExtremeService pptnMonthExtremeService;
-	@Autowired
-	private PptnMonthDrpService pptnMonthDrpService;
-
+@RequestMapping("/api/riverRt")
+public class ErhaiRunController {
 	@RequestMapping(value = "/initDay", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity initDay(@Param("tm") String tm) {
 		Date date = DateUtils.parseDate(tm);
@@ -57,7 +43,7 @@ public class PptnRtController {
 		double distance = DateUtils.getDistanceOfTwoDate(start, end);
 		for (int i = 0; i < distance; i++) {
 			Date tm = DateUtils.addDays(start, i);
-			this.initDay(tm);
+			initDay(tm);
 		}
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
@@ -75,22 +61,4 @@ public class PptnRtController {
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
 
-	private void initDay(Date tm) {
-		// 日累计雨量
-		List<Accp> dayAccpList = pptnRtService.findDayAccp(tm);
-		sumDrpService.saveOrUpdate(tm, Constant.STTDRCD_DAY, dayAccpList);
-	}
-
-	private void initMonth(Date tm) {
-		// 月累计雨量
-		List<Accp> accpList = pptnRtService.findAccpByMonth(tm);
-		sumDrpService.saveOrUpdate(tm, Constant.STTDRCD_MONTH, accpList);
-		pptnMonthDrpService.saveOrUpdate(tm, accpList);
-		// 月最大雨量及发生时间
-		List<PptnExtremum> maxzAndTmList = pptnRtService.findMaxDrpAndTmByMonth(tm);
-		pptnMonthExtremeService.saveOrUpdateMaxdrpAndTm(tm, maxzAndTmList);
-		// 每月的雨日
-		List<RainDays> rainDayList = pptnRtService.findRainDaysByMonth(tm);
-		pptnMonthExtremeService.updateRainDays(tm, rainDayList);
-	}
 }
