@@ -270,6 +270,13 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 	public static String getDay() {
 		return formatDate(new Date(), "dd");
 	}
+	/**
+	 * 得到指定时间字符串 格式（dd）
+	 */
+	public static String getDay(Date tm) {
+		return formatDate(tm, "dd");
+	}
+
 
 	/**
 	 * 得到当前星期字符串 格式（E）星期几

@@ -25,11 +25,13 @@ public class PptnMonthDrpServiceImpl implements PptnMonthDrpService {
 	private PptnMonthDrpRepository pptnMonthDrpRepository;
 
 	@Override
-	public void saveOrUpdate(Date tm, List<Accp> accpList) {
-		Integer yr = Integer.parseInt(DateUtils.getYear(tm));
-		Integer mnth = Integer.parseInt(DateUtils.getMonth(tm));
+	public void saveOrUpdate(List<Accp> accpList) {
 		for (Accp accp : accpList) {
-			Integer count = this.pptnMonthDrpRepository.findCount(yr, mnth, Constant.PRDTP_MONTH);
+			String stcd = accp.getStcd();
+			Date tm = accp.getTm();
+			Integer yr = Integer.parseInt(DateUtils.getYear(tm));
+			Integer mnth = Integer.parseInt(DateUtils.getMonth(tm));
+			Integer count = this.pptnMonthDrpRepository.findCount(yr, mnth, Constant.PRDTP_MONTH,stcd);
 			if (count > 0) {
 				this.pptnMonthDrpRepository.update(accp.getStcd(), yr, mnth, Constant.PRDTP_MONTH, accp.getAccp());
 			} else {
@@ -38,10 +40,4 @@ public class PptnMonthDrpServiceImpl implements PptnMonthDrpService {
 
 		}
 	}
-
-	@Override
-	public void saveOrUpdate(List<Accp> accpList) {
-		this.saveOrUpdate(new Date(), accpList);
-	}
-
 }

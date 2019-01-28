@@ -19,19 +19,19 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/riverRt")
+@RequestMapping("/api/erhaiRun")
 public class ErhaiRunController {
 	@RequestMapping(value = "/initDay", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity initDay(@Param("tm") String tm) {
 		Date date = DateUtils.parseDate(tm);
-		this.initDay(date);
+		//this.initDay(date);
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/initMonth", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity initMonth(@Param("tm") String tm) {
 		Date date = DateUtils.parseDate(tm);
-		this.initMonth(date);
+		//this.initMonth(date);
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
 
@@ -43,7 +43,7 @@ public class ErhaiRunController {
 		double distance = DateUtils.getDistanceOfTwoDate(start, end);
 		for (int i = 0; i < distance; i++) {
 			Date tm = DateUtils.addDays(start, i);
-			initDay(tm);
+			//initDay(tm);
 		}
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
@@ -56,7 +56,7 @@ public class ErhaiRunController {
 		int distance = DateUtils.getDistanceMonthOfTwoDate(end, start);
 		for (int i = 0; i < distance; i++) {
 			Date tm = DateUtils.addMonths(start, i);
-			this.initMonth(tm);
+			//this.initMonth(tm);
 		}
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}

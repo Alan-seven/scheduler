@@ -42,6 +42,18 @@ public class StationFlowSumController {
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/initFiveDays", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity initFiveDays(@Param("tm") String tm) {
+		save(DateInterval.FIVEDAYS,tm);
+		return new ResponseEntity<>("OK", HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/initTenDays", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity initTenDays(@Param("tm") String tm) {
+		save(DateInterval.TENDAYS,tm);
+		return new ResponseEntity<>("OK", HttpStatus.OK);
+	}
+
 	@RequestMapping(value = "/initMonth", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity initMonth(@Param("tm") String tm) {
 		save(DateInterval.MONTH,tm);
@@ -97,18 +109,42 @@ public class StationFlowSumController {
 			case DAY:
 				inFlowSums = stationFlowRtService.findDaySum(beginDate,endDate);
 				outFlowSums = stationFlowRtService.findDaySum(beginDate,endDate);
+				stationFlowSumService.saveSumq(inFlowSums,dateInterval2.getType()+"");
+				stationFlowSumService.saveSumq(outFlowSums,dateInterval2.getType()+"");
+				break;
+			case FIVEDAYS:
+				inFlowSums = stationFlowRtService.findSum(beginDate,endDate);
+				outFlowSums = stationFlowRtService.findSum(beginDate,endDate);
+				for(FlowSum flowSum:inFlowSums){
+					if(null==flowSum){
+						continue;
+					}
+					stationFlowSumService.saveSumq(flowSum.getStcd(),DateUtils.parseDate(tm),flowSum.getSumq(),DateInterval.FIVEDAYS.getType()+"");
+				}
+				break;
+			case TENDAYS:
+				inFlowSums = stationFlowRtService.findSum(beginDate,endDate);
+				outFlowSums = stationFlowRtService.findSum(beginDate,endDate);
+				for(FlowSum flowSum:inFlowSums){
+					if(null==flowSum){
+						continue;
+					}
+					stationFlowSumService.saveSumq(flowSum.getStcd(),DateUtils.parseDate(tm),flowSum.getSumq(),DateInterval.TENDAYS.getType()+"");
+				}
 				break;
 			case MONTH:
 				inFlowSums = stationFlowRtService.findMonthSum(beginDate,endDate);
 				outFlowSums = stationFlowRtService.findMonthSum(beginDate,endDate);
+				stationFlowSumService.saveSumq(inFlowSums,dateInterval2.getType()+"");
+				stationFlowSumService.saveSumq(outFlowSums,dateInterval2.getType()+"");
 				break;
 			case YEAR:
 				inFlowSums = stationFlowRtService.findYearSum(beginDate,endDate);
 				outFlowSums = stationFlowRtService.findYearSum(beginDate,endDate);
+				stationFlowSumService.saveSumq(inFlowSums,dateInterval2.getType()+"");
+				stationFlowSumService.saveSumq(outFlowSums,dateInterval2.getType()+"");
 				break;
 		}
-		stationFlowSumService.saveSumq(inFlowSums,dateInterval2.getType()+"");
-		stationFlowSumService.saveSumq(outFlowSums,dateInterval2.getType()+"");
 
 	}
 

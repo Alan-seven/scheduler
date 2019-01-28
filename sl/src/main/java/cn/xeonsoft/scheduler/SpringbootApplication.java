@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Bean;
 
 import cn.xeonsoft.scheduler.sl.water.job.Water1HJob;
 
-@MapperScan(basePackages = "cn.xeonsoft.scheduler.sl.*.respository")
+@MapperScan(basePackages = "cn.xeonsoft.scheduler.*.*.respository")
 @SpringBootApplication()
 public class SpringbootApplication {
 

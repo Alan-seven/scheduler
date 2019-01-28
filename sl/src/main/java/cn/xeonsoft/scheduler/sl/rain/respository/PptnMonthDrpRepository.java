@@ -12,8 +12,8 @@ import org.apache.ibatis.annotations.Update;
  *
  */
 public interface PptnMonthDrpRepository {
-	@Select("SELECT count(1) FROM ST_PDMMYSQ_S WHERE yr >= #{yr} and mnth = #{mnth} and prdtp = #{prdtp}")
-	Integer findCount(@Param("yr") Integer yr, @Param("mnth") Integer mnth, @Param("prdtp") Integer prdtp);
+	@Select("SELECT count(1) FROM ST_PDMMYSQ_S WHERE yr >= #{yr} and mnth = #{mnth} and prdtp = #{prdtp} and stcd = #{stcd}")
+	Integer findCount(@Param("yr") Integer yr, @Param("mnth") Integer mnth, @Param("prdtp") Integer prdtp, @Param("stcd") String stcd);
 
 	@Insert("Insert into ST_PDMMYSQ_S(stcd,yr,mnth,prdtp,accp)values (#{stcd},#{yr},#{mnth},#{prdtp},#{accp})")
 	void save(@Param("stcd") String stcd, @Param("yr") Integer yr, @Param("mnth") Integer mnth,

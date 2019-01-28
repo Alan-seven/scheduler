@@ -35,6 +35,15 @@ public interface FlowRtService {
 	List<FlowSum> findDaySum(String type,Date startDate,Date endDate);
 
 	/**
+	 * 得到任意时间段的合计
+	 * @param type
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	List<FlowSum> findSum(String type,Date startDate,Date endDate);
+
+	/**
 	 * 得到月级的合计
 	 * @param type
 	 * @param startDate

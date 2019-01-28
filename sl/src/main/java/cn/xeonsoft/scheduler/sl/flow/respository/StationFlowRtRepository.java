@@ -17,6 +17,14 @@ public interface StationFlowRtRepository {
 	@Select("SELECT COUNT(1) FROM STATIS_STATION_SUMQ WHERE stcd = #{stcd} and tm = #{tm} and sttdrcd = #{sttdrcd}")
 	Integer findCount(@Param("stcd") String stcd,@Param("tm") String tm,@Param("sttdrcd") String sttdrcd);
 	/**
+	 * 得到任意时间级的合计
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	@Select("SELECT stcd,SUM(a.Q) as sumq FROM ST_RIVER_R a WHERE a.tm >= #{startDate} and a.tm <= #{endDate} group by a.stcd")
+	List<FlowSum> findSum(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+	/**
 	 * 得到日级的合计
 	 * @param startDate
 	 * @param endDate

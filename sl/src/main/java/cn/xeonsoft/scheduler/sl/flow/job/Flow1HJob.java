@@ -50,21 +50,37 @@ public class Flow1HJob extends QuartzJobBean {
 		switch (dataInterval2){
 			case MINUTE:
 				inFlowSums = flowRtService.findMinuteSum(FlowConstant.TYPE_INSTATION,beginDate,endDate);
+				flowSumService.saveSumq(inFlowSums,type,dataInterval2.getType()+"");
 				break;
 			case HOUR:
 				inFlowSums = flowRtService.findHourSum(FlowConstant.TYPE_INSTATION,beginDate,endDate);
+				flowSumService.saveSumq(inFlowSums,type,dataInterval2.getType()+"");
 				break;
 			case DAY:
 				inFlowSums = flowRtService.findDaySum(FlowConstant.TYPE_INSTATION,beginDate,endDate);
+				flowSumService.saveSumq(inFlowSums,type,dataInterval2.getType()+"");
+				break;
+			case FIVEDAYS:
+				inFlowSums = flowRtService.findSum(FlowConstant.TYPE_INSTATION,beginDate,endDate);
+				for(FlowSum flowSum:inFlowSums){
+					flowSumService.saveSumq(DateUtils.getDate(),flowSum.getSumq(),type,DateInterval.FIVEDAYS.getType()+"");
+				}
+				break;
+			case TENDAYS:
+				inFlowSums = flowRtService.findSum(FlowConstant.TYPE_INSTATION,beginDate,endDate);
+				for(FlowSum flowSum:inFlowSums){
+					flowSumService.saveSumq(DateUtils.getDate(),flowSum.getSumq(),type,DateInterval.TENDAYS.getType()+"");
+				}
 				break;
 			case MONTH:
 				inFlowSums = flowRtService.findMonthSum(FlowConstant.TYPE_INSTATION,beginDate,endDate);
+				flowSumService.saveSumq(inFlowSums,type,dataInterval2.getType()+"");
 				break;
 			case YEAR:
 				inFlowSums = flowRtService.findYearSum(FlowConstant.TYPE_INSTATION,beginDate,endDate);
+				flowSumService.saveSumq(inFlowSums,type,dataInterval2.getType()+"");
 				break;
 		}
-		flowSumService.saveSumq(inFlowSums,type,dataInterval2.getType()+"");
 	}
 
 }

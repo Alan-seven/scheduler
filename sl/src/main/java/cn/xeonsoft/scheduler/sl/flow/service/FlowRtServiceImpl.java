@@ -35,6 +35,11 @@ public class FlowRtServiceImpl implements FlowRtService {
 	}
 
 	@Override
+	public List<FlowSum> findSum(String type, Date startDate, Date endDate) {
+		return flowRtRepository.findSum(type,startDate,endDate);
+	}
+
+	@Override
 	public List<FlowSum> findMonthSum(String type, Date startDate, Date endDate) {
 		return flowRtRepository.findMonthSum(type,startDate,endDate);
 	}

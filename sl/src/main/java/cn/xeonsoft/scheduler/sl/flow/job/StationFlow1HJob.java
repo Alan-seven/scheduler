@@ -31,6 +31,8 @@ public class StationFlow1HJob extends QuartzJobBean {
 	@Override
 	protected void executeInternal(JobExecutionContext context){
 		saveSumq(DateInterval.DAY);
+		saveSumq(DateInterval.FIVEDAYS);
+		saveSumq(DateInterval.TENDAYS);
 		saveSumq(DateInterval.MONTH);
 		saveSumq(DateInterval.YEAR);
 	}
@@ -42,15 +44,29 @@ public class StationFlow1HJob extends QuartzJobBean {
 		switch (dataInterval){
 			case DAY:
 				flowSums = stationFlowRtService.findDaySum(beginDate,endDate);
+				stationFlowSumService.saveSumq(flowSums,dataInterval.getType()+"");
+				break;
+			case FIVEDAYS:
+				flowSums = stationFlowRtService.findSum(beginDate,endDate);
+				for(FlowSum flowSum:flowSums){
+					stationFlowSumService.saveSumq(flowSum.getStcd(),new Date(),flowSum.getSumq(),DateInterval.FIVEDAYS.getType()+"");
+				}
+				break;
+			case TENDAYS:
+				flowSums = stationFlowRtService.findSum(beginDate,endDate);
+				for(FlowSum flowSum:flowSums){
+					stationFlowSumService.saveSumq(flowSum.getStcd(),new Date(),flowSum.getSumq(),DateInterval.TENDAYS.getType()+"");
+				}
 				break;
 			case MONTH:
 				flowSums = stationFlowRtService.findMonthSum(beginDate,endDate);
+				stationFlowSumService.saveSumq(flowSums,dataInterval.getType()+"");
 				break;
 			case YEAR:
 				flowSums = stationFlowRtService.findYearSum(beginDate,endDate);
+				stationFlowSumService.saveSumq(flowSums,dataInterval.getType()+"");
 				break;
 		}
-		stationFlowSumService.saveSumq(flowSums,dataInterval.getType()+"");
 	}
 
 }

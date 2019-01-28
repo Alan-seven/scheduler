@@ -26,6 +26,12 @@ public interface PptnRtRepository {
 
 	@Select("SELECT stcd,CONVERT(CHAR(13),tm,20)+':00:00' as tm,SUM(drp) as accp FROM ST_PPTN_R WHERE tm >= #{startDate} and tm <= #{endDate} group by stcd,CONVERT(CHAR(13),tm,20)")
 	List<Accp> findAccpByHour(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+
+	@Select("SELECT stcd,CONVERT(CHAR(7),tm,23)+'-01 00:00:00' as tm,SUM(drp) as accp FROM ST_PPTN_R WHERE tm >= #{startDate} and tm <= #{endDate} group by stcd,CONVERT(CHAR(7),tm,23)")
+	List<Accp> findAccpByMonth(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+
+	@Select("SELECT stcd,CONVERT(CHAR(4),TM,23)+'-01-01 00:00:00' as tm,SUM(drp) as accp FROM ST_PPTN_R WHERE tm >= #{startDate} and tm <= #{endDate} group by stcd,CONVERT(CHAR(4),TM,23)")
+	List<Accp> findAccpByYear(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 	/**
 	 * 从ST_PSTAT_R表的日雨量得出每月有多少天下雨
 	 * 

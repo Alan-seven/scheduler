@@ -51,13 +51,17 @@ public class Rain1HJob extends QuartzJobBean {
 		List<Accp> accpOfTenDays = pptnRtService.findTenDaysAccp();
 		//月累计雨量
 		List<Accp> accpOfMonth = pptnRtService.findAccpByMonth();
+		//年累计
+		List<Accp> accpOfYear = pptnRtService.findAccpByYear();
 		sumDrpService.saveOrUpdate(new Date(),DateInterval.FIVEDAYS.getType()+"",accpOfFiveDays);
 		sumDrpService.saveOrUpdate(new Date(),DateInterval.TENDAYS.getType()+"",accpOfTenDays);
 		sumDrpService.saveOrUpdateHour(accpOfHour);
 		sumDrpService.saveOrUpdate(accp);
 		sumDrpService.saveOrUpdateMonth(accpOfMonth);
+		sumDrpService.saveOrUpdateYear(accpOfYear);
 
 		pptnMonthDrpService.saveOrUpdate(accpOfMonth);
+		pptnMonthDrpService.saveOrUpdate(accpOfYear);
 		// 2.保存月极值，雨日
 		pptnMonthExtremeService.saveOrUpdateMaxdrpAndTm(maxDrpAndTm);
 		pptnMonthExtremeService.updateRainDays(rainDayOfMonth);

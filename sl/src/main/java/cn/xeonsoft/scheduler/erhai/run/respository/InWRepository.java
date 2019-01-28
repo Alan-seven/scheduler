@@ -1,5 +1,6 @@
 package cn.xeonsoft.scheduler.erhai.run.respository;
 
+import cn.xeonsoft.scheduler.erhai.run.bo.InW;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -10,7 +11,7 @@ import org.apache.ibatis.annotations.Select;
  */
 public interface InWRepository {
 
-	@Select("SELECT COUNT(1) FROM STATIS_DIST_DR WHERE sttdrcd = #{sttdrcd} AND tm = #{tm} AND addvcd = #{addvcd}")
-	Integer findCount(@Param("sttdrcd") String sttdrcd, @Param("tm") String tm, @Param("addvcd") String addvcd);
+	@Select("SELECT yr,mnth,flow,w FROM T_SFRD_FORECAST WHERE yr = #{yr} AND mnth = #{mnth}")
+	InW get(@Param("yr") Integer yr, @Param("mnth") Integer mnth);
 
 }

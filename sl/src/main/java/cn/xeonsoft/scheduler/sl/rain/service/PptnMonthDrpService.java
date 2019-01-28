@@ -14,6 +14,4 @@ import cn.xeonsoft.scheduler.sl.rain.domain.Accp;
 public interface PptnMonthDrpService {
 
 	public void saveOrUpdate(List<Accp> accpList);
-
-	public void saveOrUpdate(Date tm, List<Accp> accpList);
 }

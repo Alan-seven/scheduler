@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 
-@Component("riverDayService")
+@Component("erhaiRunSerivce")
 @Transactional
 public class ErhaiRunServiceImpl implements ErhaiRunService {
 	@Autowired

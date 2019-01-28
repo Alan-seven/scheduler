@@ -42,8 +42,10 @@ public interface PptnRtService {
 	List<Accp> findDayAccp(Date tm);
 
 	List<Accp> findFiveDaysAccp();
+	List<Accp> findFiveDaysAccp(Date tm);
 
 	List<Accp> findTenDaysAccp();
+	List<Accp> findTenDaysAccp(Date tm);
 	/**
 	 * 得到当月月累计雨量
 	 * @return
@@ -57,6 +59,7 @@ public interface PptnRtService {
 	 * @return
 	 */
 	List<Accp> findAccpByYear();
+	List<Accp> findAccpByYear(Date tm);
 
 	/**
 	 * 得到指定开始时间、结束时间的累计雨量

@@ -21,6 +21,11 @@ public class StationFlowRtServiceImpl implements StationFlowRtService {
 	private StationFlowRtRepository stationFlowRtRepository;
 
 	@Override
+	public List<FlowSum> findSum(Date startDate, Date endDate) {
+		return stationFlowRtRepository.findSum(startDate,endDate);
+	}
+
+	@Override
 	public List<FlowSum> findDaySum(Date startDate, Date endDate) {
 		return stationFlowRtRepository.findDaySum(startDate,endDate);
 	}

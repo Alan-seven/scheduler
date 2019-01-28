@@ -80,10 +80,13 @@ class PptnRtServiceImpl implements PptnRtService {
 
 	@Override
 	public List<Accp> findFiveDaysAccp() {
-		String currDate = DateUtils.getDate();
-		String day = DateUtils.getDay();
+		return findFiveDaysAccp(new Date());
+	}
+
+	@Override
+	public List<Accp> findFiveDaysAccp(Date date) {
+		String day = DateUtils.getDay(date);
 		int d = Integer.parseInt(day);
-		Date date = DateUtils.parseDate(currDate);
 		Date startDate = null;
 		Date endDate = null;
 		if(d>=1 && d<=5){
@@ -110,10 +113,13 @@ class PptnRtServiceImpl implements PptnRtService {
 
 	@Override
 	public List<Accp> findTenDaysAccp() {
-		String currDate = DateUtils.getDate();
-		String day = DateUtils.getDay();
+		return this.findTenDaysAccp(new Date());
+	}
+
+	@Override
+	public List<Accp> findTenDaysAccp(Date date) {
+		String day = DateUtils.getDay(date);
 		int d = Integer.parseInt(day);
-		Date date = DateUtils.parseDate(currDate);
 		Date startDate = null;
 		Date endDate = null;
 		if(d>=1 && d<=10){
@@ -134,11 +140,18 @@ class PptnRtServiceImpl implements PptnRtService {
 	}
 
 	public List<Accp> findAccpByMonth(Date tm) {
-		return this.findAccp(DateInterval.MONTH,tm);
+		Date startDate = DateUtils.get8hBeginDate(DateInterval.YEAR,tm);
+		Date endDate = DateUtils.get8hEndDate(DateInterval.YEAR,tm);
+		return this.pptnRtRepository.findAccpByMonth(startDate,endDate);
 	}
 
+	public List<Accp> findAccpByYear(Date tm) {
+		Date startDate = DateUtils.get8hBeginDate(DateInterval.YEAR,tm);
+		Date endDate = DateUtils.get8hEndDate(DateInterval.YEAR,tm);
+		return this.pptnRtRepository.findAccpByYear(startDate,endDate);
+	}
 	public List<Accp> findAccpByYear() {
-		return this.findAccp(DateInterval.YEAR);
+		return this.findAccpByYear(new Date());
 	}
 
 	public List<Accp> findAccp(DateInterval dateInterval) {
