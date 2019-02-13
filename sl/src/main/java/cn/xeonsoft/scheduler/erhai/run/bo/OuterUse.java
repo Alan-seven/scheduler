@@ -1,10 +1,18 @@
 package cn.xeonsoft.scheduler.erhai.run.bo;
 
 public class OuterUse {
-
+    private String tm;
     private Float life;
     private Float industry;
     private Float farming;
+
+    public String getTm() {
+        return tm;
+    }
+
+    public void setTm(String tm) {
+        this.tm = tm;
+    }
 
     public Float getLife() {
         return life;

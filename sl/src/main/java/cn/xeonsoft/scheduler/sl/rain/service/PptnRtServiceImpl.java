@@ -140,8 +140,8 @@ class PptnRtServiceImpl implements PptnRtService {
 	}
 
 	public List<Accp> findAccpByMonth(Date tm) {
-		Date startDate = DateUtils.get8hBeginDate(DateInterval.YEAR,tm);
-		Date endDate = DateUtils.get8hEndDate(DateInterval.YEAR,tm);
+		Date startDate = DateUtils.get8hBeginDate(DateInterval.MONTH,tm);
+		Date endDate = DateUtils.get8hEndDate(DateInterval.MONTH,tm);
 		return this.pptnRtRepository.findAccpByMonth(startDate,endDate);
 	}
 

@@ -26,18 +26,22 @@ class DypServiceImpl implements DypService {
 	}
 
 	@Override
-	public void saveOrUpdateMonth(List<Accp> accp) {
-		this.saveOrUpdate(DateUtils.parseDate(DateUtils.getDate()), Constant.STTDRCD_MONTH, accp);
+	public void saveOrUpdateMonth(Date tm,List<Accp> accp) {
+		String yr = DateUtils.getYear(tm);
+		String mnth = DateUtils.getMonth(tm);
+		Date monthTm = DateUtils.parseDate(yr+"-"+mnth+"-01");
+		this.saveOrUpdate(monthTm, Constant.STTDRCD_MONTH, accp);
 	}
 
 	@Override
-	public void saveOrUpdateYear(List<Accp> accp) {
-		this.saveOrUpdate(DateUtils.parseDate(DateUtils.getDate()), Constant.STTDRCD_YEAR, accp);
+	public void saveOrUpdateYear(Date tm,List<Accp> accp) {
+		String yr = DateUtils.getYear(tm);
+		Date yearTm = DateUtils.parseDate(yr+"-01-01");
+		this.saveOrUpdate(yearTm, Constant.STTDRCD_YEAR, accp);
 	}
 
 	@Override
 	public void saveOrUpdate(Date idtm, String sttdrcd, List<Accp> accp) {
-		idtm = DateUtils.parseDate(DateUtils.formatDate(idtm, "yyyy-MM-dd"));
 		StPstatR stPstatR = null;
 		for (Accp _accp : accp) {
 			stPstatR = new StPstatR();

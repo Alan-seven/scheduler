@@ -109,6 +109,32 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 		switch (dataInterval) {
 		case DAY:
 			break;
+		case FIVEDAYS:
+			int day_of_month = cal.get(Calendar.DAY_OF_MONTH);
+			if(day_of_month >= 1 && day_of_month <= 5){
+				cal.set(Calendar.DAY_OF_MONTH, 1);
+			}else if(day_of_month >= 6 && day_of_month <= 10){
+				cal.set(Calendar.DAY_OF_MONTH, 6);
+			}else if(day_of_month >= 11 && day_of_month <= 15){
+				cal.set(Calendar.DAY_OF_MONTH, 11);
+			}else if(day_of_month >= 16 && day_of_month <= 20){
+				cal.set(Calendar.DAY_OF_MONTH, 16);
+			}else if(day_of_month >= 21 && day_of_month <= 25){
+				cal.set(Calendar.DAY_OF_MONTH, 21);
+			}else if(day_of_month >= 26 && day_of_month <= 31){
+				cal.set(Calendar.DAY_OF_MONTH, 26);
+			}
+			break;
+		case TENDAYS:
+			int day = cal.get(Calendar.DAY_OF_MONTH);
+			if(day >= 1 && day <= 10){
+				cal.set(Calendar.DAY_OF_MONTH, 1);
+			}else if(day >= 11 && day <= 20){
+				cal.set(Calendar.DAY_OF_MONTH, 11);
+			}else if(day >= 21 && day <= 31){
+				cal.set(Calendar.DAY_OF_MONTH, 21);
+			}
+			break;
 		case WEEK:
 			int day_of_week = cal.get(Calendar.DAY_OF_WEEK) - 1;
 			if (day_of_week == 0)

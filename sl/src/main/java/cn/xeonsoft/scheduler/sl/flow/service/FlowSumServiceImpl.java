@@ -26,17 +26,19 @@ public class FlowSumServiceImpl implements FlowSumService {
 		return flowSumRepository.findCount(tm,type,sttdrcd);
 	}
 
-	@Override
-	public void updateSumq(String tm, Float sumq, String type, String sttdrcd) {
+	private void updateSumq(String tm, Float sumq, String type, String sttdrcd) {
 		flowSumRepository.updateSumq(tm,sumq,type,sttdrcd);
 	}
 
 	@Override
 	public void saveSumq(String tm, Float sumq, String type, String sttdrcd) {
+		tm = DateUtils.formatDateTime(DateUtils.parseDate(tm));
+		//计算水量
+		float w = sumq * 15 * 60 /10000;
 		if(findCount(tm,type,sttdrcd)>0){
-			updateSumq(tm,sumq,type,sttdrcd);
+			updateSumq(tm,w,type,sttdrcd);
 		}else{
-			flowSumRepository.saveSumq(tm,sumq,type,sttdrcd);
+			flowSumRepository.saveSumq(tm,w,type,sttdrcd);
 		}
 	}
 
@@ -52,9 +54,7 @@ public class FlowSumServiceImpl implements FlowSumService {
 			}
 			tm = DateUtils.formatDateTime(DateUtils.parseDate(tm));
 			Float sumq = flowsum.getSumq();
-			//计算水量
-			float w = sumq * 15 * 60 /10000;
-			saveSumq(tm,w,type,sttdrcd);
+			saveSumq(tm,sumq,type,sttdrcd);
 		}
 	}
 }

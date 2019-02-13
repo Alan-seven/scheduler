@@ -1,8 +1,11 @@
 package cn.xeonsoft.scheduler.erhai.run.bo;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class InW {
     private Float flow; //净入湖
     private Float w;    //净入水量
+    private String tm;
     private Integer yr;
     private Integer mnth;
 
@@ -36,5 +39,16 @@ public class InW {
 
     public void setMnth(Integer mnth) {
         this.mnth = mnth;
+    }
+
+    public String getTm() {
+        if(StringUtils.isNotBlank(tm)){
+            return tm;
+        }
+        return yr+"-"+mnth + "-01 00:00:00";
+    }
+
+    public void setTm(String tm) {
+        this.tm = tm;
     }
 }

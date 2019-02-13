@@ -119,7 +119,7 @@ public class StationFlowSumController {
 					if(null==flowSum){
 						continue;
 					}
-					stationFlowSumService.saveSumq(flowSum.getStcd(),DateUtils.parseDate(tm),flowSum.getSumq(),DateInterval.FIVEDAYS.getType()+"");
+					stationFlowSumService.saveSumq(flowSum.getStcd(),beginDate,flowSum.getSumq(),DateInterval.FIVEDAYS.getType()+"");
 				}
 				break;
 			case TENDAYS:
@@ -129,7 +129,7 @@ public class StationFlowSumController {
 					if(null==flowSum){
 						continue;
 					}
-					stationFlowSumService.saveSumq(flowSum.getStcd(),DateUtils.parseDate(tm),flowSum.getSumq(),DateInterval.TENDAYS.getType()+"");
+					stationFlowSumService.saveSumq(flowSum.getStcd(),beginDate,flowSum.getSumq(),DateInterval.TENDAYS.getType()+"");
 				}
 				break;
 			case MONTH:

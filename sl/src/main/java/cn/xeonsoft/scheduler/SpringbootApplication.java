@@ -1,5 +1,6 @@
 package cn.xeonsoft.scheduler;
 
+import cn.xeonsoft.scheduler.erhai.run.job.ErhaiRun1Job;
 import cn.xeonsoft.scheduler.sl.flow.job.Flow1HJob;
 import cn.xeonsoft.scheduler.sl.flow.job.StationFlow1HJob;
 import cn.xeonsoft.scheduler.sl.rain.job.Rain1HJob;
@@ -44,6 +45,11 @@ public class SpringbootApplication {
 	}
 
 	@Bean
+	public JobDetail erhaiRun1hJobDetail() {
+		return JobBuilder.newJob(ErhaiRun1Job.class).withIdentity("erhaiRun1h").storeDurably().build();
+	}
+
+	@Bean
 	public Trigger water1HJobTrigger() {
 		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
 				.repeatForever();
@@ -71,6 +77,13 @@ public class SpringbootApplication {
 		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
 				.repeatForever();
 		return TriggerBuilder.newTrigger().forJob(stationFlow1hJobDetail()).withIdentity("StationFlow1HJobTrigger")
+				.withSchedule(scheduleBuilder).build();
+	}
+	@Bean
+	public Trigger erhaiRun1HJobTrigger() {
+		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
+				.repeatForever();
+		return TriggerBuilder.newTrigger().forJob(erhaiRun1hJobDetail()).withIdentity("ErhaiRun1HJobTrigger")
 				.withSchedule(scheduleBuilder).build();
 	}
 }

@@ -28,17 +28,18 @@ public class StationFlowSumServiceImpl implements StationFlowSumService {
 		return stationFlowSumRepository.findCount(stcd,tm,sttdrcd);
 	}
 
-	@Override
-	public void updateSumq(String stcd,Date tm, Float sumq,String sttdrcd) {
+	private void updateSumq(String stcd,Date tm, Float sumq,String sttdrcd) {
 		stationFlowSumRepository.updateSumq(stcd,tm,sumq,sttdrcd);
 	}
 
 	@Override
 	public void saveSumq(String stcd,Date tm, Float sumq,String sttdrcd) {
+		//计算水量
+		float w = sumq * 15 * 60 / 10000;
 		if(findCount(stcd,tm,sttdrcd)>0){
-			updateSumq(stcd,tm,sumq,sttdrcd);
+			updateSumq(stcd,tm,w,sttdrcd);
 		}else{
-			stationFlowSumRepository.saveSumq(stcd,tm,sumq,sttdrcd);
+			stationFlowSumRepository.saveSumq(stcd,tm,w,sttdrcd);
 		}
 	}
 
@@ -52,9 +53,7 @@ public class StationFlowSumServiceImpl implements StationFlowSumService {
 				continue;
 			}
 			Float sumq = flowsum.getSumq();
-			//计算水量
-			float w = sumq * 15 * 60 / 10000;
-			saveSumq(stcd, _tm,w,sttdrcd);
+			saveSumq(stcd, _tm,sumq,sttdrcd);
 		}
 	}
 }

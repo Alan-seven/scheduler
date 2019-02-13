@@ -63,13 +63,15 @@ public class Flow1HJob extends QuartzJobBean {
 			case FIVEDAYS:
 				inFlowSums = flowRtService.findSum(FlowConstant.TYPE_INSTATION,beginDate,endDate);
 				for(FlowSum flowSum:inFlowSums){
-					flowSumService.saveSumq(DateUtils.getDate(),flowSum.getSumq(),type,DateInterval.FIVEDAYS.getType()+"");
+					Date tm = DateUtils.getBeginDate(DateInterval.FIVEDAYS,new Date());
+					flowSumService.saveSumq(DateUtils.formatDateTime(tm),flowSum.getSumq(),type,DateInterval.FIVEDAYS.getType()+"");
 				}
 				break;
 			case TENDAYS:
 				inFlowSums = flowRtService.findSum(FlowConstant.TYPE_INSTATION,beginDate,endDate);
 				for(FlowSum flowSum:inFlowSums){
-					flowSumService.saveSumq(DateUtils.getDate(),flowSum.getSumq(),type,DateInterval.TENDAYS.getType()+"");
+					Date tm = DateUtils.getBeginDate(DateInterval.TENDAYS,new Date());
+					flowSumService.saveSumq(DateUtils.formatDateTime(tm),flowSum.getSumq(),type,DateInterval.TENDAYS.getType()+"");
 				}
 				break;
 			case MONTH:

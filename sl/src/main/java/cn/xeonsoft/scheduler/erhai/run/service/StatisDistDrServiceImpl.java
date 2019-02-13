@@ -1,11 +1,15 @@
 package cn.xeonsoft.scheduler.erhai.run.service;
 
+import cn.xeonsoft.scheduler.erhai.run.bo.Dali;
 import cn.xeonsoft.scheduler.erhai.run.bo.InW;
 import cn.xeonsoft.scheduler.erhai.run.respository.InWRepository;
 import cn.xeonsoft.scheduler.erhai.run.respository.StatisDistDrRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+import java.util.List;
 
 
 @Component("statisDistDrService")
@@ -15,7 +19,7 @@ public class StatisDistDrServiceImpl implements StatisDistDrService {
 	private StatisDistDrRepository statisDistDrRepository;
 
     @Override
-    public Float get(String sttdrcd, String tm, String addvcd) {
-        return statisDistDrRepository.get(sttdrcd,tm,addvcd);
+    public List<Dali> list(String sttdrcd, Date startDate, Date endDate, String addvcd) {
+        return statisDistDrRepository.list(sttdrcd,startDate,endDate,addvcd);
     }
 }

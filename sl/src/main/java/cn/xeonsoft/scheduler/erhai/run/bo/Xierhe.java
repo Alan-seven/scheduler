@@ -2,9 +2,18 @@ package cn.xeonsoft.scheduler.erhai.run.bo;
 
 public class Xierhe {
 
+    private String tm;
     private Float electricityW;
     private Float sluiceW;
     private Float emissionW;
+
+    public String getTm() {
+        return tm;
+    }
+
+    public void setTm(String tm) {
+        this.tm = tm;
+    }
 
     public Float getElectricityW() {
         return electricityW;
