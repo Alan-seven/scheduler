@@ -21,8 +21,8 @@ class DypServiceImpl implements DypService {
 	private AccpRepository accpRepository;
 
 	@Override
-	public void saveOrUpdate(List<Accp> accp) {
-		this.saveOrUpdate(new Date(), Constant.STTDRCD_DAY, accp);
+	public void saveOrUpdate(Date tm,List<Accp> accp) {
+		this.saveOrUpdate(tm, Constant.STTDRCD_DAY, accp);
 	}
 
 	@Override

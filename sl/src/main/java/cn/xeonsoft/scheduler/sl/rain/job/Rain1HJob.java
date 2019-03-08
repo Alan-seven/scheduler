@@ -54,6 +54,7 @@ public class Rain1HJob extends QuartzJobBean {
 		List<Accp> accpOfMonth = pptnRtService.findAccpByMonth();
 		// 年累计
 		List<Accp> accpOfYear = pptnRtService.findAccpByYear();
+		Date dayTm = DateUtils.get8hBeginDate(DateInterval.DAY,new Date());
 		Date fiveDaysTm = DateUtils.getBeginDate(DateInterval.FIVEDAYS,new Date());
 		Date tenDaysTm = DateUtils.getBeginDate(DateInterval.TENDAYS,new Date());
 		Date monthTm = DateUtils.getBeginDate(DateInterval.MONTH,new Date());
@@ -62,9 +63,7 @@ public class Rain1HJob extends QuartzJobBean {
 		sumDrpService.saveOrUpdate(fiveDaysTm,DateInterval.FIVEDAYS.getType()+"",accpOfFiveDays);
 		sumDrpService.saveOrUpdate(tenDaysTm,DateInterval.TENDAYS.getType()+"",accpOfTenDays);
 		sumDrpService.saveOrUpdateHour(accpOfHour);
-		sumDrpService.saveOrUpdate(accp);
-		sumDrpService.saveOrUpdateMonth(new Date(),accpOfMonth);
-		sumDrpService.saveOrUpdateYear(new Date(),accpOfYear);
+		sumDrpService.saveOrUpdate(dayTm,accp);
 		// 旬月表
 		pptnMonthDrpService.saveOrUpdate(accpOfMonth);
 		pptnMonthDrpService.saveOrUpdate(accpOfYear);
