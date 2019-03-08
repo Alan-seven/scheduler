@@ -240,4 +240,19 @@ class PptnRtServiceImpl implements PptnRtService {
 		}
 		return pptnExtremumList;
 	}
+
+	@Override
+	public List<Accp> findHourSumByGP(String gp, Date startDate, Date endDate) {
+		return pptnRtRepository.findHourSumByGP(gp,startDate,endDate);
+	}
+
+	@Override
+	public List<Accp> findDaySumByGP(String gp, Date startDate, Date endDate) {
+		return pptnRtRepository.findDaySumByGP(gp,startDate,endDate);
+	}
+
+	@Override
+	public List<Accp> findMonthSumByGP(String gp, Date startDate, Date endDate) {
+		return pptnRtRepository.findMonthSumByGP(gp,startDate,endDate);
+	}
 }

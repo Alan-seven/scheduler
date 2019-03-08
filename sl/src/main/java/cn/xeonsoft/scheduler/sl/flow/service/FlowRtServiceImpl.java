@@ -48,4 +48,34 @@ public class FlowRtServiceImpl implements FlowRtService {
 	public List<FlowSum> findYearSum(String type, Date startDate, Date endDate) {
 		return flowRtRepository.findYearSum(type,startDate,endDate);
 	}
+
+	@Override
+	public List<FlowSum> findMinuteSumByGP(String gp, Date startDate, Date endDate) {
+		return flowRtRepository.findMinuteSumByGP(gp,startDate,endDate);
+	}
+
+	@Override
+	public List<FlowSum> findHourSumByGP(String gp, Date startDate, Date endDate) {
+		return flowRtRepository.findHourSumByGP(gp,startDate,endDate);
+	}
+
+	@Override
+	public List<FlowSum> findDaySumByGP(String gp, Date startDate, Date endDate) {
+		return flowRtRepository.findDaySumByGP(gp,startDate,endDate);
+	}
+
+	@Override
+	public List<FlowSum> findSumByGP(String gp, Date startDate, Date endDate) {
+		return flowRtRepository.findSumByGP(gp,startDate,endDate);
+	}
+
+	@Override
+	public List<FlowSum> findMonthSumByGP(String gp, Date startDate, Date endDate) {
+		return flowRtRepository.findMonthSumByGP(gp,startDate,endDate);
+	}
+
+	@Override
+	public List<FlowSum> findYearSumByGP(String gp, Date startDate, Date endDate) {
+		return flowRtRepository.findYearSumByGP(gp,startDate,endDate);
+	}
 }

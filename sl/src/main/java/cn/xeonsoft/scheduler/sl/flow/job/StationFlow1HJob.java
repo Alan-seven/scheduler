@@ -2,6 +2,7 @@ package cn.xeonsoft.scheduler.sl.flow.job;
 
 import cn.xeonsoft.scheduler.sl.flow.FlowConstant;
 import cn.xeonsoft.scheduler.sl.flow.bo.FlowSum;
+import cn.xeonsoft.scheduler.sl.flow.respository.DirectionFlowSumRepository;
 import cn.xeonsoft.scheduler.sl.flow.service.FlowRtService;
 import cn.xeonsoft.scheduler.sl.flow.service.FlowSumService;
 import cn.xeonsoft.scheduler.sl.flow.service.StationFlowRtService;
@@ -27,9 +28,12 @@ public class StationFlow1HJob extends QuartzJobBean {
 	private StationFlowRtService stationFlowRtService;
 	@Autowired
 	private StationFlowSumService stationFlowSumService;
+	@Autowired
+	private DirectionFlowSumRepository directionFlowSumRepository;
 
 	@Override
 	protected void executeInternal(JobExecutionContext context){
+		saveSumq(DateInterval.HOUR);
 		saveSumq(DateInterval.DAY);
 		saveSumq(DateInterval.FIVEDAYS);
 		saveSumq(DateInterval.TENDAYS);
@@ -42,6 +46,10 @@ public class StationFlow1HJob extends QuartzJobBean {
 		Date endDate = DateUtils.getEndDate(dataInterval);
 		List<FlowSum> flowSums = new ArrayList<>();
 		switch (dataInterval){
+			case HOUR:
+				flowSums = stationFlowRtService.findHourSum(beginDate,endDate);
+				stationFlowSumService.saveSumq(flowSums,dataInterval.getType()+"");
+				break;
 			case DAY:
 				flowSums = stationFlowRtService.findDaySum(beginDate,endDate);
 				stationFlowSumService.saveSumq(flowSums,dataInterval.getType()+"");

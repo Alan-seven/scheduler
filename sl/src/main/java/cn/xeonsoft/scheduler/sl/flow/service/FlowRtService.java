@@ -60,4 +60,60 @@ public interface FlowRtService {
 	 * @return
 	 */
 	List<FlowSum> findYearSum(String type,Date startDate,Date endDate);
+
+
+
+	/**
+	 * 得到分钟级的合计
+	 * @param gp
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	List<FlowSum> findMinuteSumByGP(String gp,Date startDate,Date endDate);
+
+	/**
+	 * 得到小时级的合计
+	 * @param gp
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	List<FlowSum> findHourSumByGP(String gp,Date startDate,Date endDate);
+
+	/**
+	 * 得到日级的合计
+	 * @param gp
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	List<FlowSum> findDaySumByGP(String gp,Date startDate,Date endDate);
+
+	/**
+	 * 得到任意时间段的合计
+	 * @param gp
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	List<FlowSum> findSumByGP(String gp,Date startDate,Date endDate);
+
+	/**
+	 * 得到月级的合计
+	 * @param gp
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	List<FlowSum> findMonthSumByGP(String gp,Date startDate,Date endDate);
+
+	/**
+	 * 得到年级的合计
+	 * @param gp
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	List<FlowSum> findYearSumByGP(String gp,Date startDate,Date endDate);
 }

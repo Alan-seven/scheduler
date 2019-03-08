@@ -1,18 +1,16 @@
 package cn.xeonsoft.scheduler.sl.rain.respository;
 
+import cn.xeonsoft.scheduler.sl.rain.domain.StPstatR;
 import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import cn.xeonsoft.scheduler.sl.rain.domain.StPstatR;
-
 /**
- * 累计降水量ST_PSTAT_R
+ * 预报单元降雨
  * @author wantwantxu
  *
  */
-public interface AccpRepository {
+public interface RegionAccpRepository {
 	@Insert("INSERT INTO ST_PSTAT_R(STCD,IDTM,STTDRCD,ACCP) values (#{stcd},#{idtm},#{sttdrcd},#{accp})")
 	void save(StPstatR stPstatR);
 	
@@ -21,5 +19,4 @@ public interface AccpRepository {
 	
 	@Update("UPDATE ST_PSTAT_R SET ACCP = #{accp} WHERE stcd = #{stcd} AND idtm = #{idtm} AND sttdrcd = #{sttdrcd}")
 	void update(StPstatR stPstatR);
-
 }

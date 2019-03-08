@@ -37,6 +37,14 @@ public class PptnRtController {
 	@Autowired
 	private PptnMonthDrpService pptnMonthDrpService;
 
+	@RequestMapping(value = "/initHour", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity initHour(@Param("tm") String tm) {
+		Date date = DateUtils.parseDate(tm);
+		List<Accp> dayAccpList = pptnRtService.findAccpByHour(date);
+		sumDrpService.saveOrUpdateHour(dayAccpList);
+		return new ResponseEntity<>("OK", HttpStatus.OK);
+	}
+
 	@RequestMapping(value = "/initDay", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity initDay(@Param("tm") String tm) {
 		Date date = DateUtils.parseDate(tm);
@@ -56,8 +64,9 @@ public class PptnRtController {
 	@RequestMapping(value = "/init10Days", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity init10Days(@Param("tm") String tm) {
 		//十日累计
-		List<Accp> accpOfTenDays = pptnRtService.findTenDaysAccp();
-		Date tenDaysTm = DateUtils.getBeginDate(DateInterval.TENDAYS,DateUtils.parseDate(tm));
+		Date tmDate = DateUtils.parseDate(tm);
+		Date tenDaysTm = DateUtils.getBeginDate(DateInterval.TENDAYS,tmDate);
+		List<Accp> accpOfTenDays = pptnRtService.findTenDaysAccp(tmDate);
 		sumDrpService.saveOrUpdate(tenDaysTm,DateInterval.TENDAYS.getType()+"",accpOfTenDays);
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}

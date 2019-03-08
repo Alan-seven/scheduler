@@ -1,13 +1,11 @@
 cn\xeonsoft\scheduler\erhai\run\service\InWServiceImpl.class
 cn\xeonsoft\scheduler\erhai\run\service\ErhaiRunService.class
 cn\xeonsoft\scheduler\sl\Constant.class
-cn\xeonsoft\scheduler\erhai\run\service\ErhaiZService.class
 cn\xeonsoft\scheduler\sl\water\service\RiverRtService.class
 cn\xeonsoft\scheduler\sl\rain\job\Rain1HJob.class
 cn\xeonsoft\scheduler\erhai\run\web\ErhaiRunController.class
 cn\xeonsoft\scheduler\sl\rain\service\DypService.class
 cn\xeonsoft\scheduler\sl\rain\web\PptnRtController.class
-cn\xeonsoft\scheduler\erhai\run\respository\ErhaiZRepository.class
 cn\xeonsoft\scheduler\sl\rain\service\PptnMonthDrpService.class
 cn\xeonsoft\scheduler\erhai\run\job\ErhaiRun1Job.class
 cn\xeonsoft\scheduler\sl\rain\service\DypServiceImpl.class
@@ -20,7 +18,6 @@ cn\xeonsoft\scheduler\SpringbootApplication.class
 cn\xeonsoft\scheduler\sl\water\bo\Extreme.class
 cn\xeonsoft\scheduler\sl\flow\service\FlowRtService.class
 cn\xeonsoft\scheduler\sl\flow\service\FlowRtServiceImpl.class
-cn\xeonsoft\scheduler\sl\rain\service\PptnMonthExtremeServiceImpl.class
 cn\xeonsoft\scheduler\sl\water\respository\ZQYearExtremumRepository.class
 cn\xeonsoft\scheduler\sl\water\domain\RiverAvg.class
 cn\xeonsoft\scheduler\sl\flow\web\StationFlowSumController.class
@@ -40,6 +37,7 @@ cn\xeonsoft\scheduler\erhai\run\service\StatisDistDrService.class
 cn\xeonsoft\scheduler\erhai\run\service\StatisXierheServiceImpl.class
 cn\xeonsoft\scheduler\erhai\run\service\StatisOuterUseServiceImpl.class
 cn\xeonsoft\scheduler\sl\flow\respository\StationFlowRtRepository.class
+cn\xeonsoft\scheduler\erhai\run\bo\ErhaiRun.class
 cn\xeonsoft\scheduler\sl\rain\service\PptnMonthDrpServiceImpl.class
 cn\xeonsoft\scheduler\sl\water\service\RiverDayServiceImpl.class
 cn\xeonsoft\scheduler\sl\flow\service\StationFlowSumService.class
@@ -69,7 +67,6 @@ cn\xeonsoft\scheduler\sl\flow\service\FlowSumServiceImpl.class
 cn\xeonsoft\scheduler\sl\flow\job\Flow1HJob.class
 cn\xeonsoft\scheduler\sl\water\service\RiverRtServiceImpl.class
 cn\xeonsoft\scheduler\erhai\run\service\StatisXierheService.class
-cn\xeonsoft\scheduler\sl\rain\service\PptnMonthExtremeService.class
 cn\xeonsoft\scheduler\sl\water\web\RiverRtController.class
 cn\xeonsoft\scheduler\sl\flow\job\Flow1HJob$1.class
 cn\xeonsoft\scheduler\sl\water\domain\RiverSt.class
@@ -94,8 +91,6 @@ cn\xeonsoft\scheduler\sl\rain\service\PptnRtService.class
 cn\xeonsoft\scheduler\sl\rain\respository\AccpRepository.class
 cn\xeonsoft\scheduler\sl\flow\FlowConstant.class
 cn\xeonsoft\scheduler\erhai\run\service\StatisDistDrServiceImpl.class
-cn\xeonsoft\scheduler\erhai\run\service\ErhaiZServiceImpl.class
 cn\xeonsoft\scheduler\sl\flow\service\StationFlowSumServiceImpl.class
-cn\xeonsoft\scheduler\sl\rain\respository\PptnMonthExtremumRepository.class
 cn\xeonsoft\scheduler\sl\water\service\RiverMonthExtremeService.class
 cn\xeonsoft\scheduler\sl\flow\web\StationFlowSumController$1.class

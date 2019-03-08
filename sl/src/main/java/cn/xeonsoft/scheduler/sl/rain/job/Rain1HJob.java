@@ -3,10 +3,7 @@ package cn.xeonsoft.scheduler.sl.rain.job;
 import cn.xeonsoft.scheduler.sl.rain.bo.PptnExtremum;
 import cn.xeonsoft.scheduler.sl.rain.bo.RainDays;
 import cn.xeonsoft.scheduler.sl.rain.domain.Accp;
-import cn.xeonsoft.scheduler.sl.rain.service.DypService;
-import cn.xeonsoft.scheduler.sl.rain.service.PptnMonthDrpService;
-import cn.xeonsoft.scheduler.sl.rain.service.StatisDypService;
-import cn.xeonsoft.scheduler.sl.rain.service.PptnRtService;
+import cn.xeonsoft.scheduler.sl.rain.service.*;
 import cn.xeonsoft.scheduler.utils.DateInterval;
 import cn.xeonsoft.scheduler.utils.DateUtils;
 import org.quartz.JobExecutionContext;
@@ -14,6 +11,7 @@ import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +31,8 @@ public class Rain1HJob extends QuartzJobBean {
 	private DypService sumDrpService;
 	@Autowired
 	private PptnMonthDrpService pptnMonthDrpService;
+	@Autowired
+	private DirectionAccpService directionAccpService;
 
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
@@ -76,5 +76,32 @@ public class Rain1HJob extends QuartzJobBean {
 		List<RainDays> rainDayOfYear = pptnRtService.findRainDaysByYear();
 		statisDypService.saveOrUpdateMaxdrpAndTm(yearTm,DateInterval.YEAR.getType()+"",maxDrpAndTmOfYear);
 		statisDypService.updateRainDays(yearTm,DateInterval.YEAR.getType()+"",rainDayOfYear);
+
+
+		saveRegionSumAccp(DateInterval.DAY,"1");
+		saveRegionSumAccp(DateInterval.DAY,"2");
+		saveRegionSumAccp(DateInterval.DAY,"3");
+		saveRegionSumAccp(DateInterval.DAY,"4");
+		saveRegionSumAccp(DateInterval.MONTH,"1");
+		saveRegionSumAccp(DateInterval.MONTH,"2");
+		saveRegionSumAccp(DateInterval.MONTH,"3");
+		saveRegionSumAccp(DateInterval.MONTH,"4");
+	}
+
+
+	private void saveRegionSumAccp(DateInterval dateInterval,String gp){
+		Date beginDate = DateUtils.get8hBeginDate(dateInterval);
+		Date endDate = DateUtils.get8hEndDate(dateInterval);
+		List<Accp> accps = new ArrayList<>();
+		switch (dateInterval){
+			case HOUR:
+				accps = pptnRtService.findHourSumByGP(gp,beginDate,endDate);
+				directionAccpService.save(accps,gp,dateInterval.getType()+"");
+				break;
+			case DAY:
+				accps = pptnRtService.findDaySumByGP(gp,beginDate,endDate);
+				directionAccpService.save(accps,gp,dateInterval.getType()+"");
+				break;
+		}
 	}
 }

@@ -24,6 +24,16 @@ public interface StationFlowRtRepository {
 	 */
 	@Select("SELECT stcd,SUM(a.Q) as sumq FROM ST_RIVER_R a WHERE a.tm >= #{startDate} and a.tm <= #{endDate} group by a.stcd")
 	List<FlowSum> findSum(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+
+	/**
+	 * 得到小时级的合计
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	@Select("SELECT stcd,CONVERT(CHAR(13),a.tm,20)+':00:00' as tm,SUM(a.Q) as sumq FROM ST_RIVER_R a WHERE a.tm >= #{startDate} and a.tm <= #{endDate} group by a.stcd,CONVERT(CHAR(13),a.tm,20)")
+	List<FlowSum> findHourSum(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+
 	/**
 	 * 得到日级的合计
 	 * @param startDate

@@ -7,6 +7,7 @@ import cn.xeonsoft.scheduler.sl.rain.bo.PptnExtremum;
 import cn.xeonsoft.scheduler.sl.rain.bo.RainDays;
 import cn.xeonsoft.scheduler.sl.rain.domain.Accp;
 import cn.xeonsoft.scheduler.sl.rain.domain.PptnSt;
+import org.apache.ibatis.annotations.Param;
 
 public interface PptnRtService {
 	List<PptnSt> findList();
@@ -103,4 +104,8 @@ public interface PptnRtService {
 	 * @return
 	 */
 	List<PptnExtremum> findMaxDrpAndTm(Date startDate, Date endDate);
+
+	List<Accp> findHourSumByGP(String gp,Date startDate,Date endDate);
+	List<Accp> findDaySumByGP(String gp,Date startDate,Date endDate);
+	List<Accp> findMonthSumByGP(String gp,Date startDate,Date endDate);
 }

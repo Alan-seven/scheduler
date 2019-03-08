@@ -15,6 +15,13 @@ public interface StationFlowRtService {
 	 */
 	List<FlowSum> findSum(Date startDate, Date endDate);
 	/**
+	 * 得到小时级的合计
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	List<FlowSum> findHourSum(Date startDate, Date endDate);
+	/**
 	 * 得到日级的合计
 	 * @param startDate
 	 * @param endDate
