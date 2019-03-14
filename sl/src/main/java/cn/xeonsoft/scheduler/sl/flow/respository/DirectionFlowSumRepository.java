@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public interface DirectionFlowSumRepository {
 
-	@Select("SELECT COUNT(1) FROM STATIS_DIRECTION_SUMQ WHERE tm = #{tm} and direction = #{direction} and sttdrcd = #{sttdrcd}")
+	@Select("SELECT COUNT(1) FROM  WHERE tm = #{tm} and direction = #{direction} and sttdrcd = #{sttdrcd}")
 	Integer findCount(@Param("tm") Date tm, @Param("direction") String direction, @Param("sttdrcd") String sttdrcd);
 
 	@Insert("UPDATE STATIS_DIRECTION_SUMQ SET SUMQ = #{sumq} WHERE tm = #{tm} and direction = #{direction} and sttdrcd = #{sttdrcd}")

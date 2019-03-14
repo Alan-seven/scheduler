@@ -48,7 +48,8 @@ public class PptnRtController {
 	@RequestMapping(value = "/initDay", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity initDay(@Param("tm") String tm) {
 		Date date = DateUtils.parseDate(tm);
-		this.initDay(date);
+		Date dayTm = DateUtils.get8hBeginDate(DateInterval.DAY,date);
+		this.initDay(dayTm);
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
 
@@ -122,6 +123,7 @@ public class PptnRtController {
 		List<Accp> dayAccpList = pptnRtService.findDayAccp(tm);
 		sumDrpService.saveOrUpdate(tm, Constant.STTDRCD_DAY, dayAccpList);
 	}
+
 
 
 	private void initMonth(Date tm) {

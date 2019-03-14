@@ -184,6 +184,32 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 		switch (dataInterval) {
 		case DAY:
 			break;
+		case FIVEDAYS:
+			int day_of_month = cal.get(Calendar.DAY_OF_MONTH);
+			if(day_of_month >= 1 && day_of_month <= 5){
+				cal.set(Calendar.DAY_OF_MONTH, 5);
+			}else if(day_of_month >= 6 && day_of_month <= 10){
+				cal.set(Calendar.DAY_OF_MONTH, 10);
+			}else if(day_of_month >= 11 && day_of_month <= 15){
+				cal.set(Calendar.DAY_OF_MONTH, 15);
+			}else if(day_of_month >= 16 && day_of_month <= 20){
+				cal.set(Calendar.DAY_OF_MONTH, 20);
+			}else if(day_of_month >= 21 && day_of_month <= 25){
+				cal.set(Calendar.DAY_OF_MONTH, 25);
+			}else if(day_of_month >= 26 && day_of_month <= 31){
+				cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+			}
+			break;
+		case TENDAYS:
+			int day = cal.get(Calendar.DAY_OF_MONTH);
+			if(day >= 1 && day <= 10){
+				cal.set(Calendar.DAY_OF_MONTH, 10);
+			}else if(day >= 11 && day <= 20){
+				cal.set(Calendar.DAY_OF_MONTH, 20);
+			}else if(day >= 21 && day <= 31){
+				cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+			}
+			break;
 		case WEEK:
 			cal.setFirstDayOfWeek(Calendar.MONDAY);
 			cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek() + 6);
@@ -212,8 +238,9 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 			}
 			break;
 		case YEAR:
-			cal.add(Calendar.YEAR, 1);
-			cal.set(Calendar.DAY_OF_YEAR, -1);
+			//cal.add(Calendar.YEAR, 1);
+			cal.roll(Calendar.DAY_OF_YEAR, -1);
+			//cal.set(Calendar.DAY_OF_YEAR, -1);
 			break;
 		}
 		cal.set(Calendar.HOUR_OF_DAY, 23);
@@ -407,22 +434,25 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 		// System.out.println(getDate("yyyy年MM月dd日 E"));
 		// long time = new Date().getTime()-parseDate("2012-11-19").getTime();
 		// System.out.println(time/(24*60*60*1000));
-		System.out.println(DateUtils.formatDate(getBeginDate(DateInterval.DAY, new Date()), "yyyy-MM-dd HH:mm:ss"));
-		
-		System.out.println(DateUtils.formatDate(get8hBeginDate(DateInterval.MONTH, new Date()), "yyyy-MM-dd HH:mm:ss"));
-		System.out.println(DateUtils.formatDate(get8hEndDate(DateInterval.MONTH, new Date()), "yyyy-MM-dd HH:mm:ss"));
-
-		System.out.println(DateUtils.formatDate(get8hBeginDate(DateInterval.YEAR, DateUtils.parseDate("2017-01-01")),
-				"yyyy-MM-dd HH:mm:ss"));
-		System.out.println(DateUtils.formatDate(get8hEndDate(DateInterval.YEAR, DateUtils.parseDate("2017-01-01")),
-				"yyyy-MM-dd HH:mm:ss"));
-
-		System.out.println(DateUtils.formatDate(get8hBeginDate(DateInterval.DAY, new Date()), "yyyy-MM-dd HH:mm:ss"));
-		System.out.println(DateUtils.formatDate(get8hEndDate(DateInterval.DAY, new Date()), "yyyy-MM-dd HH:mm:ss"));
-
-		System.out.println(get8hBeginDateTime(new Date()));
-		System.out.println(get8hEndDateTime(new Date()));
-
-		System.out.println(getDistanceMonthOfTwoDate(DateUtils.parseDate("2017-01-01"), new Date()));
+//		System.out.println(DateUtils.formatDate(getBeginDate(DateInterval.DAY, new Date()), "yyyy-MM-dd HH:mm:ss"));
+//
+//		System.out.println(DateUtils.formatDate(get8hBeginDate(DateInterval.MONTH, new Date()), "yyyy-MM-dd HH:mm:ss"));
+//		System.out.println(DateUtils.formatDate(get8hEndDate(DateInterval.MONTH, new Date()), "yyyy-MM-dd HH:mm:ss"));
+//
+//		System.out.println(DateUtils.formatDate(get8hBeginDate(DateInterval.YEAR, DateUtils.parseDate("2017-01-01")),
+//				"yyyy-MM-dd HH:mm:ss"));
+//		System.out.println(DateUtils.formatDate(get8hEndDate(DateInterval.YEAR, DateUtils.parseDate("2017-01-01")),
+//				"yyyy-MM-dd HH:mm:ss"));
+//
+//		System.out.println(DateUtils.formatDate(get8hBeginDate(DateInterval.DAY, new Date()), "yyyy-MM-dd HH:mm:ss"));
+//		System.out.println(DateUtils.formatDate(get8hEndDate(DateInterval.DAY, new Date()), "yyyy-MM-dd HH:mm:ss"));
+//
+//		System.out.println(get8hBeginDateTime(new Date()));
+//		System.out.println(get8hEndDateTime(new Date()));
+//
+//		System.out.println(getDistanceMonthOfTwoDate(DateUtils.parseDate("2017-01-01"), new Date()));
+		System.out.println(DateUtils.getBeginDate(DateInterval.MONTH,new Date()));
+		System.out.println(DateUtils.get8hBeginDate(DateInterval.DAY,new Date()));
+		System.out.println(DateUtils.get8hEndDate(DateInterval.DAY,new Date()));
 	}
 }

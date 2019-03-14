@@ -68,7 +68,7 @@ public interface PptnRtRepository {
 	 * @param endDate
 	 * @return
 	 */
-	@Select("SELECT CONVERT(CHAR(10),a.TM,23) as tm,SUM(a.drp) as accp FROM ST_PPTN_R a,STATION_EXTEND b WHERE a.stcd = b.stcd and b.gp = #{gp} and a.tm >= #{startDate} and a.tm <= #{endDate} group by CONVERT(CHAR(10),a.TM,23)")
+	@Select("SELECT CONVERT(CHAR(10),a.TM,23)+' 00:00:00' as tm,SUM(a.drp) as accp FROM ST_PPTN_R a,STATION_EXTEND b WHERE a.stcd = b.stcd and b.gp = #{gp} and a.tm >= #{startDate} and a.tm <= #{endDate} group by CONVERT(CHAR(10),a.TM,23)")
 	List<Accp> findDaySumByGP(@Param("gp") String gp, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
 	/**
@@ -78,6 +78,6 @@ public interface PptnRtRepository {
 	 * @param endDate
 	 * @return
 	 */
-	@Select("SELECT CONVERT(CHAR(7),tm,23) as tm,SUM(a.drp) as accp FROM ST_PPTN_R a,STATION_EXTEND b WHERE a.stcd = b.stcd and b.gp = #{gp} and a.tm >= #{startDate} and a.tm <= #{endDate} group by CONVERT(CHAR(7),tm,23)")
+	@Select("SELECT CONVERT(CHAR(7),tm,23)+'-01 00:00:00' as tm,SUM(a.drp) as accp FROM ST_PPTN_R a,STATION_EXTEND b WHERE a.stcd = b.stcd and b.gp = #{gp} and a.tm >= #{startDate} and a.tm <= #{endDate} group by CONVERT(CHAR(7),tm,23)")
 	List<Accp> findMonthSumByGP(@Param("gp") String gp, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
 }

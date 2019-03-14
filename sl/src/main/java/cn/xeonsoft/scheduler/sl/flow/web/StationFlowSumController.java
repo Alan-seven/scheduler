@@ -36,6 +36,15 @@ public class StationFlowSumController {
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/initHour", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity initHour(@Param("tm") String tm) {
+		Date startDate = DateUtils.getBeginDate(DateInterval.HOUR,DateUtils.parseDate(tm));
+		Date endDate = DateUtils.getEndDate(DateInterval.HOUR,DateUtils.parseDate(tm));
+		List<FlowSum> flowSums = stationFlowRtService.findHourSum(startDate,endDate);
+		stationFlowSumService.saveSumq(flowSums,DateInterval.HOUR.getType()+"");
+		return new ResponseEntity<>("OK", HttpStatus.OK);
+	}
+
 	@RequestMapping(value = "/initDay", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity initDay(@Param("tm") String tm) {
 		save(DateInterval.DAY,tm);
