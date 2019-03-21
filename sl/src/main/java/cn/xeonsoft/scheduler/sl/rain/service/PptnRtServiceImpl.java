@@ -83,30 +83,90 @@ class PptnRtServiceImpl implements PptnRtService {
 		return findFiveDaysAccp(new Date());
 	}
 
+//	@Override
+//	public List<Accp> findFiveDaysAccp(Date date) {
+//		String day = DateUtils.getDay(date);
+//		int d = Integer.parseInt(day);
+//		Date startDate = null;
+//		Date endDate = null;
+//		if(d>=1 && d<=5){
+//			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,1));
+//			endDate = DateUtils.get8hEndDate(DateInterval.DAY,DateUtils.setDays(date,5));
+//		}else if(d>5 && d<=10){
+//			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,5));
+//			endDate = DateUtils.get8hEndDate(DateInterval.DAY,DateUtils.setDays(date,10));
+//		}else if(d>11 && d<=15){
+//			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,11));
+//			endDate = DateUtils.get8hEndDate(DateInterval.DAY,DateUtils.setDays(date,15));
+//		}else if(d>15 && d<=20){
+//			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,15));
+//			endDate = DateUtils.get8hEndDate(DateInterval.DAY,DateUtils.setDays(date,20));
+//		}else if(d>20 && d<=25){
+//			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,20));
+//			endDate = DateUtils.get8hEndDate(DateInterval.DAY,DateUtils.setDays(date,25));
+//		}else if(d>25){
+//			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,25));
+//			endDate = DateUtils.get8hEndDate(DateInterval.MONTH,date);
+//		}
+//		return this.pptnRtRepository.findAccp(startDate,endDate);
+//	}
+
+	//修正1/6/11/16/21/26日0-8时的统计数据
 	@Override
 	public List<Accp> findFiveDaysAccp(Date date) {
 		String day = DateUtils.getDay(date);
 		int d = Integer.parseInt(day);
+		int hour = DateUtils.getHour(date);
 		Date startDate = null;
 		Date endDate = null;
 		if(d>=1 && d<=5){
-			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,1));
-			endDate = DateUtils.get8hEndDate(DateInterval.DAY,DateUtils.setDays(date,5));
+			if( d == 1 && hour < 9){
+				startDate = DateUtils.getLastDate(date,-1,26);
+				endDate = DateUtils.getLastDate(date,0,1);
+			}else{
+				startDate = DateUtils.getLastDate(date,0,1);
+				endDate = DateUtils.getLastDate(date,0,6);
+			}
 		}else if(d>5 && d<=10){
-			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,5));
-			endDate = DateUtils.get8hEndDate(DateInterval.DAY,DateUtils.setDays(date,10));
-		}else if(d>11 && d<=15){
-			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,11));
-			endDate = DateUtils.get8hEndDate(DateInterval.DAY,DateUtils.setDays(date,15));
+			if( d == 6 && hour < 9){
+				startDate = DateUtils.getLastDate(date,0,1);
+				endDate = DateUtils.getLastDate(date,0,6);
+			}else{
+				startDate = DateUtils.getLastDate(date,0,6);
+				endDate = DateUtils.getLastDate(date,0,11);
+			}
+		}else if(d>=11 && d<=15){
+			if( d == 11 && hour < 9){
+				startDate = DateUtils.getLastDate(date,0,6);
+				endDate = DateUtils.getLastDate(date,0,11);
+			}else{
+				startDate = DateUtils.getLastDate(date,0,11);
+				endDate = DateUtils.getLastDate(date,0,16);
+			}
 		}else if(d>15 && d<=20){
-			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,15));
-			endDate = DateUtils.get8hEndDate(DateInterval.DAY,DateUtils.setDays(date,20));
+			if( d == 16 && hour < 9){
+				startDate = DateUtils.getLastDate(date,0,11);
+				endDate = DateUtils.getLastDate(date,0,16);
+			}else{
+				startDate = DateUtils.getLastDate(date,0,16);
+				endDate = DateUtils.getLastDate(date,0,21);
+			}
 		}else if(d>20 && d<=25){
-			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,20));
-			endDate = DateUtils.get8hEndDate(DateInterval.DAY,DateUtils.setDays(date,25));
+			if( d == 21 && hour < 9){
+				startDate = DateUtils.getLastDate(date,0,16);
+				endDate = DateUtils.getLastDate(date,0,21);
+			}else{
+				startDate = DateUtils.getLastDate(date,0,21);
+				endDate = DateUtils.getLastDate(date,0,26);
+			}
 		}else if(d>25){
-			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,25));
-			endDate = DateUtils.get8hEndDate(DateInterval.MONTH,date);
+			if( d == 26 && hour < 9){
+				startDate = DateUtils.getLastDate(date,0,21);
+				endDate = DateUtils.getLastDate(date,0,26);
+			}else {
+				startDate = DateUtils.getLastDate(date,0,26);
+				endDate = DateUtils.getLastDate(date,1,1);
+			}
 		}
 		return this.pptnRtRepository.findAccp(startDate,endDate);
 	}
@@ -116,21 +176,57 @@ class PptnRtServiceImpl implements PptnRtService {
 		return this.findTenDaysAccp(new Date());
 	}
 
+//	@Override
+//	public List<Accp> findTenDaysAccp(Date date) {
+//		String day = DateUtils.getDay(date);
+//		int d = Integer.parseInt(day);
+//		Date startDate = null;
+//		Date endDate = null;
+//		if(d>=1 && d<=10){
+//			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,1));
+//			endDate = DateUtils.get8hEndDate(DateInterval.DAY,DateUtils.setDays(date,10));
+//		}else if(d>10 && d<=20){
+//			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,11));
+//			endDate = DateUtils.get8hEndDate(DateInterval.DAY,DateUtils.setDays(date,20));
+//		}else if(d>20 && d<=31){
+//			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,21));
+//			endDate = DateUtils.get8hEndDate(DateInterval.MONTH,date);
+//		}
+//		return this.pptnRtRepository.findAccp(startDate,endDate);
+//	}
+
+	//修正1/11/21日0-8时的统计数据
 	@Override
 	public List<Accp> findTenDaysAccp(Date date) {
 		String day = DateUtils.getDay(date);
 		int d = Integer.parseInt(day);
+		int hour = DateUtils.getHour(date);
 		Date startDate = null;
 		Date endDate = null;
 		if(d>=1 && d<=10){
-			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,1));
-			endDate = DateUtils.get8hEndDate(DateInterval.DAY,DateUtils.setDays(date,10));
+			if(d == 1 && hour < 9 ){
+				startDate = DateUtils.getLastDate(date,-1,26);
+				endDate = DateUtils.getLastDate(date,0,1);
+			}else{
+				startDate = DateUtils.getLastDate(date,0,1);
+				endDate = DateUtils.getLastDate(date,0,11);
+			}
 		}else if(d>10 && d<=20){
-			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,11));
-			endDate = DateUtils.get8hEndDate(DateInterval.DAY,DateUtils.setDays(date,20));
+			if(d == 11 && hour < 9 ){
+				startDate = DateUtils.getLastDate(date,0,1);
+				endDate = DateUtils.getLastDate(date,0,11);
+			}else{
+				startDate = DateUtils.getLastDate(date,0,11);
+				endDate = DateUtils.getLastDate(date,0,21);
+			}
 		}else if(d>20 && d<=31){
-			startDate = DateUtils.get8hBeginDate(DateInterval.DAY,DateUtils.setDays(date,21));
-			endDate = DateUtils.get8hEndDate(DateInterval.MONTH,date);
+			if(d == 21 && hour < 9 ){
+				startDate = DateUtils.getLastDate(date,0,11);
+				endDate = DateUtils.getLastDate(date,0,21);
+			}else{
+				startDate = DateUtils.getLastDate(date,0,21);
+				endDate = DateUtils.getLastDate(date,1,1);
+			}
 		}
 		return this.pptnRtRepository.findAccp(startDate,endDate);
 	}
@@ -255,4 +351,5 @@ class PptnRtServiceImpl implements PptnRtService {
 	public List<Accp> findMonthSumByGP(String gp, Date startDate, Date endDate) {
 		return pptnRtRepository.findMonthSumByGP(gp,startDate,endDate);
 	}
+
 }

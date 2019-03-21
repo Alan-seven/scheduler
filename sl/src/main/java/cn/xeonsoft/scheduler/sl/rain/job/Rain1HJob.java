@@ -1,5 +1,6 @@
 package cn.xeonsoft.scheduler.sl.rain.job;
 
+import cn.xeonsoft.scheduler.sl.Constant;
 import cn.xeonsoft.scheduler.sl.rain.bo.PptnExtremum;
 import cn.xeonsoft.scheduler.sl.rain.bo.RainDays;
 import cn.xeonsoft.scheduler.sl.rain.domain.Accp;
@@ -55,18 +56,20 @@ public class Rain1HJob extends QuartzJobBean {
 		// 年累计
 		List<Accp> accpOfYear = pptnRtService.findAccpByYear();
 		Date dayTm = DateUtils.get8hBeginDate(DateInterval.DAY,new Date());
-		Date fiveDaysTm = DateUtils.getBeginDate(DateInterval.FIVEDAYS,new Date());
-		Date tenDaysTm = DateUtils.getBeginDate(DateInterval.TENDAYS,new Date());
-		Date monthTm = DateUtils.getBeginDate(DateInterval.MONTH,new Date());
-		Date yearTm = DateUtils.getBeginDate(DateInterval.YEAR,new Date());
+		Date fiveDaysTm = DateUtils.get0HBeginDate(DateInterval.FIVEDAYS,new Date());
+		Date tenDaysTm = DateUtils.get0HBeginDate(DateInterval.TENDAYS,new Date());
+		Date monthTm = DateUtils.get0HBeginDate(DateInterval.MONTH,new Date());
+		Date yearTm = DateUtils.get0HBeginDate(DateInterval.YEAR,new Date());
 		//
 		sumDrpService.saveOrUpdate(fiveDaysTm,DateInterval.FIVEDAYS.getType()+"",accpOfFiveDays);
 		sumDrpService.saveOrUpdate(tenDaysTm,DateInterval.TENDAYS.getType()+"",accpOfTenDays);
 		sumDrpService.saveOrUpdateHour(accpOfHour);
 		sumDrpService.saveOrUpdate(dayTm,accp);
+		//保存年累计数据
+		sumDrpService.saveOrUpdateYear(yearTm,accpOfYear);
 		// 旬月表
-		pptnMonthDrpService.saveOrUpdate(accpOfMonth);
-		pptnMonthDrpService.saveOrUpdate(accpOfYear);
+		pptnMonthDrpService.saveOrUpdate(Constant.PRDTP_MONTH,accpOfMonth);
+		pptnMonthDrpService.saveOrUpdate(Constant.PRDTP_YEAR, accpOfYear);
 		// 保存月极值，雨日
 		statisDypService.saveOrUpdateMaxdrpAndTm(monthTm,DateInterval.MONTH.getType()+"",maxDrpAndTm);
 		statisDypService.updateRainDays(monthTm,DateInterval.MONTH.getType()+"",rainDayOfMonth);

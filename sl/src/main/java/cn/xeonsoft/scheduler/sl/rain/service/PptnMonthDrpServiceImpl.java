@@ -24,18 +24,19 @@ public class PptnMonthDrpServiceImpl implements PptnMonthDrpService {
 	@Autowired
 	private PptnMonthDrpRepository pptnMonthDrpRepository;
 
+	//统计月份数据中，没有时间字段，需要添加
 	@Override
-	public void saveOrUpdate(List<Accp> accpList) {
+	public void saveOrUpdate(int prdtp, List<Accp> accpList) {
 		for (Accp accp : accpList) {
 			String stcd = accp.getStcd();
 			Date tm = accp.getTm();
 			Integer yr = Integer.parseInt(DateUtils.getYear(tm));
 			Integer mnth = Integer.parseInt(DateUtils.getMonth(tm));
-			Integer count = this.pptnMonthDrpRepository.findCount(yr, mnth, Constant.PRDTP_MONTH,stcd);
+			Integer count = this.pptnMonthDrpRepository.findCount(yr, mnth, prdtp,stcd);
 			if (count > 0) {
-				this.pptnMonthDrpRepository.update(accp.getStcd(), yr, mnth, Constant.PRDTP_MONTH, accp.getAccp());
+				this.pptnMonthDrpRepository.update(accp.getStcd(), yr, mnth, prdtp, accp.getAccp());
 			} else {
-				this.pptnMonthDrpRepository.save(accp.getStcd(), yr, mnth, Constant.PRDTP_MONTH, accp.getAccp());
+				this.pptnMonthDrpRepository.save(accp.getStcd(), yr, mnth, prdtp, accp.getAccp());
 			}
 
 		}

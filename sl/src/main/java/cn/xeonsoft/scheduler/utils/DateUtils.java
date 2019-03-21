@@ -50,10 +50,15 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 		return cal.getTime();
 	}
 
+	//修正当日8时之前的时间
 	public static Date get8hBeginDate(DateInterval dataInterval, Date tm) {
 		Calendar cal = Calendar.getInstance();
 		cal.clear();
 		cal.setTime(tm);
+		int hour = cal.get(Calendar.HOUR_OF_DAY);
+		if(hour < 9){
+			cal.add(Calendar.DATE,-1);
+		}
 		// type:1日2周3月4季5年
 		switch (dataInterval) {
 		case DAY:
@@ -72,23 +77,32 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 		return cal.getTime();
 	}
 
+	//修正当日8时之前的时间
 	public static Date get8hEndDate(DateInterval dataInterval, Date tm) {
 		Calendar cal = Calendar.getInstance();
 		cal.clear();
 		cal.setTime(tm);
+		int hour = cal.get(Calendar.HOUR_OF_DAY);
+		int day = cal.get(Calendar.DAY_OF_MONTH);
+		int month = cal.get(Calendar.MONTH)+1;
 		// type:1日2周3月4季5年
 		switch (dataInterval) {
-		case DAY:
-			cal.add(Calendar.DATE, 1);
-			break;
-		case MONTH:
-			cal.set(Calendar.DATE, 1);
-			cal.add(Calendar.MONTH, 1);
-			break;
-		case YEAR:
-			cal.roll(Calendar.DAY_OF_YEAR, -1);
-			cal.add(Calendar.DATE, 1);
-			break;
+			case DAY:
+				if(hour > 8)
+					cal.add(Calendar.DATE, 1);
+				break;
+			case MONTH:
+				if(hour > 8 || day > 1 ){
+					cal.set(Calendar.DATE, 1);
+					cal.add(Calendar.MONTH, 1);
+				}
+				break;
+			case YEAR:
+				if(month > 1 || day > 1 || hour > 8 ){
+					cal.roll(Calendar.DAY_OF_YEAR, -1);
+					cal.add(Calendar.DATE, 1);
+				}
+				break;
 		}
 		cal.set(Calendar.HOUR_OF_DAY, 8);
 		cal.set(Calendar.MINUTE, 0);
@@ -426,6 +440,157 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 	}
 
 	/**
+	 * 得到当前星期字符串 格式（E）星期几
+	 */
+	public static Integer getHour(Date tm) {
+		Calendar cal = Calendar.getInstance();
+		cal.clear();
+		cal.setTime(tm);
+		return cal.get(Calendar.HOUR_OF_DAY);
+	}
+
+	/**
+	 * 获取上一个时间节点  用于五日，十日统计
+	 * @param tm	输入时间
+	 * @param month 设置月份
+	 * @param day  设置天数
+	 * @return
+	 */
+	public static Date getLastDate(Date tm,int month,int day){
+		Calendar cal = Calendar.getInstance();
+		cal.clear();
+		cal.setTime(tm);
+		cal.add(Calendar.MONTH, month);
+		cal.set(Calendar.DAY_OF_MONTH,day);
+		cal.set(Calendar.HOUR_OF_DAY, 8);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		return cal.getTime();
+	}
+
+	public static Date get0HBeginDate(DateInterval dataInterval, Date tm) {
+		Calendar cal = Calendar.getInstance();
+		cal.clear();
+		cal.setTime(tm);
+		int hour = cal.get(Calendar.HOUR_OF_DAY);
+		int day_of_month = cal.get(Calendar.DAY_OF_MONTH);
+		int month = cal.get(Calendar.MONTH)+1;
+		// type:1日2周3月4季5年
+		switch (dataInterval) {
+			case DAY:
+				break;
+			case FIVEDAYS:
+				if(day_of_month >= 1 && day_of_month <= 5){
+					//8时之前的数据处理为上月26日-1日
+					if(day_of_month == 1 && hour < 9 ){
+						cal.add(Calendar.MONTH, -1);
+						cal.set(Calendar.DAY_OF_MONTH,26);
+					}else{
+						cal.set(Calendar.DAY_OF_MONTH, 1);
+					}
+				}else if(day_of_month >= 6 && day_of_month <= 10){
+					//8时之前的数据处理为上月26日-1日
+					if(day_of_month == 6 && hour < 9 ){
+						cal.set(Calendar.DAY_OF_MONTH,1);
+					}else{
+						cal.set(Calendar.DAY_OF_MONTH, 6);
+					}
+				}else if(day_of_month >= 11 && day_of_month <= 15){
+					if(day_of_month == 11 && hour < 9 ){
+						cal.set(Calendar.DAY_OF_MONTH,6);
+					}else {
+						cal.set(Calendar.DAY_OF_MONTH, 11);
+					}
+				}else if(day_of_month >= 16 && day_of_month <= 20){
+					if(day_of_month == 16 && hour < 9 ){
+						cal.set(Calendar.DAY_OF_MONTH,11);
+					}else {
+						cal.set(Calendar.DAY_OF_MONTH, 16);
+					}
+				}else if(day_of_month >= 21 && day_of_month <= 25){
+					if(day_of_month == 21 && hour < 9 ){
+						cal.set(Calendar.DAY_OF_MONTH,16);
+					}else {
+						cal.set(Calendar.DAY_OF_MONTH, 21);
+					}
+				}else if(day_of_month >= 26 && day_of_month <= 31){
+					if(day_of_month == 26 && hour < 9 ){
+						cal.set(Calendar.DAY_OF_MONTH,21);
+					}else {
+						cal.set(Calendar.DAY_OF_MONTH, 26);
+					}
+				}
+				break;
+			case TENDAYS:
+				int day = cal.get(Calendar.DAY_OF_MONTH);
+				if(day >= 1 && day <= 10){
+					if(day_of_month == 1 && hour < 9){
+						cal.add(Calendar.MONTH, -1);
+						cal.set(Calendar.DAY_OF_MONTH,21);
+					}else{
+						cal.set(Calendar.DAY_OF_MONTH, 1);
+					}
+				}else if(day >= 11 && day <= 20){
+					if(day_of_month == 11 && hour < 9){
+						cal.set(Calendar.DAY_OF_MONTH, 1);
+					}else{
+						cal.set(Calendar.DAY_OF_MONTH, 11);
+					}
+				}else if(day >= 21 && day <= 31){
+					if(day_of_month == 21 && hour < 9){
+						cal.set(Calendar.DAY_OF_MONTH, 11);
+					}else{
+						cal.set(Calendar.DAY_OF_MONTH, 21);
+					}
+				}
+				break;
+			case WEEK:
+				int day_of_week = cal.get(Calendar.DAY_OF_WEEK) - 1;
+				if (day_of_week == 0)
+					day_of_week = 7;
+				cal.add(Calendar.DATE, -day_of_week + 1);
+				/* cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY); */
+				break;
+			case MONTH:
+				if(day_of_month == 1 && hour < 9){
+					cal.add(Calendar.MONTH, -1);
+					cal.set(Calendar.DAY_OF_MONTH,1);
+				}else{
+					cal.set(Calendar.DAY_OF_MONTH, 1);
+				}
+				break;
+			case QUARTER:
+				int currentMonth = cal.get(Calendar.MONTH) + 1;
+				try {
+					if (currentMonth >= 1 && currentMonth <= 3)
+						cal.set(Calendar.MONTH, 0);
+					else if (currentMonth >= 4 && currentMonth <= 6)
+						cal.set(Calendar.MONTH, 3);
+					else if (currentMonth >= 7 && currentMonth <= 9)
+						cal.set(Calendar.MONTH, 6);
+					else if (currentMonth >= 10 && currentMonth <= 12)
+						cal.set(Calendar.MONTH, 9);
+					cal.set(Calendar.DATE, 1);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				break;
+			case YEAR:
+				if(month == 1 && day_of_month == 1 && hour < 9){
+					cal.add(Calendar.DATE,-1);
+				}
+				cal.set(Calendar.DAY_OF_YEAR, 1);
+				break;
+		}
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		return cal.getTime();
+	}
+
+	/**
 	 * @param args
 	 * @throws ParseException
 	 */
@@ -453,6 +618,9 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 //		System.out.println(getDistanceMonthOfTwoDate(DateUtils.parseDate("2017-01-01"), new Date()));
 		System.out.println(DateUtils.getBeginDate(DateInterval.MONTH,new Date()));
 		System.out.println(DateUtils.get8hBeginDate(DateInterval.DAY,new Date()));
-		System.out.println(DateUtils.get8hEndDate(DateInterval.DAY,new Date()));
+		System.out.println(DateUtils.get8hEndDate(DateInterval.MONTH,new Date()));
+
+		System.out.println(DateUtils.getEndDate(DateInterval.YEAR));
+
 	}
 }

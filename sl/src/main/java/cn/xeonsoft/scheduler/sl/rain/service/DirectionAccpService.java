@@ -12,5 +12,5 @@ public interface DirectionAccpService {
 
 	Integer findCount(Date tm, String direction, String sttdrcd);
 
-	void update(Date tm, String direction, String sttdrcd);
+	void update(Float accp,Date tm, String direction, String sttdrcd);
 }

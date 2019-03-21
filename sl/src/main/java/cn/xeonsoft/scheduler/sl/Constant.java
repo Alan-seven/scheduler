@@ -6,6 +6,7 @@ public class Constant {
 	public static final String STTDRCD_YEAR = "6";
 
 	public static final int PRDTP_MONTH = 4;
+	public static final int PRDTP_YEAR = 6;
 
 	public static final int REDIS_PORT = 6379;
 }

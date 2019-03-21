@@ -19,5 +19,5 @@ public interface DirectionAccpRepository {
 	Integer findCount(Date tm, String direction, String sttdrcd);
 
 	@Update("UPDATE STATIS_DIRECTION_ACCP SET accp = #{accp} WHERE tm = #{tm} AND direction = #{direction} AND sttdrcd = #{sttdrcd}")
-	void update(Date tm, String direction, String sttdrcd);
+	void update(Float accp,Date tm, String direction, String sttdrcd);
 }

@@ -48,8 +48,8 @@ public class PptnRtController {
 	@RequestMapping(value = "/initDay", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity initDay(@Param("tm") String tm) {
 		Date date = DateUtils.parseDate(tm);
-		Date dayTm = DateUtils.get8hBeginDate(DateInterval.DAY,date);
-		this.initDay(dayTm);
+		//Date dayTm = DateUtils.get8hBeginDate(DateInterval.DAY,date);
+		this.initDay(date);
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
 
@@ -57,7 +57,8 @@ public class PptnRtController {
 	public ResponseEntity init5Days(@Param("tm") String tm) {
 		//五日累计
 		List<Accp> accpOfFiveDays = pptnRtService.findFiveDaysAccp(DateUtils.parseDate(tm));
-		Date fiveDaysTm = DateUtils.getBeginDate(DateInterval.FIVEDAYS, DateUtils.parseDate(tm));
+		Date fiveDaysTm = DateUtils.get0HBeginDate(DateInterval.FIVEDAYS,DateUtils.parseDate(tm));
+		//DateUtils.getBeginDate(DateInterval.FIVEDAYS, DateUtils.parseDate(tm));
 		sumDrpService.saveOrUpdate(fiveDaysTm,DateInterval.FIVEDAYS.getType()+"",accpOfFiveDays);
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
@@ -66,7 +67,8 @@ public class PptnRtController {
 	public ResponseEntity init10Days(@Param("tm") String tm) {
 		//十日累计
 		Date tmDate = DateUtils.parseDate(tm);
-		Date tenDaysTm = DateUtils.getBeginDate(DateInterval.TENDAYS,tmDate);
+		Date tenDaysTm = DateUtils.get0HBeginDate(DateInterval.TENDAYS,tmDate);
+		//DateUtils.getBeginDate(DateInterval.TENDAYS,tmDate);
 		List<Accp> accpOfTenDays = pptnRtService.findTenDaysAccp(tmDate);
 		sumDrpService.saveOrUpdate(tenDaysTm,DateInterval.TENDAYS.getType()+"",accpOfTenDays);
 		return new ResponseEntity<>("OK", HttpStatus.OK);
@@ -121,7 +123,8 @@ public class PptnRtController {
 	private void initDay(Date tm) {
 		// 日累计雨量
 		List<Accp> dayAccpList = pptnRtService.findDayAccp(tm);
-		sumDrpService.saveOrUpdate(tm, Constant.STTDRCD_DAY, dayAccpList);
+		Date dayTm = DateUtils.get8hBeginDate(DateInterval.DAY,tm);
+		sumDrpService.saveOrUpdate(dayTm, Constant.STTDRCD_DAY, dayAccpList);
 	}
 
 
@@ -129,16 +132,17 @@ public class PptnRtController {
 	private void initMonth(Date tm) {
 		Date startDate = DateUtils.get8hBeginDate(DateInterval.MONTH,tm);
 		Date endDate = DateUtils.get8hEndDate(DateInterval.MONTH,tm);
+		Date recordTm = DateUtils.get0HBeginDate(DateInterval.MONTH,tm);
 		// 月累计雨量
 		List<Accp> accpList = pptnRtService.findAccp(startDate, endDate);
 		List<Accp> accpOfMonthList = pptnRtService.findAccpByMonth();
 		sumDrpService.saveOrUpdateMonth(tm,accpList);
-		pptnMonthDrpService.saveOrUpdate(accpOfMonthList);
+		pptnMonthDrpService.saveOrUpdate(Constant.PRDTP_MONTH,accpOfMonthList);
 		// 月最大雨量及发生时间
 		List<PptnExtremum> maxzAndTmList = pptnRtService.findMaxDrpAndTmByMonth(tm);
-		pptnMonthExtremeService.saveOrUpdateMaxdrpAndTm(tm,DateInterval.MONTH.getType()+"",maxzAndTmList);
+		pptnMonthExtremeService.saveOrUpdateMaxdrpAndTm(recordTm,DateInterval.MONTH.getType()+"",maxzAndTmList);
 		// 每月的雨日
 		List<RainDays> rainDayList = pptnRtService.findRainDaysByMonth(tm);
-		pptnMonthExtremeService.updateRainDays(tm,DateInterval.MONTH.getType()+"",rainDayList);
+		pptnMonthExtremeService.updateRainDays(recordTm,DateInterval.MONTH.getType()+"",rainDayList);
 	}
 }

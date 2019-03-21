@@ -26,7 +26,11 @@ public class DirectionAccpServiceImpl implements DirectionAccpService {
 
 	@Override
 	public void save(Date tm, String direction, String sttdrcd, Float accp) {
-		directionAccpRepository.save(tm,direction,sttdrcd,accp);
+		if(directionAccpRepository.findCount(tm,direction,sttdrcd)>0){
+			directionAccpRepository.update(accp,tm,direction,sttdrcd);
+		}else{
+			directionAccpRepository.save(tm,direction,sttdrcd,accp);
+		}
 	}
 
 	@Override
@@ -35,7 +39,7 @@ public class DirectionAccpServiceImpl implements DirectionAccpService {
 	}
 
 	@Override
-	public void update(Date tm, String direction, String sttdrcd) {
-		directionAccpRepository.update(tm,direction,sttdrcd);
+	public void update(Float accp,Date tm, String direction, String sttdrcd) {
+		directionAccpRepository.update(accp,tm,direction,sttdrcd);
 	}
 }

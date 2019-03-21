@@ -50,12 +50,12 @@ public class DirectionAccpController {
 	@RequestMapping(value = "/initDay", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity initDay(@Param("tm") String tm) {
 		Date date = DateUtils.parseDate(tm);
-		Date beginDate = DateUtils.get8hBeginDate(DateInterval.MONTH,date);
-		Date endDate = DateUtils.get8hEndDate(DateInterval.MONTH,date);
-		List<Accp> list = pptnRtService.findMonthSumByGP("1",beginDate,endDate);
-		List<Accp> list2 = pptnRtService.findMonthSumByGP("2",beginDate,endDate);
-		List<Accp> list3 = pptnRtService.findMonthSumByGP("3",beginDate,endDate);
-		List<Accp> list4 = pptnRtService.findMonthSumByGP("4",beginDate,endDate);
+		Date beginDate = DateUtils.get8hBeginDate(DateInterval.DAY,date);
+		Date endDate = DateUtils.get8hEndDate(DateInterval.DAY,date);
+		List<Accp> list = pptnRtService.findDaySumByGP("1",beginDate,endDate);
+		List<Accp> list2 = pptnRtService.findDaySumByGP("2",beginDate,endDate);
+		List<Accp> list3 = pptnRtService.findDaySumByGP("3",beginDate,endDate);
+		List<Accp> list4 = pptnRtService.findDaySumByGP("4",beginDate,endDate);
 		directionAccpService.save(list,"1",DateInterval.DAY.getType()+"");
 		directionAccpService.save(list2,"2",DateInterval.DAY.getType()+"");
 		directionAccpService.save(list3,"3",DateInterval.DAY.getType()+"");
