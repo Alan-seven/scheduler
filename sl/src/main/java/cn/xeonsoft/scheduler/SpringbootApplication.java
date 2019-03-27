@@ -4,12 +4,9 @@ import cn.xeonsoft.scheduler.erhai.run.job.ErhaiRun1Job;
 import cn.xeonsoft.scheduler.sl.flow.job.Flow1HJob;
 import cn.xeonsoft.scheduler.sl.flow.job.StationFlow1HJob;
 import cn.xeonsoft.scheduler.sl.rain.job.Rain1HJob;
+import cn.xeonsoft.scheduler.sl.szy.job.Data4HJob;
 import org.mybatis.spring.annotation.MapperScan;
-import org.quartz.JobBuilder;
-import org.quartz.JobDetail;
-import org.quartz.SimpleScheduleBuilder;
-import org.quartz.Trigger;
-import org.quartz.TriggerBuilder;
+import org.quartz.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -49,6 +46,11 @@ public class SpringbootApplication {
 		return JobBuilder.newJob(ErhaiRun1Job.class).withIdentity("erhaiRun1h").storeDurably().build();
 	}
 
+//	@Bean
+//	public JobDetail crep4hJobDetail() {
+//		return JobBuilder.newJob(Data4HJob.class).withIdentity("crep4h").storeDurably().build();
+//	}
+
 	@Bean
 	public Trigger water1HJobTrigger() {
 		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
@@ -85,5 +87,15 @@ public class SpringbootApplication {
 				.repeatForever();
 		return TriggerBuilder.newTrigger().forJob(erhaiRun1hJobDetail()).withIdentity("ErhaiRun1HJobTrigger")
 				.withSchedule(scheduleBuilder).build();
+				//.withSchedule(CronScheduleBuilder.cronSchedule("0 0 0/1 * * ?")).build();
 	}
+
+	//水质每四个小时进行一次纳污能力计算
+//	@Bean
+//	public Trigger crep4HJobTrigger() {
+//		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(4)
+//				.repeatForever();
+//		return TriggerBuilder.newTrigger().forJob(crep4hJobDetail()).withIdentity("crep4HJobTrigger")
+//				.withSchedule(scheduleBuilder).build();
+//	}
 }

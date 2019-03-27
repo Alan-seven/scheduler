@@ -1,5 +1,6 @@
 package cn.xeonsoft.scheduler.utils;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -56,7 +57,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 		cal.clear();
 		cal.setTime(tm);
 		int hour = cal.get(Calendar.HOUR_OF_DAY);
-		if(hour < 9){
+		if(hour < 9 ){
 			cal.add(Calendar.DATE,-1);
 		}
 		// type:1日2周3月4季5年
@@ -591,6 +592,19 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 	}
 
 	/**
+	 * 对当前日期进行小时加减
+	 * @param startDate
+	 * @param fePr
+	 * @return
+	 */
+	public static String getBeforeDateTime(Date startDate,int fePr){
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(startDate);
+		cal.add(Calendar.HOUR, fePr);
+		return formatDateTime(cal.getTime());
+	}
+
+	/**
 	 * @param args
 	 * @throws ParseException
 	 */
@@ -620,7 +634,10 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 		System.out.println(DateUtils.get8hBeginDate(DateInterval.DAY,new Date()));
 		System.out.println(DateUtils.get8hEndDate(DateInterval.MONTH,new Date()));
 
-		System.out.println(DateUtils.getEndDate(DateInterval.YEAR));
+		Double d = 8.0999994E-4;
+		BigDecimal bg = new BigDecimal(d);
+		double data = bg.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
+		System.out.println(data);
 
 	}
 }
