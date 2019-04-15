@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 纳污能力计算
+ * 纳污能力计算  暂定4h计算一次
  */
 public class Data4HJob extends QuartzJobBean {
 
@@ -22,18 +22,23 @@ public class Data4HJob extends QuartzJobBean {
     private DataService dataService;
     @Autowired
     private StationTmService stationTmService;
-    @Autowired
-    private WrStatBService wrStatBService;
+    //@Autowired
+    //private WrStatBService wrStatBService;
 
     @Override
     protected void executeInternal( JobExecutionContext context) throws JobExecutionException {
         String beginDate = DateUtils.getBeforeDateTime(new Date(),-4);
         String endDate= DateUtils.formatDateTime(new Date());
 
-        List<WrStatB> statList = wrStatBService.list("WQ");
-        List<StationTm> stationList = stationTmService.list(beginDate,endDate);
-        //保存纳污能力计算结果
-        dataService.saveResult(stationList);
+        //List<WrStatB> statList = wrStatBService.list("WQ");
+        List<StationTm> stationList = stationTmService.listByRiver(beginDate,endDate);
+        //保存31条河流纳污能力计算结果
+        dataService.saveRiverResult(stationList);
+
+        //洱海水质纳污能力计算结果保存
+        StationTm station = stationTmService.getByErhai(beginDate,endDate);
+        dataService.saveErhaiResult(station);
+
     }
 
 

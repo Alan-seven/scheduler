@@ -5,6 +5,7 @@ import cn.xeonsoft.scheduler.sl.flow.job.Flow1HJob;
 import cn.xeonsoft.scheduler.sl.flow.job.StationFlow1HJob;
 import cn.xeonsoft.scheduler.sl.rain.job.Rain1HJob;
 import cn.xeonsoft.scheduler.sl.szy.job.Data4HJob;
+import cn.xeonsoft.scheduler.sl.szy.job.DayW1HJob;
 import org.mybatis.spring.annotation.MapperScan;
 import org.quartz.*;
 import org.springframework.boot.SpringApplication;
@@ -52,6 +53,12 @@ public class SpringbootApplication {
 //	}
 
 	@Bean
+	public JobDetail erhaiDayW1hJobDetail() {
+		return JobBuilder.newJob(DayW1HJob.class).withIdentity("erhaiDayW1h").storeDurably().build();
+	}
+
+
+	@Bean
 	public Trigger water1HJobTrigger() {
 		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
 				.repeatForever();
@@ -96,6 +103,14 @@ public class SpringbootApplication {
 //		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(4)
 //				.repeatForever();
 //		return TriggerBuilder.newTrigger().forJob(crep4hJobDetail()).withIdentity("crep4HJobTrigger")
+//				.withSchedule(scheduleBuilder).build();
+//	}
+
+//	@Bean
+//	public Trigger erhaiDayW1HJobTrigger() {
+//		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
+//				.repeatForever();
+//		return TriggerBuilder.newTrigger().forJob(erhaiDayW1hJobDetail()).withIdentity("ErhaiDayW1HJobTrigger")
 //				.withSchedule(scheduleBuilder).build();
 //	}
 }

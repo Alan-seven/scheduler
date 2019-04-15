@@ -634,10 +634,10 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 		System.out.println(DateUtils.get8hBeginDate(DateInterval.DAY,new Date()));
 		System.out.println(DateUtils.get8hEndDate(DateInterval.MONTH,new Date()));
 
-		Double d = 8.0999994E-4;
-		BigDecimal bg = new BigDecimal(d);
-		double data = bg.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
-		System.out.println(data);
+		Date startDate = DateUtils.getBeginDate(DateInterval.YEAR,DateUtils.parseDate("2017-01-01"));
+		Date endDate = DateUtils.getEndDate(DateInterval.YEAR,DateUtils.parseDate("2017-01-01"));
 
+		System.out.println(startDate);
+		System.out.println(endDate);
 	}
 }

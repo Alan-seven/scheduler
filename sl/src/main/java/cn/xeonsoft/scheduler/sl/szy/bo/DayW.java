@@ -2,11 +2,15 @@ package cn.xeonsoft.scheduler.sl.szy.bo;
 
 import java.util.Date;
 
+/**
+ * 泵站水量
+ */
 public class DayW {
 
     private String stcd;
-    private Date dt;
-    private Float dayw;
+    private String tm;
+    private Float dayW;
+    private String sttdrcd;
 
     public String getStcd() {
         return stcd;
@@ -16,19 +20,27 @@ public class DayW {
         this.stcd = stcd;
     }
 
-    public Date getDt() {
-        return dt;
+    public Float getDayW() {
+        return dayW;
     }
 
-    public void setDt( Date dt ) {
-        this.dt = dt;
+    public void setDayW( Float dayW ) {
+        this.dayW = dayW;
     }
 
-    public Float getDayw() {
-        return dayw;
+    public String getTm() {
+        return tm;
     }
 
-    public void setDayw( Float dayw ) {
-        this.dayw = dayw;
+    public void setTm( String tm ) {
+        this.tm = tm;
+    }
+
+    public String getSttdrcd() {
+        return sttdrcd;
+    }
+
+    public void setSttdrcd( String sttdrcd ) {
+        this.sttdrcd = sttdrcd;
     }
 }

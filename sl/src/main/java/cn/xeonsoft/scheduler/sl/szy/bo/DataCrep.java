@@ -12,6 +12,7 @@ public class DataCrep {
     private Double cod;
     private Double tp;
     private Double tn;
+    private Double nh3;
 
     public String getStcd() {
         return stcd;
@@ -51,5 +52,13 @@ public class DataCrep {
 
     public void setTn( Double tn ) {
         this.tn = tn;
+    }
+
+    public Double getNh3() {
+        return nh3;
+    }
+
+    public void setNh3( Double nh3 ) {
+        this.nh3 = nh3;
     }
 }

@@ -15,7 +15,11 @@ public class StationTmServiceImpl implements  StationTmService{
     @Autowired
     private StationTmRepository stationTmRepository;
 
-    public List<StationTm> list( String beginDate,String endDate){
-        return stationTmRepository.list( beginDate, endDate);
+    public List<StationTm> listByRiver( String beginDate,String endDate){
+        return stationTmRepository.listByRiver( beginDate, endDate);
+    }
+
+    public StationTm getByErhai( String beginDate,String endDate){
+        return stationTmRepository.getByErhai( beginDate, endDate);
     }
 }

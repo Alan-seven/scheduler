@@ -15,10 +15,10 @@ public interface DataCrepRepository {
     @Select("SELECT count(1) FROM data_crep WHERE stcd = #{stcd} AND tm = #{tm} ")
     Integer findRecordCount( DataCrep crep );
 
-    @Update("UPDATE data_crep SET cod = #{cod},tp=#{tp},tn=#{tn} where stcd= #{stcd} and tm = #{tm}  ")
+    @Update("UPDATE data_crep SET cod = #{cod},tp=#{tp},tn=#{tn},nh3 = #{nh3} where stcd= #{stcd} and tm = #{tm}  ")
     void updateRecord(DataCrep crep  );
 
-    @Insert("INSERT INTO data_crep(STCD,tm,cod,tp,tn) VALUES(#{stcd},#{tm},#{cod},#{tp},#{tn} )")
+    @Insert("INSERT INTO data_crep(STCD,tm,cod,tp,tn,nh3) VALUES(#{stcd},#{tm},#{cod},#{tp},#{tn},#{nh3} )")
     void saveRecord( DataCrep crep  );
 
 }

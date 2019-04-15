@@ -87,4 +87,22 @@ public interface PptnRtRepository {
 	@Select("SELECT CONVERT(CHAR(7),tm,23)+'-01 00:00:00' as tm,SUM(a.drp) as accp FROM ST_PPTN_R a,STATION_EXTEND b WHERE a.stcd = b.stcd and b.gp = #{gp} and a.tm >= #{startDate} and a.tm < #{endDate} group by CONVERT(CHAR(7),tm,23)")
 	List<Accp> findMonthSumByGP(@Param("gp") String gp, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
+	/**
+	 * 得到小时级的大理降雨合计
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	@Select("SELECT CONVERT(CHAR(13),tm,20)+':00:00' as tm,SUM(drp) as accp FROM ST_PPTN_R WHERE tm >= #{startDate} and tm < #{endDate} group by CONVERT(CHAR(13),tm,20)")
+	List<Accp> findDistDrAccpByHour(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+
+	/**
+	 * 得到日/月 级的大理降雨合计
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	@Select("SELECT SUM(drp) as accp FROM ST_PPTN_R WHERE tm >= #{startDate} AND tm < #{endDate} ")
+	List<Accp> findPeriodAccp(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+
 	}

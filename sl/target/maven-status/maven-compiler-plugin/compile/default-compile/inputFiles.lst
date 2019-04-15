@@ -8,6 +8,7 @@ F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\flow\web\Station
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\erhai\run\service\ErhaiRunService.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\flow\respository\FlowRtRepository.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\szy\Wec_caculation\parameter.java
+F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\szy\erhai_caculation\caculation.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\utils\ObjectTranscoder.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\rain\service\PptnRtServiceImpl.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\flow\web\FlowSumController.java
@@ -36,6 +37,7 @@ F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\rain\domain\StPs
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\flow\job\Flow1HJob.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\water\bo\ZQExtremum.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\szy\service\DayWServiceImpl.java
+F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\szy\erhai_caculation\parameter.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\water\domain\StatisDZ.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\rain\bo\PptnExtremum.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\flow\service\FlowRtService.java
@@ -58,6 +60,7 @@ F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\flow\service\Sta
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\water\respository\ZQYearExtremumRepository.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\erhai\run\service\StatisYerbServiceImpl.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\water\respository\RiverMonthExtremumRepository.java
+F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\szy\erhai_caculation\tacit.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\flow\service\FlowSumService.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\erhai\run\respository\ErhaiRepository.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\flow\job\StationFlow1HJob.java
@@ -66,11 +69,13 @@ F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\szy\bo\StationTm
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\erhai\run\respository\StatisXierheRepository.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\flow\service\FlowSumServiceImpl.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\rain\respository\PptnMonthDrpRepository.java
+F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\szy\job\DayW1HJob.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\flow\service\StationFlowRtServiceImpl.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\erhai\run\bo\Erhai.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\water\respository\RiverRtRepository.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\water\respository\RiverDayRepository.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\water\service\RiverDayServiceImpl.java
+F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\szy\erhai_caculation\output.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\flow\respository\DirectionFlowSumRepository.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\szy\service\DataCrepService.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\utils\DateInterval.java
@@ -85,12 +90,14 @@ F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\water\service\St
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\erhai\run\bo\Xierhe.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\erhai\run\bo\ErhaiRun.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\water\service\RiverDayService.java
+F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\szy\erhai_caculation\test.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\water\service\RiverMonthAvgServiceImpl.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\szy\service\StationTmServiceImpl.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\flow\bo\FlowSum.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\szy\Wec_caculation\tacit.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\water\domain\Station.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\erhai\run\service\StatisYerbService.java
+F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\szy\erhai_caculation\variable.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\flow\service\DirectionFlowSumServiceImpl.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\erhai\run\web\ErhaiRunController.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\erhai\run\bo\Dali.java
@@ -108,6 +115,7 @@ F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\erhai\run\service\S
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\water\domain\RiverSt.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\szy\web\DayWController.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\erhai\run\respository\InWRepository.java
+F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\szy\erhai_caculation\input.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\szy\service\WrStatBServiceImpl.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\rain\respository\AccpRepository.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\rain\service\StatisDypServiceImpl.java
@@ -119,6 +127,7 @@ F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\water\respositor
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\erhai\run\service\InWServiceImpl.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\rain\domain\PptnSt.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\rain\bo\RainDays.java
+F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\erhai\run\bo\StatisDistDr.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\szy\service\WrStatBService.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\water\service\RiverMonthAvgService.java
 F:\ideawork\scheduler\sl\src\main\java\cn\xeonsoft\scheduler\sl\water\service\StationServiceImpl.java

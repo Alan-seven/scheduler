@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface StationTmService {
 
-    List<StationTm> list(String beginDate,String endDate);
+    List<StationTm> listByRiver(String beginDate,String endDate);
+
+    StationTm getByErhai(String beginDate,String endDate);
 
 }

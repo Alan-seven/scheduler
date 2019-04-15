@@ -352,4 +352,38 @@ class PptnRtServiceImpl implements PptnRtService {
 		return pptnRtRepository.findMonthSumByGP(gp,startDate,endDate);
 	}
 
+
+	public List<Accp> findDistDrAccpByHour(DateInterval dateInterval,Date tm) {
+		Date startDate = DateUtils.get8hBeginDate(dateInterval,tm);
+		Date endDate = DateUtils.get8hEndDate(dateInterval,tm);
+		return	this.findDistDrAccpByHour(startDate,endDate);
+	}
+
+	public List<Accp> findPeriodAccp(DateInterval dateInterval,Date tm) {
+		Date startDate = DateUtils.get8hBeginDate(dateInterval,tm);
+		Date endDate = DateUtils.get8hEndDate(dateInterval,tm);
+		return this.findPeriodAccp(startDate,endDate);
+	}
+
+	/**
+	 * 得到小时大理降雨合计
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	public List<Accp> findDistDrAccpByHour(Date startDate,Date endDate){
+		return pptnRtRepository.findDistDrAccpByHour(startDate,endDate);
+	}
+
+	/**
+	 * 得到日、月、大理降雨合计
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	@Override
+	public List<Accp> findPeriodAccp(Date startDate,Date endDate){
+		return pptnRtRepository.findPeriodAccp(startDate,endDate);
+	}
+
 }

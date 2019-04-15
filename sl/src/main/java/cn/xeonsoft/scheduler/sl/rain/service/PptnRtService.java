@@ -7,6 +7,7 @@ import cn.xeonsoft.scheduler.sl.rain.bo.PptnExtremum;
 import cn.xeonsoft.scheduler.sl.rain.bo.RainDays;
 import cn.xeonsoft.scheduler.sl.rain.domain.Accp;
 import cn.xeonsoft.scheduler.sl.rain.domain.PptnSt;
+import cn.xeonsoft.scheduler.utils.DateInterval;
 import org.apache.ibatis.annotations.Param;
 
 public interface PptnRtService {
@@ -108,4 +109,23 @@ public interface PptnRtService {
 	List<Accp> findHourSumByGP(String gp,Date startDate,Date endDate);
 	List<Accp> findDaySumByGP(String gp,Date startDate,Date endDate);
 	List<Accp> findMonthSumByGP(String gp,Date startDate,Date endDate);
+
+	List<Accp> findPeriodAccp(DateInterval dataInterval,Date tm);
+
+	List<Accp> findDistDrAccpByHour(DateInterval dataInterval,Date tm);
+
+	/**
+	 * 得到小时大理降雨合计
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	List<Accp> findDistDrAccpByHour(Date startDate,Date endDate);
+	/**
+	 * 得到日、月、大理降雨合计
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	List<Accp> findPeriodAccp(Date startDate,Date endDate);
 }

@@ -9,11 +9,7 @@ public interface DataService {
 
     List<Data> list(String tmId);
 
-    Data getCod(String tmId);
+    void saveRiverResult(List<StationTm> stationList);
 
-    Data getTp(String tmId);
-
-    Data getTn(String tmId);
-
-    void saveResult(List<StationTm> stationList);
+    void saveErhaiResult(StationTm station);
 }
