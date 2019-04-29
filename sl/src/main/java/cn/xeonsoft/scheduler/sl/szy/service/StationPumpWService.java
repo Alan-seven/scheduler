@@ -5,7 +5,7 @@ import cn.xeonsoft.scheduler.sl.szy.bo.DayW;
 import java.util.Date;
 import java.util.List;
 
-public interface DayWService {
+public interface StationPumpWService {
 
     Integer findRecordCount( DayW dayW );
 

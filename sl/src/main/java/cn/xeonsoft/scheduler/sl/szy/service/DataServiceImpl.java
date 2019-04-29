@@ -6,9 +6,7 @@ import cn.xeonsoft.scheduler.sl.szy.Wec_caculation.parameter;
 import cn.xeonsoft.scheduler.sl.szy.bo.Data;
 import cn.xeonsoft.scheduler.sl.szy.bo.DataCrep;
 import cn.xeonsoft.scheduler.sl.szy.bo.StationTm;
-import cn.xeonsoft.scheduler.sl.szy.bo.WrStatB;
 import cn.xeonsoft.scheduler.sl.szy.respository.DataRepository;
-import cn.xeonsoft.scheduler.sl.szy.respository.DayWRepository;
 import cn.xeonsoft.scheduler.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -63,7 +61,7 @@ public class DataServiceImpl implements DataService {
             //写入模型计算输入条件
             for(int i = 0 ; i < stationList.size();i++){
                 stcd[i][0] = stationList.get(i).getStcd();
-                stcd[i][1] = stationList.get(i).getTm();
+                stcd[i][1] = stationList.get(i).gettm();
                 //得到每次水质监测的因子值
                 List<Data> dataList = dataRepository.list(stationList.get(i).getId());
                 String tmId = stationList.get(i).getId();
@@ -114,7 +112,7 @@ public class DataServiceImpl implements DataService {
         //保存洱海计算结果
         DataCrep crep = new DataCrep();
         crep.setStcd(station.getStcd());
-        Date tm = DateUtils.parseDate(station.getTm());
+        Date tm = DateUtils.parseDate(station.gettm());
         crep.setTm(tm);
         crep.setCod(cn.xeonsoft.scheduler.sl.szy.erhai_caculation.output.er_m[0]);
         crep.setTp(cn.xeonsoft.scheduler.sl.szy.erhai_caculation.output.er_m[1]);

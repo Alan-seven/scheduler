@@ -4,8 +4,7 @@ import cn.xeonsoft.scheduler.erhai.run.job.ErhaiRun1Job;
 import cn.xeonsoft.scheduler.sl.flow.job.Flow1HJob;
 import cn.xeonsoft.scheduler.sl.flow.job.StationFlow1HJob;
 import cn.xeonsoft.scheduler.sl.rain.job.Rain1HJob;
-import cn.xeonsoft.scheduler.sl.szy.job.Data4HJob;
-import cn.xeonsoft.scheduler.sl.szy.job.DayW1HJob;
+import cn.xeonsoft.scheduler.sl.szy.job.*;
 import org.mybatis.spring.annotation.MapperScan;
 import org.quartz.*;
 import org.springframework.boot.SpringApplication;
@@ -53,49 +52,64 @@ public class SpringbootApplication {
 //	}
 
 	@Bean
-	public JobDetail erhaiDayW1hJobDetail() {
-		return JobBuilder.newJob(DayW1HJob.class).withIdentity("erhaiDayW1h").storeDurably().build();
-	}
-
-
-	@Bean
-	public Trigger water1HJobTrigger() {
-		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
-				.repeatForever();
-
-		return TriggerBuilder.newTrigger().forJob(water1hJobDetail()).withIdentity("Water1HJobTrigger")
-				.withSchedule(scheduleBuilder).build();
-	}
-	@Bean
-	public Trigger rain1HJobTrigger() {
-		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
-				.repeatForever();
-		return TriggerBuilder.newTrigger().forJob(rain1hJobDetail()).withIdentity("Rain1HJobTrigger")
-				.withSchedule(scheduleBuilder).build();
-	}
-	@Bean
-	public Trigger flow1HJobTrigger() {
-		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
-				.repeatForever();
-		return TriggerBuilder.newTrigger().forJob(flow1hJobDetail()).withIdentity("Flow1HJobTrigger")
-				.withSchedule(scheduleBuilder).build();
+	public JobDetail stationPumpW1hJobDetail() {
+		return JobBuilder.newJob(StationPumpW1HJob.class).withIdentity("stationPumpW1h").storeDurably().build();
 	}
 
 	@Bean
-	public Trigger stationFlow1HJobTrigger() {
-		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
-				.repeatForever();
-		return TriggerBuilder.newTrigger().forJob(stationFlow1hJobDetail()).withIdentity("StationFlow1HJobTrigger")
-				.withSchedule(scheduleBuilder).build();
+	public JobDetail PumpSum1hJobDetail() {
+		return JobBuilder.newJob(PumpSum1HJob.class).withIdentity("pumpSum1h").storeDurably().build();
 	}
+
 	@Bean
-	public Trigger erhaiRun1HJobTrigger() {
-		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
-				.repeatForever();
-		return TriggerBuilder.newTrigger().forJob(erhaiRun1hJobDetail()).withIdentity("ErhaiRun1HJobTrigger")
-				.withSchedule(scheduleBuilder).build();
-				//.withSchedule(CronScheduleBuilder.cronSchedule("0 0 0/1 * * ?")).build();
+	public JobDetail wiuSumW1hJobDetail() {
+		return JobBuilder.newJob(WiuSumW1HJob.class).withIdentity("wiuSumW1h").storeDurably().build();
 	}
+
+	@Bean
+	public JobDetail wiuW1hJobDetail() {
+		return JobBuilder.newJob(WiuW1HJob.class).withIdentity("wiuW1h").storeDurably().build();
+	}
+
+
+//	@Bean
+//	public Trigger water1HJobTrigger() {
+//		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
+//				.repeatForever();
+//
+//		return TriggerBuilder.newTrigger().forJob(water1hJobDetail()).withIdentity("Water1HJobTrigger")
+//				.withSchedule(scheduleBuilder).build();
+//	}
+//	@Bean
+//	public Trigger rain1HJobTrigger() {
+//		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
+//				.repeatForever();
+//		return TriggerBuilder.newTrigger().forJob(rain1hJobDetail()).withIdentity("Rain1HJobTrigger")
+//				.withSchedule(scheduleBuilder).build();
+//	}
+//	@Bean
+//	public Trigger flow1HJobTrigger() {
+//		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
+//				.repeatForever();
+//		return TriggerBuilder.newTrigger().forJob(flow1hJobDetail()).withIdentity("Flow1HJobTrigger")
+//				.withSchedule(scheduleBuilder).build();
+//	}
+//
+//	@Bean
+//	public Trigger stationFlow1HJobTrigger() {
+//		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
+//				.repeatForever();
+//		return TriggerBuilder.newTrigger().forJob(stationFlow1hJobDetail()).withIdentity("StationFlow1HJobTrigger")
+//				.withSchedule(scheduleBuilder).build();
+//	}
+//	@Bean
+//	public Trigger erhaiRun1HJobTrigger() {
+//		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
+//				.repeatForever();
+//		return TriggerBuilder.newTrigger().forJob(erhaiRun1hJobDetail()).withIdentity("ErhaiRun1HJobTrigger")
+//				.withSchedule(scheduleBuilder).build();
+//				//.withSchedule(CronScheduleBuilder.cronSchedule("0 0 0/1 * * ?")).build();
+//	}
 
 	//水质每四个小时进行一次纳污能力计算
 //	@Bean
@@ -106,11 +120,36 @@ public class SpringbootApplication {
 //				.withSchedule(scheduleBuilder).build();
 //	}
 
-//	@Bean
-//	public Trigger erhaiDayW1HJobTrigger() {
-//		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
-//				.repeatForever();
-//		return TriggerBuilder.newTrigger().forJob(erhaiDayW1hJobDetail()).withIdentity("ErhaiDayW1HJobTrigger")
-//				.withSchedule(scheduleBuilder).build();
-//	}
+	@Bean
+	public Trigger stationPumpW1HJobTrigger() {
+		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
+				.repeatForever();
+		return TriggerBuilder.newTrigger().forJob(stationPumpW1hJobDetail()).withIdentity("sationPumpW1HJobTrigger")
+				.withSchedule(scheduleBuilder).build();
+	}
+
+	@Bean
+	public Trigger pumpSum1HJobTrigger() {
+		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
+				.repeatForever();
+		return TriggerBuilder.newTrigger().forJob(PumpSum1hJobDetail()).withIdentity("pumpSum1HJobTrigger")
+				.withSchedule(scheduleBuilder).build();
+	}
+
+	@Bean
+	public Trigger wiuSumW1HJobTrigger() {
+		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
+				.repeatForever();
+		return TriggerBuilder.newTrigger().forJob(wiuSumW1hJobDetail()).withIdentity("wiuSumW1HJobTrigger")
+				.withSchedule(scheduleBuilder).build();
+	}
+
+	@Bean
+	public Trigger wiuW1HJobTrigger() {
+		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
+				.repeatForever();
+		return TriggerBuilder.newTrigger().forJob(wiuW1hJobDetail()).withIdentity("wiuW1HJobTrigger")
+				.withSchedule(scheduleBuilder).build();
+	}
+
 }

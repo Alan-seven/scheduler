@@ -25,11 +25,11 @@ public class StationTm {
         this.stcd = stcd;
     }
 
-    public String getTm() {
+    public String gettm() {
         return tm;
     }
 
-    public void setTm( String tm ) {
+    public void settm( String tm ) {
         this.tm = tm;
     }
 

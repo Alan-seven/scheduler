@@ -5,10 +5,8 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
-/**
- *  水质数据存储
- */
 public interface StationTmRepository {
+
 
     /**
      * 查询31条河流的水质数据
@@ -17,7 +15,7 @@ public interface StationTmRepository {
      * @return
      */
     @Select("SELECT id,stcd,tm FROM station_tm WHERE tm >= #{startDate} AND tm < #{endDate} and  EXISTS (select b.stcd from wr_stat_b b where b.st_tp='WQ' and a.stcd=b.stcd )")
-    List<StationTm> listByRiver(String beginDate,String endDate);
+    List<StationTm> listByRiver( String beginDate, String endDate);
 
     /**
      * 查询洱海的水质数据

@@ -1,8 +1,7 @@
 package cn.xeonsoft.scheduler.sl.szy.service;
 
 import cn.xeonsoft.scheduler.sl.szy.bo.DayW;
-import cn.xeonsoft.scheduler.sl.szy.respository.DayWRepository;
-import cn.xeonsoft.scheduler.utils.DateUtils;
+import cn.xeonsoft.scheduler.sl.szy.respository.StationPumpWRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,20 +12,20 @@ import java.util.List;
 /**
  * 河道日水量统计 存入wr_st_dayw_r
  */
-@Component("dayWService")
+@Component("stationPumpWService")
 @Transactional
-public class DayWServiceImpl implements  DayWService{
+public class StationPumpWServiceImpl implements StationPumpWService {
 
     @Autowired
-    private DayWRepository dayWRepository;
+    private StationPumpWRepository stationPumpWRepository;
 
     @Override
     public Integer findRecordCount( DayW dayW ) {
-        return this.dayWRepository.findRecordCount(dayW);
+        return this.stationPumpWRepository.findRecordCount(dayW);
     }
 
     public void updateRecord( DayW dayW ) {
-        this.dayWRepository.updateRecord(dayW);
+        this.stationPumpWRepository.updateRecord(dayW);
     }
 
     public void batchSave( List<DayW> dayWList,String sttdrcd ){
@@ -37,35 +36,37 @@ public class DayWServiceImpl implements  DayWService{
     @Override
     public void saveRecord( DayW dayW,String sttdrcd ) {
         dayW.setSttdrcd(sttdrcd);
+        //瞬时流量，转化为水量
+        dayW.setDayW(dayW.getDayW()*15*60);
         if(findRecordCount(dayW)>0){
-            this.dayWRepository.updateRecord(dayW);
+            this.stationPumpWRepository.updateRecord(dayW);
         }else{
-            this.dayWRepository.saveRecord(dayW);
+            this.stationPumpWRepository.saveRecord(dayW);
         }
     }
 
     @Override
     public List<DayW> findSum(Date startDate, Date endDate) {
-        return dayWRepository.findSum(startDate,endDate);
+        return stationPumpWRepository.findSum(startDate,endDate);
     }
 
     @Override
     public List<DayW> findHourSum(Date startDate, Date endDate) {
-        return dayWRepository.findHourSum(startDate,endDate);
+        return stationPumpWRepository.findHourSum(startDate,endDate);
     }
 
     @Override
     public List<DayW> findDaySum(Date startDate, Date endDate) {
-        return dayWRepository.findDaySum(startDate,endDate);
+        return stationPumpWRepository.findDaySum(startDate,endDate);
     }
 
     @Override
     public List<DayW> findMonthSum( Date startDate, Date endDate) {
-        return dayWRepository.findMonthSum(startDate,endDate);
+        return stationPumpWRepository.findMonthSum(startDate,endDate);
     }
 
     @Override
     public List<DayW> findYearSum(Date startDate, Date endDate) {
-        return dayWRepository.findYearSum(startDate,endDate);
+        return stationPumpWRepository.findYearSum(startDate,endDate);
     }
 }

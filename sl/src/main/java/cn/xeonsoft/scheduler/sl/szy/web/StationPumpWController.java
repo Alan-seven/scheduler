@@ -1,9 +1,7 @@
 package cn.xeonsoft.scheduler.sl.szy.web;
 
-import cn.xeonsoft.scheduler.sl.flow.bo.FlowSum;
-import cn.xeonsoft.scheduler.sl.rain.domain.Accp;
 import cn.xeonsoft.scheduler.sl.szy.bo.DayW;
-import cn.xeonsoft.scheduler.sl.szy.service.DayWService;
+import cn.xeonsoft.scheduler.sl.szy.service.StationPumpWService;
 import cn.xeonsoft.scheduler.utils.DateInterval;
 import cn.xeonsoft.scheduler.utils.DateUtils;
 import org.apache.ibatis.annotations.Param;
@@ -20,11 +18,11 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/dayw")
-public class DayWController {
+@RequestMapping("/api/stationpumpw")
+public class StationPumpWController {
 
     @Autowired
-    private DayWService dayWService;
+    private StationPumpWService stationPumpWService;
 
     @RequestMapping(value = "/initHour", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity initHour(@Param("tm") String tm) {
@@ -68,36 +66,36 @@ public class DayWController {
         List<DayW> dayWList = new ArrayList<>();
         switch(dateInterval){
             case DAY:
-                dayWList = dayWService.findDaySum(beginDate,endDate);
-                dayWService.batchSave(dayWList,dateInterval2.getType()+"");
+                dayWList = stationPumpWService.findDaySum(beginDate,endDate);
+                stationPumpWService.batchSave(dayWList,dateInterval2.getType()+"");
                 break;
             case FIVEDAYS:
-                dayWList = dayWService.findSum(beginDate,endDate);
+                dayWList = stationPumpWService.findSum(beginDate,endDate);
                 for(DayW dayw:dayWList){
                     if(null==dayw){
                         continue;
                     }
                     DateUtils.formatDateTime(beginDate);
-                    dayWService.saveRecord(dayw,DateInterval.FIVEDAYS.getType()+"");
+                    stationPumpWService.saveRecord(dayw,DateInterval.FIVEDAYS.getType()+"");
                 }
                 break;
             case TENDAYS:
-                dayWList = dayWService.findSum(beginDate,endDate);
+                dayWList = stationPumpWService.findSum(beginDate,endDate);
                 for(DayW dayw:dayWList){
                     if(null==dayw){
                         continue;
                     }
                     DateUtils.formatDateTime(beginDate);
-                    dayWService.saveRecord(dayw,DateInterval.TENDAYS.getType()+"");
+                    stationPumpWService.saveRecord(dayw,DateInterval.TENDAYS.getType()+"");
                 }
                 break;
             case MONTH:
-                dayWList = dayWService.findMonthSum(beginDate,endDate);
-                dayWService.batchSave(dayWList,dateInterval2.getType()+"");
+                dayWList = stationPumpWService.findMonthSum(beginDate,endDate);
+                stationPumpWService.batchSave(dayWList,dateInterval2.getType()+"");
                 break;
             case YEAR:
-                dayWList = dayWService.findYearSum(beginDate,endDate);
-                dayWService.batchSave(dayWList,dateInterval2.getType()+"");
+                dayWList = stationPumpWService.findYearSum(beginDate,endDate);
+                stationPumpWService.batchSave(dayWList,dateInterval2.getType()+"");
                 break;
         }
 

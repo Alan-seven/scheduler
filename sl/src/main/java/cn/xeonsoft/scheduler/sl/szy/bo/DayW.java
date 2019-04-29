@@ -12,6 +12,8 @@ public class DayW {
     private Float dayW;
     private String sttdrcd;
 
+    private String mpCd;
+
     public String getStcd() {
         return stcd;
     }
@@ -28,19 +30,27 @@ public class DayW {
         this.dayW = dayW;
     }
 
-    public String getTm() {
-        return tm;
-    }
-
-    public void setTm( String tm ) {
-        this.tm = tm;
-    }
-
     public String getSttdrcd() {
         return sttdrcd;
     }
 
     public void setSttdrcd( String sttdrcd ) {
         this.sttdrcd = sttdrcd;
+    }
+
+    public String getMpCd() {
+        return mpCd;
+    }
+
+    public void setMpCd( String mpCd ) {
+        this.mpCd = mpCd;
+    }
+
+    public String getTm() {
+        return tm;
+    }
+
+    public void setTm( String tm ) {
+        this.tm = tm;
     }
 }
