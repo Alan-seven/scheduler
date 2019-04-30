@@ -75,12 +75,11 @@ public class PumpSumController {
                 break;
             case FIVEDAYS:
                 dayWList = pumpSumService.findSum(beginDate,endDate);
-                Date tm1 = DateUtils.getBeginDate(DateInterval.FIVEDAYS,new Date());
                 for(DayW entity:dayWList){
                     if(null==entity){
                         continue;
                     }
-                    pumpSumService.saveSumw(tm1,entity.getDayW(),DateInterval.FIVEDAYS.getType()+"");
+                    pumpSumService.saveSumw(beginDate,entity.getDayW(),DateInterval.FIVEDAYS.getType()+"");
                 }
                 break;
             case TENDAYS:
@@ -89,8 +88,7 @@ public class PumpSumController {
                     if(null==entity){
                         continue;
                     }
-                    Date tm2 = DateUtils.getBeginDate(DateInterval.TENDAYS,new Date());
-                    pumpSumService.saveSumw(tm2,entity.getDayW(),DateInterval.TENDAYS.getType()+"");
+                    pumpSumService.saveSumw(beginDate,entity.getDayW(),DateInterval.TENDAYS.getType()+"");
                 }
                 break;
             case MONTH:

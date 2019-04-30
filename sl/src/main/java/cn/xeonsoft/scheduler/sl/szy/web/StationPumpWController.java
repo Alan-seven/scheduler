@@ -75,24 +75,22 @@ public class StationPumpWController {
                 break;
             case FIVEDAYS:
                 dayWList = stationPumpWService.findSum(beginDate,endDate);
-                Date tm1 = DateUtils.getBeginDate(DateInterval.FIVEDAYS,new Date());
                 for(DayW entity:dayWList){
                     if(null==entity){
                         continue;
                     }
                     DateUtils.formatDateTime(beginDate);
-                    stationPumpWService.saveRecord(tm1,entity.getStcd(),entity.getDayW(),DateInterval.FIVEDAYS.getType()+"");
+                    stationPumpWService.saveRecord(beginDate,entity.getStcd(),entity.getDayW(),DateInterval.FIVEDAYS.getType()+"");
                 }
                 break;
             case TENDAYS:
                 dayWList = stationPumpWService.findSum(beginDate,endDate);
-                Date tm2 = DateUtils.getBeginDate(DateInterval.FIVEDAYS,new Date());
                 for(DayW entity:dayWList){
                     if(null==entity){
                         continue;
                     }
 
-                    stationPumpWService.saveRecord(tm2,entity.getStcd(),entity.getDayW(),  DateInterval.TENDAYS.getType()+"");
+                    stationPumpWService.saveRecord(beginDate,entity.getStcd(),entity.getDayW(),  DateInterval.TENDAYS.getType()+"");
                 }
                 break;
             case MONTH:

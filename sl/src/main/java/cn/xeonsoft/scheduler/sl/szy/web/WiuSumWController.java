@@ -71,12 +71,11 @@ public class WiuSumWController {
                 break;
             case FIVEDAYS:
                 dayWList = wiuSumService.findSum(beginDate,endDate);
-                Date tm1 = DateUtils.getBeginDate(DateInterval.FIVEDAYS,new Date());
                 for(DayW entity:dayWList){
                     if(null==entity){
                         continue;
                     }
-                    wiuSumService.saveSumw(tm1,entity.getDayW(),DateInterval.FIVEDAYS.getType()+"");
+                    wiuSumService.saveSumw(beginDate,entity.getDayW(),DateInterval.FIVEDAYS.getType()+"");
                 }
                 break;
             case TENDAYS:
@@ -85,8 +84,7 @@ public class WiuSumWController {
                     if(null==entity){
                         continue;
                     }
-                    Date tm2 = DateUtils.getBeginDate(DateInterval.TENDAYS,new Date());
-                    wiuSumService.saveSumw(tm2,entity.getDayW(),DateInterval.TENDAYS.getType()+"");
+                    wiuSumService.saveSumw(beginDate,entity.getDayW(),DateInterval.TENDAYS.getType()+"");
                 }
                 break;
             case MONTH:

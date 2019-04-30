@@ -31,7 +31,6 @@ public class PumpSumServiceImpl implements  PumpSumService {
 
     @Override
     public void saveSumw( Date tm, Float w, String sttdrcd ) {
-        pumpSumRepository.saveSumw(tm,w,sttdrcd);
         if(findCount(tm,sttdrcd)>0){
             updateSumw(tm,w,sttdrcd);
         }else{
