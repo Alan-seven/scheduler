@@ -14,13 +14,13 @@ import java.util.List;
  */
 public interface WiuWRespository {
 
-    @Select("SELECT count(1) FROM STATIS_WIU_W WHERE stcd = #{mpCd} AND tm = #{tm} and sttdrcd = #{sttdrcd} ")
-    Integer findRecordCount( @Param("tm") Date tm,@Param("sttdrcd") String sttdrcd );
+    @Select("SELECT count(1) FROM STATIS_WIU_W WHERE stcd = #{stcd} AND tm = #{tm} and sttdrcd = #{sttdrcd} ")
+    Integer findRecordCount(@Param("stcd") String stcd, @Param("tm") Date tm,@Param("sttdrcd") String sttdrcd );
 
-    @Update("UPDATE STATIS_WIU_W SET DAY_W = #{dayW} where stcd= #{mpCd} and tm = #{tm} and sttdrcd = #{sttdrcd}")
+    @Update("UPDATE STATIS_WIU_W SET DAY_W = #{w} where stcd= #{stcd} and tm = #{tm} and sttdrcd = #{sttdrcd}")
     void updateRecord(@Param("tm") Date tm,@Param("stcd") String stcd,@Param("w") Float w, @Param("sttdrcd") String sttdrcd);
 
-    @Insert("INSERT INTO STATIS_WIU_W(tm,STCD,DAY_W,sttdrcd) VALUES(#{tm},#{stcd},#{dayW},#{sttdrcd})")
+    @Insert("INSERT INTO STATIS_WIU_W(tm,STCD,DAY_W,sttdrcd) VALUES(#{tm},#{stcd},#{w},#{sttdrcd})")
     void saveRecord(@Param("tm") Date tm,@Param("stcd") String stcd,@Param("w") Float w, @Param("sttdrcd") String sttdrcd );
 
     /**
@@ -29,7 +29,7 @@ public interface WiuWRespository {
      * @param endDate
      * @return
      */
-    @Select("SELECT mp_cd as mpCd,SUM(day_w) as dayW FROM wr_day_w_r a WHERE a.dt >= #{startDate}" +
+    @Select("SELECT mp_cd as stcd,SUM(day_w) as dayW FROM wr_day_w_r a WHERE a.dt >= #{startDate}" +
             " and a.dt <= #{endDate}  group by a.mp_cd")
     List<DayW> findSum( @Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
@@ -39,7 +39,7 @@ public interface WiuWRespository {
      * @param endDate
      * @return
      */
-    @Select("SELECT mp_cd as mpCd,CONVERT(CHAR(13),a.dt,20)+':00:00' as tm,SUM(day_w) as dayW FROM wr_day_w_r a" +
+    @Select("SELECT mp_cd as stcd,CONVERT(CHAR(13),a.dt,20)+':00:00' as tm,SUM(day_w) as dayW FROM wr_day_w_r a" +
             " WHERE a.dt >= #{startDate} and a.dt <= #{endDate}  group by a.mp_cd,CONVERT(CHAR(13),a.dt,20)")
     List<DayW> findHourSum(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
@@ -49,7 +49,7 @@ public interface WiuWRespository {
      * @param endDate
      * @return
      */
-    @Select("SELECT mp_cd as mpCd,CONVERT(CHAR(10),a.dt,23) as tm,SUM(day_w) as dayW FROM wr_day_w_r a " +
+    @Select("SELECT mp_cd as stcd,CONVERT(CHAR(10),a.dt,23) as tm,SUM(day_w) as dayW FROM wr_day_w_r a " +
             "WHERE a.dt >= #{startDate} and a.dt <= #{endDate}  group by a.mp_cd,CONVERT(CHAR(10),a.dt,23)")
     List<DayW> findDaySum(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
@@ -59,7 +59,7 @@ public interface WiuWRespository {
      * @param endDate
      * @return
      */
-    @Select("SELECT mp_cd as mpCd,CONVERT(CHAR(7),dt,23)+'-01 00:00:00' as tm,SUM(day_w) as dayW FROM wr_day_w_r a " +
+    @Select("SELECT mp_cd as stcd,CONVERT(CHAR(7),dt,23)+'-01 00:00:00' as tm,SUM(day_w) as dayW FROM wr_day_w_r a " +
             "WHERE a.dt >= #{startDate} and a.dt <= #{endDate}  group by a.mp_cd,CONVERT(CHAR(7),a.dt,23)")
     List<DayW> findMonthSum(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
@@ -69,7 +69,7 @@ public interface WiuWRespository {
      * @param endDate
      * @return
      */
-    @Select("SELECT mp_cd as mpCd,CONVERT(CHAR(4),a.dt,23)+'-01-01 00:00:00' as tm,SUM(day_w) as dayW FROM wr_day_w_r a " +
+    @Select("SELECT mp_cd as stcd,CONVERT(CHAR(4),a.dt,23)+'-01-01 00:00:00' as tm,SUM(day_w) as dayW FROM wr_day_w_r a " +
             "WHERE a.dt >= #{startDate} and a.dt <= #{endDate}  group by a.mp_cd,CONVERT(CHAR(4),a.dt,23)")
     List<DayW> findYearSum( @Param("startDate") Date startDate, @Param("endDate") Date endDate);
 

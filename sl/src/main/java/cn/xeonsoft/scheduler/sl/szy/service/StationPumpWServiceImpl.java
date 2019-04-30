@@ -2,6 +2,7 @@ package cn.xeonsoft.scheduler.sl.szy.service;
 
 import cn.xeonsoft.scheduler.sl.szy.bo.DayW;
 import cn.xeonsoft.scheduler.sl.szy.respository.StationPumpWRepository;
+import cn.xeonsoft.scheduler.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,28 +21,31 @@ public class StationPumpWServiceImpl implements StationPumpWService {
     private StationPumpWRepository stationPumpWRepository;
 
     @Override
-    public Integer findRecordCount( DayW dayW ) {
-        return this.stationPumpWRepository.findRecordCount(dayW);
+    public Integer findRecordCount(String stcd, Date tm,  String sttdrcd ) {
+        return this.stationPumpWRepository.findRecordCount(stcd,tm,sttdrcd);
     }
 
-    public void updateRecord( DayW dayW ) {
-        this.stationPumpWRepository.updateRecord(dayW);
+    public void updateRecord( Float w, String stcd,Date tm,String sttdrcd) {
+        this.stationPumpWRepository.updateRecord(w,stcd,tm,sttdrcd);
     }
 
     public void batchSave( List<DayW> dayWList,String sttdrcd ){
-        for(DayW dayW : dayWList){
-            saveRecord(dayW,sttdrcd);
+        for(DayW entity : dayWList){
+            if(null==entity){
+                continue;
+            }
+            Date _tm = DateUtils.parseDate(entity.getTm());
+            saveRecord(_tm,entity.getStcd(),entity.getDayW(),sttdrcd);
         }
     }
     @Override
-    public void saveRecord( DayW dayW,String sttdrcd ) {
-        dayW.setSttdrcd(sttdrcd);
+    public void saveRecord(Date tm,String stcd,Float w,String sttdrcd) {
         //瞬时流量，转化为水量
-        dayW.setDayW(dayW.getDayW()*15*60);
-        if(findRecordCount(dayW)>0){
-            this.stationPumpWRepository.updateRecord(dayW);
+        w = w*15*60;
+        if(findRecordCount(stcd,tm,sttdrcd)>0){
+            updateRecord(w,stcd,tm,sttdrcd);
         }else{
-            this.stationPumpWRepository.saveRecord(dayW);
+            this.stationPumpWRepository.saveRecord(tm,stcd,w,sttdrcd);
         }
     }
 

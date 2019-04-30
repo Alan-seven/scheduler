@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface WiuWService {
 
-    Integer findRecordCount(Date tm,String sttdrcd);
+    Integer findRecordCount(String stcd,Date tm,String sttdrcd);
 
     void updateRecord(Date tm,String stcd, Float w,String sttdrcd);
 

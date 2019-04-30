@@ -16,13 +16,13 @@ import java.util.List;
 public interface StationPumpWRepository {
 
     @Select("SELECT count(1) FROM STATIS_PUMP_W WHERE stcd = #{stcd} AND tm = #{tm} and sttdrcd = #{sttdrcd} ")
-    Integer findRecordCount( DayW dayW );
+    Integer findRecordCount( @Param("stcd") String stcd, @Param("tm") Date tm, @Param("sttdrcd") String sttdrcd );
 
-    @Update("UPDATE STATIS_PUMP_W SET DAY_W = #{dayW} where stcd= #{stcd} and tm = #{tm} and sttdrcd = #{sttdrcd}")
-    void updateRecord( DayW dayW );
+    @Update("UPDATE STATIS_PUMP_W SET DAY_W = #{w} where stcd= #{stcd} and tm = #{tm} and sttdrcd = #{sttdrcd}")
+    void updateRecord( @Param("w") Float w,@Param("stcd") String stcd,@Param("tm") Date tm,@Param("sttdrcd") String sttdrcd );
 
-    @Insert("INSERT INTO STATIS_PUMP_W(tm,STCD,DAY_W,sttdrcd) VALUES(#{tm},#{stcd},#{dayW},#{sttdrcd})")
-    void saveRecord( DayW dayW );
+    @Insert("INSERT INTO STATIS_PUMP_W(tm,STCD,DAY_W,sttdrcd) VALUES(#{tm},#{stcd},#{w},#{sttdrcd})")
+    void saveRecord( @Param("tm") Date tm,@Param("stcd") String stcd,@Param("w") Float w,@Param("sttdrcd") String sttdrcd );
 
     /**
      * 得到任意时间级的合计

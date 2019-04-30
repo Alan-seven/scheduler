@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/stationpumpw")
+@RequestMapping("/api/pumpw")
 public class StationPumpWController {
 
     @Autowired
@@ -65,28 +65,34 @@ public class StationPumpWController {
         Date endDate = DateUtils.getEndDate(dateInterval,DateUtils.parseDate(tm));
         List<DayW> dayWList = new ArrayList<>();
         switch(dateInterval){
+            case HOUR:
+                dayWList = stationPumpWService.findHourSum(beginDate,endDate);
+                stationPumpWService.batchSave(dayWList,dateInterval2.getType()+"");
+                break;
             case DAY:
                 dayWList = stationPumpWService.findDaySum(beginDate,endDate);
                 stationPumpWService.batchSave(dayWList,dateInterval2.getType()+"");
                 break;
             case FIVEDAYS:
                 dayWList = stationPumpWService.findSum(beginDate,endDate);
-                for(DayW dayw:dayWList){
-                    if(null==dayw){
+                Date tm1 = DateUtils.getBeginDate(DateInterval.FIVEDAYS,new Date());
+                for(DayW entity:dayWList){
+                    if(null==entity){
                         continue;
                     }
                     DateUtils.formatDateTime(beginDate);
-                    stationPumpWService.saveRecord(dayw,DateInterval.FIVEDAYS.getType()+"");
+                    stationPumpWService.saveRecord(tm1,entity.getStcd(),entity.getDayW(),DateInterval.FIVEDAYS.getType()+"");
                 }
                 break;
             case TENDAYS:
                 dayWList = stationPumpWService.findSum(beginDate,endDate);
-                for(DayW dayw:dayWList){
-                    if(null==dayw){
+                Date tm2 = DateUtils.getBeginDate(DateInterval.FIVEDAYS,new Date());
+                for(DayW entity:dayWList){
+                    if(null==entity){
                         continue;
                     }
-                    DateUtils.formatDateTime(beginDate);
-                    stationPumpWService.saveRecord(dayw,DateInterval.TENDAYS.getType()+"");
+
+                    stationPumpWService.saveRecord(tm2,entity.getStcd(),entity.getDayW(),  DateInterval.TENDAYS.getType()+"");
                 }
                 break;
             case MONTH:

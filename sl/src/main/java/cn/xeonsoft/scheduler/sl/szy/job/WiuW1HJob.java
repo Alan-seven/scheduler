@@ -24,12 +24,14 @@ public class WiuW1HJob  extends QuartzJobBean {
 
     @Override
     protected void executeInternal( JobExecutionContext jobExecutionContext ) throws JobExecutionException {
-        saveSumq(DateInterval.DAY);
-        saveSumq(DateInterval.MONTH);
-        saveSumq(DateInterval.YEAR);
+        saveSumw(DateInterval.DAY);
+        saveSumw(DateInterval.FIVEDAYS);
+        saveSumw(DateInterval.TENDAYS);
+        saveSumw(DateInterval.MONTH);
+        saveSumw(DateInterval.YEAR);
     }
 
-    private void saveSumq(DateInterval dataInterval){
+    private void saveSumw(DateInterval dataInterval){
         Date beginDate = DateUtils.getBeginDate(dataInterval);
         Date endDate = DateUtils.getEndDate(dataInterval);
         List<DayW> dayWList = new ArrayList<>();
@@ -42,7 +44,26 @@ public class WiuW1HJob  extends QuartzJobBean {
                 dayWList = wiuWService.findDaySum(beginDate,endDate);
                 wiuWService.saveRecord(dayWList,dataInterval.getType()+"");
                 break;
-
+            case FIVEDAYS:
+                dayWList = wiuWService.findSum(beginDate,endDate);
+                Date tm = DateUtils.getBeginDate(DateInterval.FIVEDAYS,new Date());
+                for(DayW entity:dayWList){
+                    if(null==entity){
+                        continue;
+                    }
+                    wiuWService.saveRecord(tm,entity.getStcd(),entity.getDayW(),DateInterval.FIVEDAYS.getType()+"");
+                }
+                break;
+            case TENDAYS:
+                dayWList = wiuWService.findSum(beginDate,endDate);
+                Date tm2 = DateUtils.getBeginDate(DateInterval.TENDAYS,new Date());
+                for(DayW entity:dayWList){
+                    if(null==entity){
+                        continue;
+                    }
+                    wiuWService.saveRecord(tm2,entity.getStcd(),entity.getDayW(),DateInterval.TENDAYS.getType()+"");
+                }
+                break;
             case MONTH:
                 dayWList = wiuWService.findMonthSum(beginDate,endDate);
                 wiuWService.saveRecord(dayWList,dataInterval.getType()+"");

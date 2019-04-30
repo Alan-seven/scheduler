@@ -1,17 +1,18 @@
 package cn.xeonsoft.scheduler.sl.szy.service;
 
 import cn.xeonsoft.scheduler.sl.szy.bo.DayW;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
 
 public interface StationPumpWService {
 
-    Integer findRecordCount( DayW dayW );
+    Integer findRecordCount(String stcd, Date tm,  String sttdrcd  );
 
-    void updateRecord( DayW dayW);
+    void updateRecord(Float w, String stcd,Date tm,String sttdrcd );
 
-    void saveRecord( DayW dayW,String sttdrcd );
+    void saveRecord( Date tm,String stcd,Float w,String sttdrcd );
 
     void batchSave( List<DayW> dayWList,String sttdrcd );
     /**

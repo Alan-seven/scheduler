@@ -24,13 +24,15 @@ public class PumpSum1HJob extends QuartzJobBean {
     @Override
     protected void executeInternal( JobExecutionContext jobExecutionContext ) throws JobExecutionException {
 
-        saveSumq(DateInterval.DAY,DateInterval.HOUR);
-        saveSumq(DateInterval.DAY,DateInterval.DAY);
-        saveSumq(DateInterval.MONTH,DateInterval.MONTH);
-        saveSumq(DateInterval.YEAR,DateInterval.YEAR);
+        saveSumw(DateInterval.DAY,DateInterval.HOUR);
+        saveSumw(DateInterval.DAY,DateInterval.DAY);
+        saveSumw(DateInterval.FIVEDAYS,DateInterval.FIVEDAYS);
+        saveSumw(DateInterval.TENDAYS,DateInterval.TENDAYS);
+        saveSumw(DateInterval.MONTH,DateInterval.MONTH);
+        saveSumw(DateInterval.YEAR,DateInterval.YEAR);
     }
 
-    private void saveSumq( DateInterval dataInterval, DateInterval dataInterval2){
+    private void saveSumw( DateInterval dataInterval, DateInterval dataInterval2){
         Date beginDate = DateUtils.getBeginDate(dataInterval);
         Date endDate = DateUtils.getEndDate(dataInterval);
         List<DayW> pumpSum = new ArrayList<>();
@@ -42,6 +44,26 @@ public class PumpSum1HJob extends QuartzJobBean {
             case DAY:
                 pumpSum = pumpSumService.findDaySum(beginDate,endDate);
                 pumpSumService.saveSumw(pumpSum,dataInterval2.getType()+"");
+                break;
+            case FIVEDAYS:
+                pumpSum = pumpSumService.findSum(beginDate,endDate);
+                Date tm = DateUtils.getBeginDate(DateInterval.FIVEDAYS,new Date());
+                for(DayW dayw:pumpSum){
+                    if(null==dayw){
+                        continue;
+                    }
+                    pumpSumService.saveSumw(tm,dayw.getDayW(),DateInterval.FIVEDAYS.getType()+"");
+                }
+                break;
+            case TENDAYS:
+                pumpSum = pumpSumService.findSum(beginDate,endDate);
+                Date tm2 = DateUtils.getBeginDate(DateInterval.TENDAYS,new Date());
+                for(DayW dayw:pumpSum){
+                    if(null==dayw){
+                        continue;
+                    }
+                    pumpSumService.saveSumw(tm2,dayw.getDayW(),DateInterval.TENDAYS.getType()+"");
+                }
                 break;
             case MONTH:
                 pumpSum = pumpSumService.findMonthSum(beginDate,endDate);

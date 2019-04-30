@@ -21,10 +21,10 @@ public class StationPumpW1HJob extends QuartzJobBean {
 
     @Override
     protected void executeInternal( JobExecutionContext jobExecutionContext ) throws JobExecutionException {
-        //saveSumq(DateInterval.HOUR);
+        saveSumq(DateInterval.HOUR);
         saveSumq(DateInterval.DAY);
-        //saveSumq(DateInterval.FIVEDAYS);
-        //saveSumq(DateInterval.TENDAYS);
+        saveSumq(DateInterval.FIVEDAYS);
+        saveSumq(DateInterval.TENDAYS);
         saveSumq(DateInterval.MONTH);
         saveSumq(DateInterval.YEAR);
     }
@@ -44,16 +44,22 @@ public class StationPumpW1HJob extends QuartzJobBean {
                 break;
             case FIVEDAYS:
                 dayWList = stationPumpWService.findSum(beginDate,endDate);
-                Date tm = DateUtils.getBeginDate(DateInterval.FIVEDAYS,new Date());
-                for(DayW dayw:dayWList){
-                    stationPumpWService.saveRecord(dayw,DateInterval.FIVEDAYS.getType()+"");
+                Date tm1 = DateUtils.getBeginDate(DateInterval.FIVEDAYS,new Date());
+                for(DayW entity:dayWList){
+                    if(null==entity){
+                        continue;
+                    }
+                    stationPumpWService.saveRecord(tm1,entity.getStcd(),entity.getDayW(),DateInterval.FIVEDAYS.getType()+"");
                 }
                 break;
             case TENDAYS:
                 dayWList = stationPumpWService.findSum(beginDate,endDate);
                 Date tm2 = DateUtils.getBeginDate(DateInterval.TENDAYS,new Date());
-                for(DayW dayw:dayWList){
-                    stationPumpWService.saveRecord(dayw,DateInterval.TENDAYS.getType()+"");
+                for(DayW entity:dayWList){
+                    if(null==entity){
+                        continue;
+                    }
+                    stationPumpWService.saveRecord(tm2,entity.getStcd(),entity.getDayW(),DateInterval.TENDAYS.getType()+"");
                 }
                 break;
             case MONTH:

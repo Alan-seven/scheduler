@@ -1,7 +1,7 @@
 package cn.xeonsoft.scheduler.sl.szy.web;
 
 import cn.xeonsoft.scheduler.sl.szy.bo.DayW;
-import cn.xeonsoft.scheduler.sl.szy.service.StationPumpWService;
+import cn.xeonsoft.scheduler.sl.szy.service.PumpSumService;
 import cn.xeonsoft.scheduler.utils.DateInterval;
 import cn.xeonsoft.scheduler.utils.DateUtils;
 import org.apache.ibatis.annotations.Param;
@@ -18,11 +18,11 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/pumpw")
-public class StationPumpWController {
+@RequestMapping("/api/pumpsum")
+public class PumpSumController {
 
     @Autowired
-    private StationPumpWService stationPumpWService;
+    private PumpSumService pumpSumService;
 
     @RequestMapping(value = "/initHour", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity initHour(@Param("tm") String tm) {
@@ -65,39 +65,41 @@ public class StationPumpWController {
         Date endDate = DateUtils.getEndDate(dateInterval,DateUtils.parseDate(tm));
         List<DayW> dayWList = new ArrayList<>();
         switch(dateInterval){
+            case HOUR:
+                dayWList = pumpSumService.findHourSum(beginDate,endDate);
+                pumpSumService.saveSumw(dayWList,dateInterval2.getType()+"");
+                break;
             case DAY:
-                dayWList = stationPumpWService.findDaySum(beginDate,endDate);
-                stationPumpWService.batchSave(dayWList,dateInterval2.getType()+"");
+                dayWList = pumpSumService.findDaySum(beginDate,endDate);
+                pumpSumService.saveSumw(dayWList,dateInterval2.getType()+"");
                 break;
             case FIVEDAYS:
-                dayWList = stationPumpWService.findSum(beginDate,endDate);
+                dayWList = pumpSumService.findSum(beginDate,endDate);
                 Date tm1 = DateUtils.getBeginDate(DateInterval.FIVEDAYS,new Date());
                 for(DayW entity:dayWList){
                     if(null==entity){
                         continue;
                     }
-                    DateUtils.formatDateTime(beginDate);
-                    stationPumpWService.saveRecord(tm1,entity.getStcd(),entity.getDayW(),DateInterval.FIVEDAYS.getType()+"");
+                    pumpSumService.saveSumw(tm1,entity.getDayW(),DateInterval.FIVEDAYS.getType()+"");
                 }
                 break;
             case TENDAYS:
-                dayWList = stationPumpWService.findSum(beginDate,endDate);
-                Date tm2 = DateUtils.getBeginDate(DateInterval.FIVEDAYS,new Date());
+                dayWList = pumpSumService.findSum(beginDate,endDate);
                 for(DayW entity:dayWList){
                     if(null==entity){
                         continue;
                     }
-
-                    stationPumpWService.saveRecord(tm2,entity.getStcd(),entity.getDayW(),  DateInterval.TENDAYS.getType()+"");
+                    Date tm2 = DateUtils.getBeginDate(DateInterval.TENDAYS,new Date());
+                    pumpSumService.saveSumw(tm2,entity.getDayW(),DateInterval.TENDAYS.getType()+"");
                 }
                 break;
             case MONTH:
-                dayWList = stationPumpWService.findMonthSum(beginDate,endDate);
-                stationPumpWService.batchSave(dayWList,dateInterval2.getType()+"");
+                dayWList = pumpSumService.findMonthSum(beginDate,endDate);
+                pumpSumService.saveSumw(dayWList,dateInterval2.getType()+"");
                 break;
             case YEAR:
-                dayWList = stationPumpWService.findYearSum(beginDate,endDate);
-                stationPumpWService.batchSave(dayWList,dateInterval2.getType()+"");
+                dayWList = pumpSumService.findYearSum(beginDate,endDate);
+                pumpSumService.saveSumw(dayWList,dateInterval2.getType()+"");
                 break;
         }
 
@@ -106,5 +108,6 @@ public class StationPumpWController {
     private void save(DateInterval dateInterval,String tm){
         save(dateInterval,dateInterval,tm);
     }
+
 
 }
