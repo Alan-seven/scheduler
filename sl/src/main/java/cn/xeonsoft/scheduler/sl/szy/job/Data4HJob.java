@@ -37,7 +37,10 @@ public class Data4HJob extends QuartzJobBean {
 
         //洱海水质纳污能力计算结果保存
         StationTm station = stationTmService.getByErhai(beginDate,endDate);
-        dataService.saveErhaiResult(station);
+        if(station!=null){
+            dataService.saveErhaiResult(station);
+        }
+
 
     }
 
