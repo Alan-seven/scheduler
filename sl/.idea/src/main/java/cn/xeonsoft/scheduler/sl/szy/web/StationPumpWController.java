@@ -65,30 +65,48 @@ public class StationPumpWController {
         Date endDate = DateUtils.getEndDate(dateInterval,DateUtils.parseDate(tm));
         List<DayW> dayWList = new ArrayList<>();
         switch(dateInterval){
+            case HOUR:
+                dayWList = stationPumpWService.findHourSum(beginDate,endDate);
+                stationPumpWService.batchSave(dayWList,dateInterval2.getType()+"");
+                break;
             case DAY:
                 dayWList = stationPumpWService.findDaySum(beginDate,endDate);
                 stationPumpWService.batchSave(dayWList,dateInterval2.getType()+"");
                 break;
             case FIVEDAYS:
                 dayWList = stationPumpWService.findSum(beginDate,endDate);
+<<<<<<< HEAD:sl/.idea/src/main/java/cn/xeonsoft/scheduler/sl/szy/web/StationPumpWController.java
                 Date tm1 = DateUtils.getBeginDate(DateInterval.FIVEDAYS,new Date());
+=======
+>>>>>>> refs/remotes/origin/master:sl/src/main/java/cn/xeonsoft/scheduler/sl/szy/web/StationPumpWController.java
                 for(DayW entity:dayWList){
                     if(null==entity){
                         continue;
                     }
                     DateUtils.formatDateTime(beginDate);
+<<<<<<< HEAD:sl/.idea/src/main/java/cn/xeonsoft/scheduler/sl/szy/web/StationPumpWController.java
                     stationPumpWService.saveRecord(tm1,entity.getStcd(),entity.getDayW(),DateInterval.FIVEDAYS.getType()+"");
+=======
+                    stationPumpWService.saveRecord(beginDate,entity.getStcd(),entity.getDayW(),DateInterval.FIVEDAYS.getType()+"");
+>>>>>>> refs/remotes/origin/master:sl/src/main/java/cn/xeonsoft/scheduler/sl/szy/web/StationPumpWController.java
                 }
                 break;
             case TENDAYS:
                 dayWList = stationPumpWService.findSum(beginDate,endDate);
+<<<<<<< HEAD:sl/.idea/src/main/java/cn/xeonsoft/scheduler/sl/szy/web/StationPumpWController.java
                 Date tm2 = DateUtils.getBeginDate(DateInterval.FIVEDAYS,new Date());
+=======
+>>>>>>> refs/remotes/origin/master:sl/src/main/java/cn/xeonsoft/scheduler/sl/szy/web/StationPumpWController.java
                 for(DayW entity:dayWList){
                     if(null==entity){
                         continue;
                     }
 
+<<<<<<< HEAD:sl/.idea/src/main/java/cn/xeonsoft/scheduler/sl/szy/web/StationPumpWController.java
                     stationPumpWService.saveRecord(tm2,entity.getStcd(),entity.getDayW(),  DateInterval.TENDAYS.getType()+"");
+=======
+                    stationPumpWService.saveRecord(beginDate,entity.getStcd(),entity.getDayW(),  DateInterval.TENDAYS.getType()+"");
+>>>>>>> refs/remotes/origin/master:sl/src/main/java/cn/xeonsoft/scheduler/sl/szy/web/StationPumpWController.java
                 }
                 break;
             case MONTH:

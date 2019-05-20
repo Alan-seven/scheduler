@@ -1,6 +1,7 @@
 <component name="libraryTable">
   <library name="Maven: org.hdrhistogram:HdrHistogram:2.1.10">
     <CLASSES>
+<<<<<<< HEAD
       <root url="jar://D:/361repo/org/hdrhistogram/HdrHistogram/2.1.10/HdrHistogram-2.1.10.jar!/" />
     </CLASSES>
     <JAVADOC>
@@ -8,6 +9,15 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://D:/361repo/org/hdrhistogram/HdrHistogram/2.1.10/HdrHistogram-2.1.10-sources.jar!/" />
+=======
+      <root url="jar://$USER_HOME$/.m2/repository/org/hdrhistogram/HdrHistogram/2.1.10/HdrHistogram-2.1.10.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/org/hdrhistogram/HdrHistogram/2.1.10/HdrHistogram-2.1.10-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/org/hdrhistogram/HdrHistogram/2.1.10/HdrHistogram-2.1.10-sources.jar!/" />
+>>>>>>> refs/remotes/origin/master
     </SOURCES>
   </library>
 </component>

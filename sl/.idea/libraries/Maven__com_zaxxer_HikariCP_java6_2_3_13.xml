@@ -1,6 +1,7 @@
 <component name="libraryTable">
   <library name="Maven: com.zaxxer:HikariCP-java6:2.3.13">
     <CLASSES>
+<<<<<<< HEAD
       <root url="jar://D:/361repo/com/zaxxer/HikariCP-java6/2.3.13/HikariCP-java6-2.3.13.jar!/" />
     </CLASSES>
     <JAVADOC>
@@ -8,6 +9,15 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://D:/361repo/com/zaxxer/HikariCP-java6/2.3.13/HikariCP-java6-2.3.13-sources.jar!/" />
+=======
+      <root url="jar://$USER_HOME$/.m2/repository/com/zaxxer/HikariCP-java6/2.3.13/HikariCP-java6-2.3.13.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/com/zaxxer/HikariCP-java6/2.3.13/HikariCP-java6-2.3.13-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/com/zaxxer/HikariCP-java6/2.3.13/HikariCP-java6-2.3.13-sources.jar!/" />
+>>>>>>> refs/remotes/origin/master
     </SOURCES>
   </library>
 </component>

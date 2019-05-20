@@ -1,6 +1,7 @@
 <component name="libraryTable">
   <library name="Maven: junit:junit:3.8.1">
     <CLASSES>
+<<<<<<< HEAD
       <root url="jar://D:/361repo/junit/junit/3.8.1/junit-3.8.1.jar!/" />
     </CLASSES>
     <JAVADOC>
@@ -8,6 +9,15 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://D:/361repo/junit/junit/3.8.1/junit-3.8.1-sources.jar!/" />
+=======
+      <root url="jar://$USER_HOME$/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/junit/junit/3.8.1/junit-3.8.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/junit/junit/3.8.1/junit-3.8.1-sources.jar!/" />
+>>>>>>> refs/remotes/origin/master
     </SOURCES>
   </library>
 </component>

@@ -28,7 +28,6 @@ public class WiuSumServiceImpl implements WiuSumService{
 
     @Override
     public void saveSumw( Date tm, Float w, String sttdrcd ) {
-        wiuSumRepository.saveSumw(tm,w,sttdrcd);
         if(findCount(tm,sttdrcd)>0){
             updateSumw(tm,w,sttdrcd);
         }else{
