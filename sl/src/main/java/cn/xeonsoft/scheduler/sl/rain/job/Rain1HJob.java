@@ -65,6 +65,7 @@ public class Rain1HJob extends QuartzJobBean {
 		sumDrpService.saveOrUpdate(tenDaysTm,DateInterval.TENDAYS.getType()+"",accpOfTenDays);
 		sumDrpService.saveOrUpdateHour(accpOfHour);
 		sumDrpService.saveOrUpdate(dayTm,accp);
+		sumDrpService.saveOrUpdateMonth(monthTm,accpOfMonth);
 		//保存年累计数据
 		sumDrpService.saveOrUpdateYear(yearTm,accpOfYear);
 		// 旬月表

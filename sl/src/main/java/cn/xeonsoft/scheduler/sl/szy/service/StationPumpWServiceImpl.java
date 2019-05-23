@@ -41,7 +41,7 @@ public class StationPumpWServiceImpl implements StationPumpWService {
     @Override
     public void saveRecord(Date tm,String stcd,Float w,String sttdrcd) {
         //瞬时流量，转化为水量
-        w = w*15*60;
+       // w = w*15*60;
         if(findRecordCount(stcd,tm,sttdrcd)>0){
             updateRecord(w,stcd,tm,sttdrcd);
         }else{
