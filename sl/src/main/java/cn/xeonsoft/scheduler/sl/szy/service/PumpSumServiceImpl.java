@@ -32,7 +32,7 @@ public class PumpSumServiceImpl implements  PumpSumService {
     @Override
     public void saveSumw( Date tm, Float w, String sttdrcd ) {
         //瞬时流量转换为水量
-        w = w*15*60;
+        //w = w*15*60;
         if(findCount(tm,sttdrcd)>0){
             updateSumw(tm,w,sttdrcd);
         }else{
