@@ -5,6 +5,7 @@ public class StationTm {
     private String id;
     private String stcd;
     private String tm;
+    private String wqg;
 
     private String startDate;
     private String endDate;
@@ -25,14 +26,6 @@ public class StationTm {
         this.stcd = stcd;
     }
 
-    public String gettm() {
-        return tm;
-    }
-
-    public void settm( String tm ) {
-        this.tm = tm;
-    }
-
     public String getStartDate() {
         return startDate;
     }
@@ -47,5 +40,21 @@ public class StationTm {
 
     public void setEndDate( String endDate ) {
         this.endDate = endDate;
+    }
+
+    public String getTm() {
+        return tm;
+    }
+
+    public void setTm(String tm) {
+        this.tm = tm;
+    }
+
+    public String getWqg() {
+        return wqg;
+    }
+
+    public void setWqg(String wqg) {
+        this.wqg = wqg;
     }
 }

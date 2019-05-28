@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Component("dataService")
 @Transactional
@@ -61,7 +62,7 @@ public class DataServiceImpl implements DataService {
             //写入模型计算输入条件
             for(int i = 0 ; i < stationList.size();i++){
                 stcd[i][0] = stationList.get(i).getStcd();
-                stcd[i][1] = stationList.get(i).gettm();
+                stcd[i][1] = stationList.get(i).getTm();
                 //得到每次水质监测的因子值
                 List<Data> dataList = dataRepository.list(stationList.get(i).getId());
                 String tmId = stationList.get(i).getId();
@@ -112,7 +113,7 @@ public class DataServiceImpl implements DataService {
         //保存洱海计算结果
         DataCrep crep = new DataCrep();
         crep.setStcd(station.getStcd());
-        Date tm = DateUtils.parseDate(station.gettm());
+        Date tm = DateUtils.parseDate(station.getTm());
         crep.setTm(tm);
         crep.setCod(cn.xeonsoft.scheduler.sl.szy.erhai_caculation.output.er_m[0]);
         crep.setTp(cn.xeonsoft.scheduler.sl.szy.erhai_caculation.output.er_m[1]);
@@ -122,6 +123,34 @@ public class DataServiceImpl implements DataService {
             dataCrepService.saveRecord(crep);
         }else{
             dataCrepService.updateRecord(crep);
+        }
+    }
+
+    @Override
+    public Integer findCount(String itmId, String tmId) {
+        return dataRepository.findCount(itmId,tmId);
+    }
+
+    @Override
+    public void update(String tmId, String itemId, Float itemVl) {
+        dataRepository.update(tmId, itemId, itemVl);
+    }
+
+    @Override
+    public void save(String id, String tmId, String itemId, Float itemVl) {
+        dataRepository.save(id,tmId,itemId,itemVl);
+    }
+
+    @Override
+    public void save(List<Data> dataList,String tmId){
+        for(int i = 0 ; i < dataList.size(); i++){
+            String id = UUID.randomUUID().toString().replace("-","");
+            String itemId = dataList.get(i).getItemId();
+            Float itemVl = dataList.get(i).getItemVl();
+            if(findCount(itemId,tmId)<=0){
+                save(id,tmId,itemId,itemVl);
+            }
+
         }
     }
 

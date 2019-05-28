@@ -4,6 +4,7 @@ public class WrStatB {
 
     private String stcd;
     private String stnm;
+    private String sttp;
 
     public String getStcd() {
         return stcd;
@@ -19,5 +20,13 @@ public class WrStatB {
 
     public void setStnm( String stnm ) {
         this.stnm = stnm;
+    }
+
+    public String getSttp() {
+        return sttp;
+    }
+
+    public void setSttp(String sttp) {
+        this.sttp = sttp;
     }
 }
