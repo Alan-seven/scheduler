@@ -44,4 +44,44 @@ public interface StationFlowRtService {
 	 * @return
 	 */
 	List<FlowSum> findYearSum(Date startDate, Date endDate);
+
+
+	/**
+	 * 得到任意时间段级的合计
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	List<FlowSum> findXierheSum(Date startDate, Date endDate);
+
+	/**
+	 * 得到小时级的合计
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	List<FlowSum> findXierheHourSum(Date startDate, Date endDate);
+	/**
+	 * 得到日级的合计
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	List<FlowSum> findXierheDaySum(Date startDate, Date endDate);
+
+	/**
+	 * 得到月级的合计
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	List<FlowSum> findXierheMonthSum(Date startDate, Date endDate);
+
+	/**
+	 * 得到年级的合计
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	List<FlowSum> findXierheYearSum(Date startDate, Date endDate);
 }

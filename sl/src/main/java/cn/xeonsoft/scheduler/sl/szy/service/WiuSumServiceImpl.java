@@ -4,11 +4,14 @@ import cn.xeonsoft.scheduler.sl.szy.bo.DayW;
 import cn.xeonsoft.scheduler.sl.szy.respository.WiuSumRepository;
 import cn.xeonsoft.scheduler.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.IdGenerator;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Component("wiuSumService")
 @Transactional
@@ -33,6 +36,13 @@ public class WiuSumServiceImpl implements WiuSumService{
         }else{
             wiuSumRepository.saveSumw(tm,w,sttdrcd);
         }
+        //数据保存到河道外用水统计表中
+        if(findLifeCount(tm,sttdrcd)>0){
+            updateLifew(tm,w,sttdrcd);
+        }else{
+            String id = UUID.randomUUID().toString().replace("-","");
+            saveLifew(id,tm,w,sttdrcd);
+        }
     }
 
     @Override
@@ -47,6 +57,22 @@ public class WiuSumServiceImpl implements WiuSumService{
             saveSumw(_tm,day_w,sttdrcd);
         }
 
+    }
+
+    @Override
+    public Integer findLifeCount(Date tm, String sttdrcd) {
+        return wiuSumRepository.findLifeCount(tm,sttdrcd);
+    }
+
+    @Async
+    @Override
+    public void updateLifew( Date tm, Float w, String sttdrcd ) {
+        wiuSumRepository.updateLifew(tm,w,sttdrcd);
+    }
+    @Async
+    @Override
+    public void saveLifew( String id, Date tm, Float w, String sttdrcd ) {
+        wiuSumRepository.saveLifew(id,tm,w,sttdrcd);
     }
 
     @Override

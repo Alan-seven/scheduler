@@ -44,4 +44,30 @@ public class StationFlowRtServiceImpl implements StationFlowRtService {
 	public List<FlowSum> findYearSum(Date startDate, Date endDate) {
 		return stationFlowRtRepository.findYearSum(startDate,endDate);
 	}
+
+
+	@Override
+	public List<FlowSum> findXierheSum(Date startDate, Date endDate) {
+		return stationFlowRtRepository.findXierheSum(startDate,endDate);
+	}
+
+	@Override
+	public List<FlowSum> findXierheHourSum(Date startDate, Date endDate) {
+		return stationFlowRtRepository.findXierheHourSum(startDate,endDate);
+	}
+
+	@Override
+	public List<FlowSum> findXierheDaySum(Date startDate, Date endDate) {
+		return stationFlowRtRepository.findXierheDaySum(startDate,endDate);
+	}
+
+	@Override
+	public List<FlowSum> findXierheMonthSum(Date startDate, Date endDate) {
+		return stationFlowRtRepository.findXierheMonthSum(startDate,endDate);
+	}
+
+	@Override
+	public List<FlowSum> findXierheYearSum(Date startDate, Date endDate) {
+		return stationFlowRtRepository.findXierheYearSum(startDate,endDate);
+	}
 }

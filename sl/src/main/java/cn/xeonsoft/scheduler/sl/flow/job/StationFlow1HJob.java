@@ -39,6 +39,14 @@ public class StationFlow1HJob extends QuartzJobBean {
 		saveSumq(DateInterval.TENDAYS);
 		saveSumq(DateInterval.MONTH);
 		saveSumq(DateInterval.YEAR);
+
+		//计算西洱河水量
+		saveXierheSumq(DateInterval.HOUR);
+		saveXierheSumq(DateInterval.DAY);
+		saveXierheSumq(DateInterval.FIVEDAYS);
+		saveXierheSumq(DateInterval.TENDAYS);
+		saveXierheSumq(DateInterval.MONTH);
+		saveXierheSumq(DateInterval.YEAR);
 	}
 
 	private void saveSumq(DateInterval dataInterval){
@@ -79,4 +87,45 @@ public class StationFlow1HJob extends QuartzJobBean {
 		}
 	}
 
+	/**
+	 * 因为西洱河的水量数据保存在statis_station_sumq表中，流量为瞬时流量，不能用来计算水量
+	 * @param dataInterval
+	 */
+	private void saveXierheSumq(DateInterval dataInterval){
+		Date beginDate = DateUtils.getBeginDate(dataInterval);
+		Date endDate = DateUtils.getEndDate(dataInterval);
+		List<FlowSum> flowSums = new ArrayList<>();
+		switch (dataInterval){
+			case HOUR:
+				flowSums = stationFlowRtService.findXierheHourSum(beginDate,endDate);
+				stationFlowSumService.saveSumq(flowSums,dataInterval.getType()+"");
+				break;
+			case DAY:
+				flowSums = stationFlowRtService.findXierheDaySum(beginDate,endDate);
+				stationFlowSumService.saveSumq(flowSums,dataInterval.getType()+"");
+				break;
+			case FIVEDAYS:
+				flowSums = stationFlowRtService.findXierheSum(beginDate,endDate);
+				Date tm = DateUtils.getBeginDate(DateInterval.FIVEDAYS,new Date());
+				for(FlowSum flowSum:flowSums){
+					stationFlowSumService.saveSumq(flowSum.getStcd(),tm,flowSum.getSumq(),DateInterval.FIVEDAYS.getType()+"");
+				}
+				break;
+			case TENDAYS:
+				flowSums = stationFlowRtService.findXierheSum(beginDate,endDate);
+				Date tm2 = DateUtils.getBeginDate(DateInterval.TENDAYS,new Date());
+				for(FlowSum flowSum:flowSums){
+					stationFlowSumService.saveSumq(flowSum.getStcd(),tm2,flowSum.getSumq(),DateInterval.TENDAYS.getType()+"");
+				}
+				break;
+			case MONTH:
+				flowSums = stationFlowRtService.findXierheMonthSum(beginDate,endDate);
+				stationFlowSumService.saveSumq(flowSums,dataInterval.getType()+"");
+				break;
+			case YEAR:
+				flowSums = stationFlowRtService.findXierheYearSum(beginDate,endDate);
+				stationFlowSumService.saveSumq(flowSums,dataInterval.getType()+"");
+				break;
+		}
+	}
 }

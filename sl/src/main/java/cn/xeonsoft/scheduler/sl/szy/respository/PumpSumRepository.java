@@ -22,6 +22,16 @@ public interface PumpSumRepository {
     @Insert("INSERT INTO STATIS_PUMP_SUM(tm,W,STTDRCD) VALUES(#{tm},#{w},#{sttdrcd})")
     void saveSumw( @Param("tm") Date tm, @Param("w") Float w, @Param("sttdrcd") String sttdrcd);
 
+    @Select("SELECT COUNT(1) FROM STATIS_PUMP_SUM WHERE tm = #{tm} and sttdrcd = #{sttdrcd}")
+    Integer findFarmCount(@Param("tm") Date tm,@Param("sttdrcd") String sttdrcd);
+
+    @Insert("UPDATE STATIS_OUTERUSE SET farming = #{w} WHERE tm = #{tm} and sttdrcd = #{sttdrcd}")
+    void updateFarmw(@Param("tm") Date tm,@Param("w") Float w,@Param("sttdrcd") String sttdrcd);
+
+    @Insert("INSERT INTO STATIS_OUTERUSE(id,tm,farming,STTDRCD) VALUES(#{id},#{tm},#{w},#{sttdrcd})")
+    void saveFarmw(@Param("id") String id, @Param("tm") Date tm, @Param("w") Float w, @Param("sttdrcd") String sttdrcd);
+
+
     /**
      * 得到小时级的合计
      * @param startDate

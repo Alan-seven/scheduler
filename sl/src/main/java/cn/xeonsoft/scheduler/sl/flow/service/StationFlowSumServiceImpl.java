@@ -35,12 +35,18 @@ public class StationFlowSumServiceImpl implements StationFlowSumService {
 	@Override
 	public void saveSumq(String stcd,Date tm, Float sumq,String sttdrcd) {
 		//计算水量
-		float w = sumq * 15 * 60 / 10000;
-		if(findCount(stcd,tm,sttdrcd)>0){
-			updateSumq(stcd,tm,w,sttdrcd);
-		}else{
-			stationFlowSumRepository.saveSumq(stcd,tm,w,sttdrcd);
+		if(null!=sumq){
+			float w = sumq * 15 * 60 / 10000;
+			if(stcd == "90210530"){//西洱河测站对应的数据是统计水量
+				w = sumq;
+			}
+			if(findCount(stcd,tm,sttdrcd)>0){
+				updateSumq(stcd,tm,w,sttdrcd);
+			}else{
+				stationFlowSumRepository.saveSumq(stcd,tm,w,sttdrcd);
+			}
 		}
+
 	}
 
 	@Override
@@ -53,6 +59,9 @@ public class StationFlowSumServiceImpl implements StationFlowSumService {
 				continue;
 			}
 			Float sumq = flowsum.getSumq();
+			if(null==sumq){
+				continue;
+			}
 			saveSumq(stcd, _tm,sumq,sttdrcd);
 		}
 	}

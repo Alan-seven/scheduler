@@ -64,21 +64,21 @@ public class WiuWServiceImpl implements WiuWService {
 
     @Override
     public List<DayW> findDaySum( Date startDate, Date endDate ) {
-        return wiuWRespository.findHourSum(startDate, endDate);
+        return wiuWRespository.findDaySum(startDate, endDate);
     }
 
     @Override
     public List<DayW> findMonthSum( Date startDate, Date endDate ) {
-        return wiuWRespository.findHourSum(startDate, endDate);
+        return wiuWRespository.findMonthSum(startDate, endDate);
     }
 
     @Override
     public List<DayW> findYearSum( Date startDate, Date endDate ) {
-        return wiuWRespository.findHourSum(startDate, endDate);
+        return wiuWRespository.findYearSum(startDate, endDate);
     }
 
     @Override
     public List<DayW> findSum( Date startDate, Date endDate ) {
-        return wiuWRespository.findHourSum(startDate, endDate);
+        return wiuWRespository.findSum(startDate, endDate);
     }
 }

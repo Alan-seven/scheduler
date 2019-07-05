@@ -17,10 +17,10 @@ public interface WiuWRespository {
     @Select("SELECT count(1) FROM STATIS_WIU_W WHERE stcd = #{stcd} AND tm = #{tm} and sttdrcd = #{sttdrcd} ")
     Integer findRecordCount(@Param("stcd") String stcd, @Param("tm") Date tm,@Param("sttdrcd") String sttdrcd );
 
-    @Update("UPDATE STATIS_WIU_W SET DAY_W = #{w} where stcd= #{stcd} and tm = #{tm} and sttdrcd = #{sttdrcd}")
+    @Update("UPDATE STATIS_WIU_W SET w = #{w} where stcd= #{stcd} and tm = #{tm} and sttdrcd = #{sttdrcd}")
     void updateRecord(@Param("tm") Date tm,@Param("stcd") String stcd,@Param("w") Float w, @Param("sttdrcd") String sttdrcd);
 
-    @Insert("INSERT INTO STATIS_WIU_W(tm,STCD,DAY_W,sttdrcd) VALUES(#{tm},#{stcd},#{w},#{sttdrcd})")
+    @Insert("INSERT INTO STATIS_WIU_W(tm,STCD,w,sttdrcd) VALUES(#{tm},#{stcd},#{w},#{sttdrcd})")
     void saveRecord(@Param("tm") Date tm,@Param("stcd") String stcd,@Param("w") Float w, @Param("sttdrcd") String sttdrcd );
 
     /**

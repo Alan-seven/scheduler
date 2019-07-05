@@ -34,12 +34,15 @@ public class FlowSumServiceImpl implements FlowSumService {
 	public void saveSumq(String tm, Float sumq, String type, String sttdrcd) {
 		tm = DateUtils.formatDateTime(DateUtils.parseDate(tm));
 		//计算水量
-		float w = sumq * 15 * 60 /10000;
-		if(findCount(tm,type,sttdrcd)>0){
-			updateSumq(tm,w,type,sttdrcd);
-		}else{
-			flowSumRepository.saveSumq(tm,w,type,sttdrcd);
+		if(null!=sumq){
+			float w = sumq * 15 * 60 /10000;
+			if(findCount(tm,type,sttdrcd)>0){
+				updateSumq(tm,w,type,sttdrcd);
+			}else{
+				flowSumRepository.saveSumq(tm,w,type,sttdrcd);
+			}
 		}
+
 	}
 
 	@Override
@@ -54,6 +57,9 @@ public class FlowSumServiceImpl implements FlowSumService {
 			}
 			tm = DateUtils.formatDateTime(DateUtils.parseDate(tm));
 			Float sumq = flowsum.getSumq();
+			if(null==sumq){
+				continue;
+			}
 			saveSumq(tm,sumq,type,sttdrcd);
 		}
 	}

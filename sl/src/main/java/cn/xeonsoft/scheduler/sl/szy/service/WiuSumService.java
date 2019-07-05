@@ -13,6 +13,12 @@ public interface WiuSumService {
 
     void saveSumw( List<DayW> wiuSum, String sttdrcd);
 
+    Integer findLifeCount(Date tm,String sttdrcd);
+
+    void updateLifew(Date tm,Float w, String sttdrcd);
+
+    void saveLifew(String id,Date tm,Float w, String sttdrcd);
+
     List<DayW> findHourSum( Date startDate, Date endDate);
 
     List<DayW> findDaySum( Date startDate,  Date endDate);

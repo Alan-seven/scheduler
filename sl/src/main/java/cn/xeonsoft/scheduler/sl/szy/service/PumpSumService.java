@@ -23,5 +23,9 @@ public interface PumpSumService {
 
     List<DayW> findSum( Date startDate,  Date endDate);
 
+    Integer findFarmCount(Date tm,String sttdrcd);
 
+    void updateFarmw(Date tm,Float w, String sttdrcd);
+
+    void saveFarmw(String id,Date tm,Float w, String sttdrcd);
 }

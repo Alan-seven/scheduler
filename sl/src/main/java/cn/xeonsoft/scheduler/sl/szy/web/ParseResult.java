@@ -23,7 +23,7 @@ public class ParseResult {
      * @return
      */
     public List<WrStatB> getStationList(){
-        String url = "http://183.224.101.107:8065/BaseService/MN_BaseExt/GetMN_BaseList?UserInfoID=95f244f5-d29d-4639-8f58-d02f9c5b063a";
+        String url = "http://10.10.1.20:8065/BaseService/MN_BaseExt/GetMN_BaseList?UserInfoID=95f244f5-d29d-4639-8f58-d02f9c5b063a";
         String result = getNewResult(url);
         if(StringUtils.isBlank(result)){
             return new ArrayList<WrStatB>();
@@ -39,7 +39,7 @@ public class ParseResult {
      * @return
      */
     public List<Data> getNewData(String stcd){
-        String url ="http://183.224.101.107:8065/BusinessService/MN_8051_MN/GetLatest8051?MN=";
+        String url ="http://10.10.1.20:8065/BusinessService/MN_8051_MN/GetLatest8051?MN=";
         url= url+stcd;
         String result = getNewResult(url);
         if(StringUtils.isBlank(result)){
@@ -132,8 +132,11 @@ public class ParseResult {
     }
 
     public static void main(String[] args){
-
-
+        ParseResult pr = new ParseResult();
+        List<Data> list = pr.getNewData("08720043");
+        for(Data vo : list){
+            System.out.println(vo.getTm());
+        }
     }
 
 }
