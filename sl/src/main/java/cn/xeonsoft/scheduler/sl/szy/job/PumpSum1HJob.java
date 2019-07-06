@@ -52,7 +52,7 @@ public class PumpSum1HJob extends QuartzJobBean {
                     if(null==dayw){
                         continue;
                     }
-                    pumpSumService.saveSumw(tm,dayw.getDayW(),DateInterval.FIVEDAYS.getType()+"");
+                    pumpSumService.saveSumw(beginDate,dayw.getDayW(),DateInterval.FIVEDAYS.getType()+"");
                 }
                 break;
             case TENDAYS:
@@ -62,7 +62,7 @@ public class PumpSum1HJob extends QuartzJobBean {
                     if(null==dayw){
                         continue;
                     }
-                    pumpSumService.saveSumw(tm2,dayw.getDayW(),DateInterval.TENDAYS.getType()+"");
+                    pumpSumService.saveSumw(beginDate,dayw.getDayW(),DateInterval.TENDAYS.getType()+"");
                 }
                 break;
             case MONTH:

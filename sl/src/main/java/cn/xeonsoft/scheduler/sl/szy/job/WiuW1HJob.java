@@ -51,7 +51,7 @@ public class WiuW1HJob  extends QuartzJobBean {
                     if(null==entity){
                         continue;
                     }
-                    wiuWService.saveRecord(tm,entity.getStcd(),entity.getDayW(),DateInterval.FIVEDAYS.getType()+"");
+                    wiuWService.saveRecord(beginDate,entity.getStcd(),entity.getDayW(),DateInterval.FIVEDAYS.getType()+"");
                 }
                 break;
             case TENDAYS:
@@ -61,7 +61,7 @@ public class WiuW1HJob  extends QuartzJobBean {
                     if(null==entity){
                         continue;
                     }
-                    wiuWService.saveRecord(tm2,entity.getStcd(),entity.getDayW(),DateInterval.TENDAYS.getType()+"");
+                    wiuWService.saveRecord(beginDate,entity.getStcd(),entity.getDayW(),DateInterval.TENDAYS.getType()+"");
                 }
                 break;
             case MONTH:

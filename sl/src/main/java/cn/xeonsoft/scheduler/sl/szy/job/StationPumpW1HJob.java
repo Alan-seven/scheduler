@@ -49,7 +49,7 @@ public class StationPumpW1HJob extends QuartzJobBean {
                     if(null==entity){
                         continue;
                     }
-                    stationPumpWService.saveRecord(tm1,entity.getStcd(),entity.getDayW(),DateInterval.FIVEDAYS.getType()+"");
+                    stationPumpWService.saveRecord(beginDate,entity.getStcd(),entity.getDayW(),DateInterval.FIVEDAYS.getType()+"");
                 }
                 break;
             case TENDAYS:
@@ -59,7 +59,7 @@ public class StationPumpW1HJob extends QuartzJobBean {
                     if(null==entity){
                         continue;
                     }
-                    stationPumpWService.saveRecord(tm2,entity.getStcd(),entity.getDayW(),DateInterval.TENDAYS.getType()+"");
+                    stationPumpWService.saveRecord(beginDate,entity.getStcd(),entity.getDayW(),DateInterval.TENDAYS.getType()+"");
                 }
                 break;
             case MONTH:

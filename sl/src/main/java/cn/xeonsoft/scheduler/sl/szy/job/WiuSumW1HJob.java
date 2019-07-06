@@ -54,7 +54,7 @@ public class WiuSumW1HJob  extends QuartzJobBean {
                     if(null==dayw){
                         continue;
                     }
-                    wiuSumService.saveSumw(tm,dayw.getDayW(),DateInterval.FIVEDAYS.getType()+"");
+                    wiuSumService.saveSumw(beginDate,dayw.getDayW(),DateInterval.FIVEDAYS.getType()+"");
                 }
                 break;
             case TENDAYS:
@@ -64,7 +64,7 @@ public class WiuSumW1HJob  extends QuartzJobBean {
                     if(null==dayw){
                         continue;
                     }
-                    wiuSumService.saveSumw(tm2,dayw.getDayW(),DateInterval.TENDAYS.getType()+"");
+                    wiuSumService.saveSumw(beginDate,dayw.getDayW(),DateInterval.TENDAYS.getType()+"");
                 }
                 break;
             case MONTH:

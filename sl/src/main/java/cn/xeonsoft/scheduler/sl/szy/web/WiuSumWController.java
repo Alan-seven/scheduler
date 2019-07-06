@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -65,6 +66,10 @@ public class WiuSumWController {
         Date endDate = DateUtils.getEndDate(dateInterval,DateUtils.parseDate(tm));
         List<DayW> dayWList = new ArrayList<>();
         switch(dateInterval){
+            case HOUR:
+                dayWList = wiuSumService.findHourSum(beginDate,endDate);
+                wiuSumService.saveSumw(dayWList,dateInterval2.getType()+"");
+                break;
             case DAY:
                 dayWList = wiuSumService.findDaySum(beginDate,endDate);
                 wiuSumService.saveSumw(dayWList,dateInterval2.getType()+"");

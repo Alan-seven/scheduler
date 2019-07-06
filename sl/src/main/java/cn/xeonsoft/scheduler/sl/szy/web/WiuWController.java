@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -65,6 +66,10 @@ public class WiuWController {
         Date endDate = DateUtils.getEndDate(dateInterval,DateUtils.parseDate(tm));
         List<DayW> dayWList = new ArrayList<>();
         switch(dateInterval){
+            case HOUR:
+                dayWList = wiuWService.findHourSum(beginDate,endDate);
+                wiuWService.saveRecord(dayWList,dateInterval.getType()+"");
+                break;
             case DAY:
                 dayWList = wiuWService.findDaySum(beginDate,endDate);
                 wiuWService.saveRecord(dayWList,dateInterval.getType()+"");
@@ -76,17 +81,17 @@ public class WiuWController {
                     if(null==entity){
                         continue;
                     }
-                    wiuWService.saveRecord(tm1,entity.getStcd(),entity.getDayW(),dateInterval.getType()+"");
+                    wiuWService.saveRecord(beginDate,entity.getStcd(),entity.getDayW(),dateInterval.getType()+"");
                 }
                 break;
             case TENDAYS:
                 dayWList = wiuWService.findSum(beginDate,endDate);
-                Date tm2 = DateUtils.getBeginDate(DateInterval.FIVEDAYS,new Date());
+                Date tm2 = DateUtils.getBeginDate(DateInterval.TENDAYS,new Date());
                 for(DayW entity:dayWList){
                     if(null==entity){
                         continue;
                     }
-                    wiuWService.saveRecord(tm2,entity.getStcd(),entity.getDayW(),  dateInterval.getType()+"");
+                    wiuWService.saveRecord(beginDate,entity.getStcd(),entity.getDayW(),  dateInterval.getType()+"");
                 }
                 break;
             case MONTH:
