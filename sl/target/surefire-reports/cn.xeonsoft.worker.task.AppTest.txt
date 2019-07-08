@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: cn.xeonsoft.worker.task.AppTest
 -------------------------------------------------------------------------------
+<<<<<<< HEAD
 Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s - in cn.xeonsoft.worker.task.AppTest
+=======
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 s - in cn.xeonsoft.worker.task.AppTest
+>>>>>>> af1621d2a2e0ce5ae292e91e0ea3f02186586e38

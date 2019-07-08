@@ -120,6 +120,10 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 		Calendar cal = Calendar.getInstance();
 		cal.clear();
 		cal.setTime(tm);
+		int hour = cal.get(Calendar.HOUR_OF_DAY);
+		if(hour < 1 ){
+			cal.add(Calendar.DATE,-1);
+		}
 		// type:1日2周3月4季5年
 		switch (dataInterval) {
 		case DAY:
@@ -195,6 +199,10 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 		Calendar cal = Calendar.getInstance();
 		cal.clear();
 		cal.setTime(tm);
+		int hour = cal.get(Calendar.HOUR_OF_DAY);
+		if(hour < 1 ){
+			cal.add(Calendar.DATE,-1);
+		}
 		// type:1日2周3月4季5年
 		switch (dataInterval) {
 		case DAY:
@@ -630,14 +638,27 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 //		System.out.println(get8hEndDateTime(new Date()));
 //
 //		System.out.println(getDistanceMonthOfTwoDate(DateUtils.parseDate("2017-01-01"), new Date()));
-		System.out.println(DateUtils.getBeginDate(DateInterval.MONTH,new Date()));
+		System.out.println(DateUtils.getBeginDate(DateInterval.DAY,new Date()));
+		System.out.println(DateUtils.getEndDate(DateInterval.DAY,new Date()));
 		System.out.println(DateUtils.get8hBeginDate(DateInterval.DAY,new Date()));
-		System.out.println(DateUtils.get8hEndDate(DateInterval.MONTH,new Date()));
+		System.out.println(DateUtils.get8hEndDate(DateInterval.DAY,new Date()));
+		System.out.println(DateUtils.getBeginDate(DateInterval.DAY,DateUtils.parseDate("2019-07-05")));
+		System.out.println(DateUtils.get0HBeginDate(DateInterval.DAY,DateUtils.parseDate("2019-07-05")));
+		//Date startDate = DateUtils.getBeginDate(DateInterval.YEAR,DateUtils.parseDate("2017-01-01"));
+		//Date endDate = DateUtils.getEndDate(DateInterval.YEAR,DateUtils.parseDate("2017-01-01"));
 
-		Date startDate = DateUtils.getBeginDate(DateInterval.YEAR,DateUtils.parseDate("2017-01-01"));
-		Date endDate = DateUtils.getEndDate(DateInterval.YEAR,DateUtils.parseDate("2017-01-01"));
+		//System.out.println(startDate);
+		//System.out.println(endDate);
+		String tm="2019-01-01";
+		Calendar cal = Calendar.getInstance();
+		cal.clear();
+		cal.setTime(DateUtils.parseDate(tm));
+		for(int i = 0 ; i < 187;i++){
+			tm = DateUtils.formatDate(cal.getTime(),"yyyy-MM-dd");
+			cal.add(Calendar.DATE,1);
+			System.out.println(tm);
+		}
 
-		System.out.println(startDate);
-		System.out.println(endDate);
 	}
+
 }
