@@ -112,13 +112,13 @@ public class SpringbootApplication {
 	}
 
 	//水质每四个小时进行一次纳污能力计算
-	@Bean
-	public Trigger crep4HJobTrigger() {
-		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
-				.repeatForever();
-		return TriggerBuilder.newTrigger().forJob(crep4hJobDetail()).withIdentity("crep4HJobTrigger")
-				.withSchedule(scheduleBuilder).build();
-	}
+//	@Bean
+//	public Trigger crep4HJobTrigger() {
+//		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
+//				.repeatForever();
+//		return TriggerBuilder.newTrigger().forJob(crep4hJobDetail()).withIdentity("crep4HJobTrigger")
+//				.withSchedule(scheduleBuilder).build();
+//	}
 
 	@Bean
 	public Trigger stationPumpW1HJobTrigger() {
