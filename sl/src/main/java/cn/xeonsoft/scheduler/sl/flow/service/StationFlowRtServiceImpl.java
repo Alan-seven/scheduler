@@ -70,4 +70,12 @@ public class StationFlowRtServiceImpl implements StationFlowRtService {
 	public List<FlowSum> findXierheYearSum(Date startDate, Date endDate) {
 		return stationFlowRtRepository.findXierheYearSum(startDate,endDate);
 	}
+
+	public void updateQ(String stcd,Date tm,Float q){
+		stationFlowRtRepository.updateQ(stcd,tm,q);
+	}
+
+	public void updateZ(String stcd,Date tm,Float z){
+		stationFlowRtRepository.updateZ(stcd,tm,z);
+	}
 }

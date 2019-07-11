@@ -84,4 +84,8 @@ public interface StationFlowRtService {
 	 * @return
 	 */
 	List<FlowSum> findXierheYearSum(Date startDate, Date endDate);
+
+	void updateQ(String stcd,Date tm,Float q);
+
+	void updateZ(String stcd,Date tm,Float z);
 }

@@ -1,6 +1,7 @@
 package cn.xeonsoft.scheduler.sl.flow.respository;
 
 import cn.xeonsoft.scheduler.sl.flow.bo.FlowSum;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -106,4 +107,10 @@ public interface StationFlowRtRepository {
 	 */
 	@Select("SELECT stcd,CONVERT(CHAR(4),a.TM,23) as tm,SUM(isnull(a.sumq,0)) as sumq FROM STATIS_STATION_SUMQ a WHERE a.tm >= #{startDate} and a.tm <= #{endDate} and a.stcd='90210530' and a.sttdrcd='0' group by a.stcd,CONVERT(CHAR(4),a.tm,23)")
 	List<FlowSum> findXierheYearSum(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+
+	@Insert("UPDATE ST_RIVER_R SET q = #{q} WHERE stcd = #{stcd} and tm = #{tm} ")
+	void updateQ(@Param("stcd") String stcd, @Param("tm") Date tm, @Param("q") Float q);
+
+	@Insert("UPDATE ST_RIVER_R SET z = #{z} WHERE stcd = #{stcd} and tm = #{tm} ")
+	void updateZ(@Param("stcd") String stcd, @Param("tm") Date tm, @Param("z") Float z);
 }
