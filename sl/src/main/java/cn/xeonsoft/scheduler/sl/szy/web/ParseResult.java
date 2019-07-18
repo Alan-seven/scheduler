@@ -133,7 +133,7 @@ public class ParseResult {
 
     public static void main(String[] args){
         ParseResult pr = new ParseResult();
-        List<Data> list = pr.getNewData("08720043");
+        List<Data> list = pr.getNewData("08720044");
         for(Data vo : list){
             System.out.println(vo.getTm());
         }

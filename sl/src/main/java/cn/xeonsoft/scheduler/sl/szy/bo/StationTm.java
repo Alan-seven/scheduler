@@ -1,10 +1,12 @@
 package cn.xeonsoft.scheduler.sl.szy.bo;
 
+import java.util.Date;
+
 public class StationTm {
 
     private String id;
     private String stcd;
-    private String tm;
+    private Date tm;
     private String wqg;
 
     private String startDate;
@@ -42,11 +44,11 @@ public class StationTm {
         this.endDate = endDate;
     }
 
-    public String getTm() {
+    public Date getTm() {
         return tm;
     }
 
-    public void setTm(String tm) {
+    public void setTm(Date tm) {
         this.tm = tm;
     }
 

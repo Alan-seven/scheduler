@@ -638,26 +638,23 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 //		System.out.println(get8hEndDateTime(new Date()));
 //
 //		System.out.println(getDistanceMonthOfTwoDate(DateUtils.parseDate("2017-01-01"), new Date()));
-		System.out.println(DateUtils.getBeginDate(DateInterval.DAY,new Date()));
-		System.out.println(DateUtils.getEndDate(DateInterval.DAY,new Date()));
-		System.out.println(DateUtils.get8hBeginDate(DateInterval.DAY,new Date()));
-		System.out.println(DateUtils.get8hEndDate(DateInterval.DAY,new Date()));
-		System.out.println(DateUtils.getBeginDate(DateInterval.DAY,DateUtils.parseDate("2019-07-05")));
-		System.out.println(DateUtils.get0HBeginDate(DateInterval.DAY,DateUtils.parseDate("2019-07-05")));
+		System.out.println(DateUtils.getBeginDate(DateInterval.YEAR,new Date()));
+		System.out.println(DateUtils.getEndDate(DateInterval.YEAR,new Date()));
+		System.out.println(new Date());
 		//Date startDate = DateUtils.getBeginDate(DateInterval.YEAR,DateUtils.parseDate("2017-01-01"));
 		//Date endDate = DateUtils.getEndDate(DateInterval.YEAR,DateUtils.parseDate("2017-01-01"));
+		Calendar calendar = Calendar.getInstance();
+		calendar.clear();
+		String tt = "2020-02-01";
+		Date tm = new Date();
+		calendar.setTime(parseDate(tt));
+		calendar.roll(Calendar.DAY_OF_YEAR, 1);
+		System.out.println(calendar.getTime());
+
 
 		//System.out.println(startDate);
 		//System.out.println(endDate);
-		String tm="2019-01-01";
-		Calendar cal = Calendar.getInstance();
-		cal.clear();
-		cal.setTime(DateUtils.parseDate(tm));
-		for(int i = 0 ; i < 187;i++){
-			tm = DateUtils.formatDate(cal.getTime(),"yyyy-MM-dd");
-			cal.add(Calendar.DATE,1);
-			System.out.println(tm);
-		}
+
 
 	}
 

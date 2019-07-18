@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -43,7 +44,7 @@ public class DataServiceImpl implements DataService {
      * @return
      */
     public Data getVal(List<Data> dataList , String target){
-        Data data = new Data();
+        Data data = null;
         for(Data item : dataList){
             if(target.equals(item.getItemId())){
                 data = item;
@@ -62,7 +63,7 @@ public class DataServiceImpl implements DataService {
             //写入模型计算输入条件
             for(int i = 0 ; i < stationList.size();i++){
                 stcd[i][0] = stationList.get(i).getStcd();
-                stcd[i][1] = stationList.get(i).getTm();
+                stcd[i][1] = DateUtils.formatDateTime(stationList.get(i).getTm());
                 //得到每次水质监测的因子值
                 List<Data> dataList = dataRepository.list(stationList.get(i).getId());
                 String tmId = stationList.get(i).getId();
@@ -81,10 +82,11 @@ public class DataServiceImpl implements DataService {
                 DataCrep crep = new DataCrep();
                 crep.setStcd(stcd[j][0]);
                 Date tm = DateUtils.parseDate(stcd[j][1]);
+                System.out.println("tm"+stcd[j][1]);
                 crep.setTm(tm);
-                crep.setCod(result[j][0]);
-                crep.setTp(result[j][1]);
-                crep.setTn(result[j][2]);
+                crep.setCod(getMath(1,result[j][0]));
+                crep.setTp(getMath(1,result[j][1]));
+                crep.setTn(getMath(1,result[j][2]));
                 if(dataCrepService.findRecordCount(crep)<=0){
                     dataCrepService.saveRecord(crep);
                 }else{
@@ -92,6 +94,12 @@ public class DataServiceImpl implements DataService {
                 }
             }
         }
+    }
+
+    public static double getMath(int digit,double input){
+        BigDecimal bg = new BigDecimal(input);
+        double data = bg.setScale(digit, BigDecimal.ROUND_HALF_UP).doubleValue();
+        return data;
     }
 
     //保存洱海纳污能力计算结果

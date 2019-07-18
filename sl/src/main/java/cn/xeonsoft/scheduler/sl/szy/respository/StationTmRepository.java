@@ -17,7 +17,8 @@ public interface StationTmRepository {
      * @param endDate
      * @return
      */
-    @Select("SELECT id,stcd,tm FROM station_tm a WHERE a.tm >= #{beginDate} AND tm < #{endDate} and  EXISTS (select b.stcd from wr_stat_b b where b.st_tp='WQ' and a.stcd=b.stcd )")
+    @Select("SELECT a.id,a.stcd,a.tm FROM station_tm a,(select a.stcd,max(a.tm) as tm from station_tm a WHERE a.tm >= #{beginDate} AND a.tm < #{endDate} " +
+            " group by a.stcd ) rr where a.stcd = rr.stcd  and a.tm = rr.tm ")
     List<StationTm> listByRiver( String beginDate, String endDate);
 
     /**

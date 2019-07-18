@@ -7,6 +7,7 @@ import cn.xeonsoft.scheduler.sl.szy.service.DataService;
 import cn.xeonsoft.scheduler.sl.szy.service.StationTmService;
 import cn.xeonsoft.scheduler.sl.szy.service.WrStatBService;
 import cn.xeonsoft.scheduler.sl.szy.web.ParseResult;
+import cn.xeonsoft.scheduler.utils.DateInterval;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,29 +35,30 @@ public class Data4HJob extends QuartzJobBean {
 
     @Override
     protected void executeInternal( JobExecutionContext context) throws JobExecutionException {
-        String beginDate = DateUtils.getBeforeDateTime(new Date(),-4);
+        String beginDate = DateUtils.formatDateTime(DateUtils.getBeginDate(DateInterval.YEAR,new Date()));
         String endDate= DateUtils.formatDateTime(new Date());
 
         //同步单站的水质数据
-        ParseResult parseResult = new ParseResult();
-        List<WrStatB> statList = parseResult.getStationList();
-        for(int i = 0 ; i < statList.size();i++){
-            WrStatB stat = statList.get(i);
-            List<Data> dataList =parseResult.getNewData(stat.getStcd());
-            System.out.println("------------size---"+dataList.size());
-            String tmId = UUID.randomUUID().toString().replace("-","");
-            if(dataList.size() > 0 ){
-                if(stationTmService.findCount(stat.getStcd(),dataList.get(0).getTm())<=0){
-                    stationTmService.save(tmId,stat.getStcd(),dataList.get(0).getTm(),"");
-                }
-                dataService.save(dataList,tmId);
-            }
-        }
+//        ParseResult parseResult = new ParseResult();
+//        List<WrStatB> statList = parseResult.getStationList();
+//        for(int i = 0 ; i < statList.size();i++){
+//            WrStatB stat = statList.get(i);
+//            List<Data> dataList =parseResult.getNewData(stat.getStcd());
+//            System.out.println("------------size---"+dataList.size());
+//            String tmId = UUID.randomUUID().toString().replace("-","");
+//            if(dataList.size() > 0 ){
+//                if(stationTmService.findCount(stat.getStcd(),dataList.get(0).getTm())<=0){
+//                    stationTmService.save(tmId,stat.getStcd(),dataList.get(0).getTm(),"");
+//                }
+//                dataService.save(dataList,tmId);
+//            }
+//        }
 
         //List<WrStatB> statList = wrStatBService.list("WQ");
-//        List<StationTm> stationList = stationTmService.listByRiver(beginDate,endDate);
-//        //保存31条河流纳污能力计算结果
-//        dataService.saveRiverResult(stationList);
+       List<StationTm> stationList = stationTmService.listByRiver(beginDate,endDate);
+
+        //保存2条河流纳污能力计算结果
+        dataService.saveRiverResult(stationList);
 //
 //        //洱海水质纳污能力计算结果保存
 //        StationTm station = stationTmService.getByErhai(beginDate,endDate);

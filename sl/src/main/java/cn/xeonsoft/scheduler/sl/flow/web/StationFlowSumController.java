@@ -162,27 +162,5 @@ public class StationFlowSumController {
 		save(dateInterval,dateInterval,tm);
 	}
 
-	/**
-	 * TODO 修改河道水情表对应的测站流量
-	 * @param
-	 * @return
-	 */
-	@RequestMapping(value = "/updateQ", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity updateQ(@Param("stcd") String stcd,@Param("tm") String tm,@Param("q") Float q) {
-		Date dt = DateUtils.parseDate(tm);
-		stationFlowRtService.updateQ(stcd,dt,q);
-		return new ResponseEntity<>("OK", HttpStatus.OK);
-	}
 
-	/**
-	 * TODO 修改河道水情表对应的测站水位
-	 * @param
-	 * @return
-	 */
-	@RequestMapping(value = "/updateZ", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity updateZ(@Param("stcd") String stcd,@Param("tm") String tm,@Param("z") Float z) {
-		Date dt = DateUtils.parseDate(tm);
-		stationFlowRtService.updateZ(stcd,dt,z);
-		return new ResponseEntity<>("OK", HttpStatus.OK);
-	}
 }
