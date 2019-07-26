@@ -81,6 +81,10 @@ public class Rain1HJob extends QuartzJobBean {
 		statisDypService.updateRainDays(yearTm,DateInterval.YEAR.getType()+"",rainDayOfYear);
 
 
+		saveRegionSumAccp(DateInterval.HOUR,"1");
+		saveRegionSumAccp(DateInterval.HOUR,"2");
+		saveRegionSumAccp(DateInterval.HOUR,"3");
+		saveRegionSumAccp(DateInterval.HOUR,"4");
 		saveRegionSumAccp(DateInterval.DAY,"1");
 		saveRegionSumAccp(DateInterval.DAY,"2");
 		saveRegionSumAccp(DateInterval.DAY,"3");
@@ -98,6 +102,8 @@ public class Rain1HJob extends QuartzJobBean {
 		List<Accp> accps = new ArrayList<>();
 		switch (dateInterval){
 			case HOUR:
+				beginDate = DateUtils.get8hBeginDate(DateInterval.DAY);
+				endDate = DateUtils.get8hEndDate(DateInterval.DAY);
 				accps = pptnRtService.findHourSumByGP(gp,beginDate,endDate);
 				directionAccpService.save(accps,gp,dateInterval.getType()+"");
 				break;

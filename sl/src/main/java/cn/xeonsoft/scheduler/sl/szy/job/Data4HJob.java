@@ -39,20 +39,20 @@ public class Data4HJob extends QuartzJobBean {
         String endDate= DateUtils.formatDateTime(new Date());
 
         //同步单站的水质数据
-//        ParseResult parseResult = new ParseResult();
-//        List<WrStatB> statList = parseResult.getStationList();
-//        for(int i = 0 ; i < statList.size();i++){
-//            WrStatB stat = statList.get(i);
-//            List<Data> dataList =parseResult.getNewData(stat.getStcd());
-//            System.out.println("------------size---"+dataList.size());
-//            String tmId = UUID.randomUUID().toString().replace("-","");
-//            if(dataList.size() > 0 ){
-//                if(stationTmService.findCount(stat.getStcd(),dataList.get(0).getTm())<=0){
-//                    stationTmService.save(tmId,stat.getStcd(),dataList.get(0).getTm(),"");
-//                }
-//                dataService.save(dataList,tmId);
-//            }
-//        }
+        ParseResult parseResult = new ParseResult();
+        List<WrStatB> statList = parseResult.getStationList();
+        for(int i = 0 ; i < statList.size();i++){
+            WrStatB stat = statList.get(i);
+            List<Data> dataList =parseResult.getNewData(stat.getStcd());
+            System.out.println("------------size---"+dataList.size());
+            String tmId = UUID.randomUUID().toString().replace("-","");
+            if(dataList.size() > 0 ){
+                if(stationTmService.findCount(stat.getStcd(),dataList.get(0).getTm())<=0){
+                    stationTmService.save(tmId,stat.getStcd(),dataList.get(0).getTm(),"");
+                }
+                dataService.save(dataList,tmId);
+            }
+        }
 
         //List<WrStatB> statList = wrStatBService.list("WQ");
        List<StationTm> stationList = stationTmService.listByRiver(beginDate,endDate);
