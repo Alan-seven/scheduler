@@ -11,6 +11,6 @@ public interface StationFlowSumService {
 
 	void saveSumq(String stcd, Date tm, Float sumq, String sttdrcd);
 
-	void saveSumq(List<FlowSum> flowSums,String sttdrcd);
+	void saveSumq(List<FlowSum> flowSums,String sttdrcd,String type);
 
 }
