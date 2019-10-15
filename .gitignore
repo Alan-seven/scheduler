@@ -1,0 +1,18 @@
+##ignore this file##
+/target/
+.classpath
+.project
+.settings
+/.idea/
+/.vs/
+*.class
+#some local files
+*/.settings/
+*/.DS_Store
+.DS_Store
+*/.idea/
+.idea/
+gradlew
+gradlew.bat
+unused.txt
+out/
