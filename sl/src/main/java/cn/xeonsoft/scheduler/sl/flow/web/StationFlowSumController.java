@@ -39,10 +39,7 @@ public class StationFlowSumController {
 
 	@RequestMapping(value = "/initHour", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity initHour(@Param("tm") String tm) {
-		Date startDate = DateUtils.getBeginDate(DateInterval.HOUR,DateUtils.parseDate(tm));
-		Date endDate = DateUtils.getEndDate(DateInterval.HOUR,DateUtils.parseDate(tm));
-		List<FlowSum> flowSums = stationFlowRtService.findHourSum(startDate,endDate);
-		stationFlowSumService.saveSumq(flowSums,DateInterval.HOUR.getType()+"");
+		save(DateInterval.HOUR,tm);
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
 
@@ -116,17 +113,29 @@ public class StationFlowSumController {
 		List<FlowSum> inFlowSums = new ArrayList<>();
 		List<FlowSum> outFlowSums = new ArrayList<>();
 		switch(dateInterval){
+			case HOUR:
+				inFlowSums = stationFlowRtService.findHourSum(beginDate,endDate);
+				outFlowSums = stationFlowRtService.findXierheHourSum(beginDate,endDate);
+				stationFlowSumService.saveSumq(inFlowSums,dateInterval2.getType()+"","1");
+				stationFlowSumService.saveSumq(outFlowSums,dateInterval2.getType()+"","2");
+				break;
 			case DAY:
 				inFlowSums = stationFlowRtService.findDaySum(beginDate,endDate);
-				outFlowSums = stationFlowRtService.findDaySum(beginDate,endDate);
-				stationFlowSumService.saveSumq(inFlowSums,dateInterval2.getType()+"");
-				stationFlowSumService.saveSumq(outFlowSums,dateInterval2.getType()+"");
+				outFlowSums = stationFlowRtService.findXierheDaySum(beginDate,endDate);
+				stationFlowSumService.saveSumq(inFlowSums,dateInterval2.getType()+"","1");
+				stationFlowSumService.saveSumq(outFlowSums,dateInterval2.getType()+"","2");
 				break;
 			case FIVEDAYS:
 				inFlowSums = stationFlowRtService.findSum(beginDate,endDate);
-				outFlowSums = stationFlowRtService.findSum(beginDate,endDate);
+				outFlowSums = stationFlowRtService.findXierheDaySum(beginDate,endDate);
 				for(FlowSum flowSum:inFlowSums){
-					if(null==flowSum){
+					if(null==flowSum||("90210530".equals(flowSum.getStcd()))){
+						continue;
+					}
+					stationFlowSumService.saveSumq(flowSum.getStcd(),beginDate,flowSum.getSumq(),DateInterval.FIVEDAYS.getType()+"");
+				}
+				for(FlowSum flowSum:outFlowSums){
+					if(null==flowSum ){
 						continue;
 					}
 					stationFlowSumService.saveSumq(flowSum.getStcd(),beginDate,flowSum.getSumq(),DateInterval.FIVEDAYS.getType()+"");
@@ -134,8 +143,14 @@ public class StationFlowSumController {
 				break;
 			case TENDAYS:
 				inFlowSums = stationFlowRtService.findSum(beginDate,endDate);
-				outFlowSums = stationFlowRtService.findSum(beginDate,endDate);
+				outFlowSums = stationFlowRtService.findXierheDaySum(beginDate,endDate);
 				for(FlowSum flowSum:inFlowSums){
+					if(null==flowSum||("90210530".equals(flowSum.getStcd()))){
+						continue;
+					}
+					stationFlowSumService.saveSumq(flowSum.getStcd(),beginDate,flowSum.getSumq(),DateInterval.TENDAYS.getType()+"");
+				}
+				for(FlowSum flowSum:outFlowSums){
 					if(null==flowSum){
 						continue;
 					}
@@ -144,15 +159,15 @@ public class StationFlowSumController {
 				break;
 			case MONTH:
 				inFlowSums = stationFlowRtService.findMonthSum(beginDate,endDate);
-				outFlowSums = stationFlowRtService.findMonthSum(beginDate,endDate);
-				stationFlowSumService.saveSumq(inFlowSums,dateInterval2.getType()+"");
-				stationFlowSumService.saveSumq(outFlowSums,dateInterval2.getType()+"");
+				outFlowSums = stationFlowRtService.findXierheDaySum(beginDate,endDate);
+				stationFlowSumService.saveSumq(inFlowSums,dateInterval2.getType()+"","1");
+				stationFlowSumService.saveSumq(outFlowSums,dateInterval2.getType()+"","2");
 				break;
 			case YEAR:
 				inFlowSums = stationFlowRtService.findYearSum(beginDate,endDate);
-				outFlowSums = stationFlowRtService.findYearSum(beginDate,endDate);
-				stationFlowSumService.saveSumq(inFlowSums,dateInterval2.getType()+"");
-				stationFlowSumService.saveSumq(outFlowSums,dateInterval2.getType()+"");
+				outFlowSums = stationFlowRtService.findXierheDaySum(beginDate,endDate);
+				stationFlowSumService.saveSumq(inFlowSums,dateInterval2.getType()+"","1");
+				stationFlowSumService.saveSumq(outFlowSums,dateInterval2.getType()+"","2");
 				break;
 		}
 

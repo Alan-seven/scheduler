@@ -78,7 +78,7 @@ public interface StationFlowRtRepository {
 	 * @param endDate
 	 * @return
 	 */
-	@Select("SELECT stcd,CONVERT(CHAR(13),a.tm,20)+':00:00' as tm,SUM(isnull(a.sumq,0)) as sumq FROM STATIS_STATION_SUMQ a WHERE a.tm >= #{startDate} and a.tm <= #{endDate} and a.stcd='90210530' and a.sttdrcd='0' group by a.stcd,CONVERT(CHAR(13),a.tm,20)")
+	@Select("SELECT stcd,CONVERT(CHAR(13),a.tm,20)+':00:00' as tm,SUM(isnull(a.sumq,0)) as sumq FROM STATIS_STATION_SUMQ a WHERE a.tm >= #{startDate} and a.tm <= #{endDate} and a.stcd='90210530' and a.sttdrcd='0'  group by a.stcd,CONVERT(CHAR(13),a.tm,20)")
 	List<FlowSum> findXierheHourSum(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
 	/**
@@ -105,7 +105,7 @@ public interface StationFlowRtRepository {
 	 * @param endDate
 	 * @return
 	 */
-	@Select("SELECT stcd,CONVERT(CHAR(4),a.TM,23) as tm,SUM(isnull(a.sumq,0)) as sumq FROM STATIS_STATION_SUMQ a WHERE a.tm >= #{startDate} and a.tm <= #{endDate} and a.stcd='90210530' and a.sttdrcd='0' group by a.stcd,CONVERT(CHAR(4),a.tm,23)")
+	@Select("SELECT stcd,CONVERT(CHAR(4),a.TM,23) as tm,SUM(isnull(a.sumq,0)) as sumq FROM STATIS_STATION_SUMQ a WHERE a.tm >= #{startDate} and a.tm <= #{endDate} and a.stcd='90210530' and a.sttdrcd='0'  group by a.stcd,CONVERT(CHAR(4),a.tm,23)")
 	List<FlowSum> findXierheYearSum(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
 	@Insert("UPDATE ST_RIVER_R SET q = #{q} WHERE stcd = #{stcd} and tm = #{tm} ")
