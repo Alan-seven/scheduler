@@ -111,6 +111,7 @@ public class ParseResult {
      * @return
      */
     public List<Data> parseNewData(String str){
+        System.out.println(str);
         XMLSerializer xmlSerializer = new XMLSerializer();
         String resutStr = xmlSerializer.read(str).toString();
         JSONObject object = JSONObject.fromObject(resutStr);
@@ -133,9 +134,9 @@ public class ParseResult {
 
     public static void main(String[] args){
         ParseResult pr = new ParseResult();
-        List<Data> list = pr.getNewData("08720044");
+        List<Data> list = pr.getNewData("08720043");
         for(Data vo : list){
-            System.out.println(vo.getTm());
+            System.out.println(vo.getTm()+"-----"+vo.getItemId()+"----"+vo.getItemVl());
         }
     }
 
