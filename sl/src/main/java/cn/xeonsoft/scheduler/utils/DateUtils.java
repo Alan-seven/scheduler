@@ -262,7 +262,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 			break;
 		case YEAR:
 			//cal.add(Calendar.YEAR, 1);
-			cal.roll(Calendar.DAY_OF_YEAR, -1);
+			//cal.roll(Calendar.DAY_OF_YEAR, -1);
 			//cal.set(Calendar.DAY_OF_YEAR, -1);
 			break;
 		}
@@ -643,15 +643,13 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 		System.out.println(new Date());
 		//Date startDate = DateUtils.getBeginDate(DateInterval.YEAR,DateUtils.parseDate("2017-01-01"));
 		//Date endDate = DateUtils.getEndDate(DateInterval.YEAR,DateUtils.parseDate("2017-01-01"));
+
 		Calendar calendar = Calendar.getInstance();
 		calendar.clear();
-		String tt = "2020-02-01";
-		Date tm = new Date();
-		calendar.setTime(parseDate(tt));
-		calendar.roll(Calendar.DAY_OF_YEAR, 1);
-		System.out.println(calendar.getTime());
-
-
+		calendar.set(Calendar.YEAR, 2019);
+		calendar.roll(Calendar.DAY_OF_YEAR, -1);
+		Date currYearLast = calendar.getTime();
+	System.out.println(currYearLast);
 		//System.out.println(startDate);
 		//System.out.println(endDate);
 
