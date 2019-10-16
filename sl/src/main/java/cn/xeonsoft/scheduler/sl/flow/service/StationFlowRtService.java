@@ -88,4 +88,13 @@ public interface StationFlowRtService {
 	void updateQ(String stcd,Date tm,Float q);
 
 	void updateZ(String stcd,Date tm,Float z);
+
+	/**
+	 * 查询引洱入宾统计数据
+	 * @param stcd
+	 * @param sttdrcd
+	 * @param tm
+	 * @return
+	 */
+	List<FlowSum> findYerbSum(String stcd,String sttdrcd,Date tm);
 }

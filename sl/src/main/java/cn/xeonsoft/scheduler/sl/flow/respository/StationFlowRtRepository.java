@@ -113,4 +113,13 @@ public interface StationFlowRtRepository {
 
 	@Insert("UPDATE ST_RIVER_R SET z = #{z} WHERE stcd = #{stcd} and tm = #{tm} ")
 	void updateZ(@Param("stcd") String stcd, @Param("tm") Date tm, @Param("z") Float z);
+
+	/**
+	 * 查询引洱入宾统计数据
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	@Select("SELECT a.stcd,a.tm, a.sumq FROM STATIS_STATION_SUMQ a WHERE a.stcd = #{stcd} and a.sttdrcd=#{sttdrcd} and a.tm = #{tm}")
+	List<FlowSum> findYerbSum(@Param("stcd") String stcd, @Param("sttdrcd") String sttdrcd,@Param("tm") Date tm );
 }

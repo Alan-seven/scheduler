@@ -1,9 +1,8 @@
 package cn.xeonsoft.scheduler.sl.water.cache;
 
 import cn.xeonsoft.scheduler.sl.rain.respository.AccpRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import cn.xeonsoft.scheduler.utils.RedisUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class RiverDataCache {
 	@Autowired

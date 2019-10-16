@@ -47,11 +47,11 @@ public class Data4HJob extends QuartzJobBean {
             System.out.println("------------size---"+dataList.size());
             String tmId = UUID.randomUUID().toString().replace("-","");
             if(dataList.size() > 0 ){
-                if(stationTmService.findCount(stat.getStcd(),dataList.get(0).getTm())<=0){
-                    stationTmService.save(tmId,stat.getStcd(),dataList.get(0).getTm(),"");
-                }
-                dataService.save(dataList,tmId);
-            }
+               if(stationTmService.findCount(stat.getStcd(),dataList.get(0).getTm())<=0){
+                  stationTmService.save(tmId,stat.getStcd(),dataList.get(0).getTm(),"");
+               }
+               dataService.save(dataList,tmId);
+           }
         }
 
         //List<WrStatB> statList = wrStatBService.list("WQ");

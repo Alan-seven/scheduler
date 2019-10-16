@@ -35,7 +35,10 @@ public class FlowSumServiceImpl implements FlowSumService {
 		tm = DateUtils.formatDateTime(DateUtils.parseDate(tm));
 		//计算水量
 		if(null!=sumq){
-			float w = sumq * 15 * 60 /10000;
+			float w = sumq;
+			if("1".equals(type)){
+				w = sumq * 15 * 60 /10000;
+			}
 			if(findCount(tm,type,sttdrcd)>0){
 				updateSumq(tm,w,type,sttdrcd);
 			}else{

@@ -157,8 +157,6 @@ public class DataServiceImpl implements DataService {
             Float itemVl = dataList.get(i).getItemVl();
             if(findCount(itemId,tmId)<=0){
                 save(id,tmId,itemId,itemVl);
-            }else{
-                update(tmId,itemId,itemVl);
             }
 
         }

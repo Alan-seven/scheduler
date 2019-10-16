@@ -39,12 +39,32 @@ public class StationFlowSumController {
 
 	@RequestMapping(value = "/initHour", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity initHour(@Param("tm") String tm) {
+		/*Date tt = DateUtils.parseDate(tm);
+		Calendar cal = Calendar.getInstance();
+		cal.clear();
+		Date beginDate = DateUtils.getBeginDate(DateInterval.YEAR);
+		cal.setTime(tt);
+		for(int i = 0 ; i < 85;i++){
+			System.out.println(cal.getTime());
+			save(DateInterval.HOUR,DateUtils.formatDate(cal.getTime()));
+			cal.add(Calendar.DAY_OF_MONTH,1);
+		}*/
 		save(DateInterval.HOUR,tm);
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/initDay", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity initDay(@Param("tm") String tm) {
+		/*Date tt = DateUtils.parseDate(tm);
+		Calendar cal = Calendar.getInstance();
+		cal.clear();
+		Date beginDate = DateUtils.getBeginDate(DateInterval.YEAR);
+		cal.setTime(tt);
+		for(int i = 0 ; i < 85;i++){
+			System.out.println(cal.getTime());
+			save(DateInterval.DAY,DateUtils.formatDate(cal.getTime()));
+			cal.add(Calendar.DAY_OF_MONTH,1);
+		}*/
 		save(DateInterval.DAY,tm);
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
@@ -127,7 +147,7 @@ public class StationFlowSumController {
 				break;
 			case FIVEDAYS:
 				inFlowSums = stationFlowRtService.findSum(beginDate,endDate);
-				outFlowSums = stationFlowRtService.findXierheDaySum(beginDate,endDate);
+				outFlowSums = stationFlowRtService.findXierheSum(beginDate,endDate);
 				for(FlowSum flowSum:inFlowSums){
 					if(null==flowSum||("90210530".equals(flowSum.getStcd()))){
 						continue;
@@ -143,7 +163,7 @@ public class StationFlowSumController {
 				break;
 			case TENDAYS:
 				inFlowSums = stationFlowRtService.findSum(beginDate,endDate);
-				outFlowSums = stationFlowRtService.findXierheDaySum(beginDate,endDate);
+				outFlowSums = stationFlowRtService.findXierheSum(beginDate,endDate);
 				for(FlowSum flowSum:inFlowSums){
 					if(null==flowSum||("90210530".equals(flowSum.getStcd()))){
 						continue;
@@ -159,13 +179,13 @@ public class StationFlowSumController {
 				break;
 			case MONTH:
 				inFlowSums = stationFlowRtService.findMonthSum(beginDate,endDate);
-				outFlowSums = stationFlowRtService.findXierheDaySum(beginDate,endDate);
+				outFlowSums = stationFlowRtService.findXierheMonthSum(beginDate,endDate);
 				stationFlowSumService.saveSumq(inFlowSums,dateInterval2.getType()+"","1");
 				stationFlowSumService.saveSumq(outFlowSums,dateInterval2.getType()+"","2");
 				break;
 			case YEAR:
 				inFlowSums = stationFlowRtService.findYearSum(beginDate,endDate);
-				outFlowSums = stationFlowRtService.findXierheDaySum(beginDate,endDate);
+				outFlowSums = stationFlowRtService.findXierheYearSum(beginDate,endDate);
 				stationFlowSumService.saveSumq(inFlowSums,dateInterval2.getType()+"","1");
 				stationFlowSumService.saveSumq(outFlowSums,dateInterval2.getType()+"","2");
 				break;

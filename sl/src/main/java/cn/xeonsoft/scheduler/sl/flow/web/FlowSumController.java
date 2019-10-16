@@ -45,16 +45,41 @@ public class FlowSumController {
 		//String startDate = "2018-11-01 00:00:00";
 		//Date sd = DateUtils.parseDate(startDate);
 		//Date ed = new Date();
-		Date startDate = DateUtils.getBeginDate(DateInterval.HOUR,DateUtils.parseDate(tm));
-		Date ed = DateUtils.getEndDate(DateInterval.HOUR,DateUtils.parseDate(tm));
-		List<FlowSum> inFlowSums = flowRtService.findHourSum(FlowConstant.TYPE_INSTATION,startDate,ed);
-		flowSumService.saveSumq(inFlowSums,FlowConstant.TYPE_INSTATION,DateInterval.HOUR.getType()+"");
+		Calendar cal = Calendar.getInstance();
+		cal.clear();
+		Date beginDate = DateUtils.getBeginDate(DateInterval.YEAR);
+		cal.setTime(beginDate);
+		for(int i = 0 ; i < 224;i++){
+			System.out.println(cal.getTime());
+
+			Date startDate = DateUtils.getBeginDate(DateInterval.HOUR,cal.getTime());
+			Date ed = DateUtils.getEndDate(DateInterval.HOUR,cal.getTime());
+			List<FlowSum> inFlowSums = flowRtService.findHourSum(FlowConstant.TYPE_INSTATION,startDate,ed);
+			flowSumService.saveSumq(inFlowSums,FlowConstant.TYPE_INSTATION,DateInterval.HOUR.getType()+"");
+
+			cal.add(Calendar.DAY_OF_MONTH,1);
+		}
+//		Date startDate = DateUtils.getBeginDate(DateInterval.HOUR,DateUtils.parseDate(tm));
+//		Date ed = DateUtils.getEndDate(DateInterval.HOUR,DateUtils.parseDate(tm));
+//		List<FlowSum> inFlowSums = flowRtService.findHourSum(FlowConstant.TYPE_INSTATION,startDate,ed);
+//		flowSumService.saveSumq(inFlowSums,FlowConstant.TYPE_INSTATION,DateInterval.HOUR.getType()+"");
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/initDay", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity initDay(@Param("tm") String tm) {
-		save(DateInterval.DAY,tm);
+		Calendar cal = Calendar.getInstance();
+		cal.clear();
+		Date beginDate = DateUtils.getBeginDate(DateInterval.YEAR);
+		cal.setTime(beginDate);
+		for(int i = 0 ; i < 224;i++){
+			System.out.println(cal.getTime());
+
+			save(DateInterval.DAY,DateUtils.formatDate(cal.getTime()));
+
+			cal.add(Calendar.DAY_OF_MONTH,1);
+		}
+		//save(DateInterval.DAY,tm);
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
 
@@ -111,46 +136,46 @@ public class FlowSumController {
 		List<FlowSum> outFlowSums = new ArrayList<>();
 		if(dateInterval2.equals(DateInterval.DAY)){
 			inFlowSums = flowRtService.findDaySum(FlowConstant.TYPE_INSTATION,beginDate,endDate);
-			outFlowSums = flowRtService.findDaySum(FlowConstant.TYPE_OUTSTATION,beginDate,endDate);
+			//outFlowSums = flowRtService.findDaySum(FlowConstant.TYPE_OUTSTATION,beginDate,endDate);
 			flowSumService.saveSumq(inFlowSums,FlowConstant.TYPE_INSTATION,dateInterval2.getType()+"");
-			flowSumService.saveSumq(outFlowSums,FlowConstant.TYPE_OUTSTATION,dateInterval2.getType()+"");
+			//flowSumService.saveSumq(outFlowSums,FlowConstant.TYPE_OUTSTATION,dateInterval2.getType()+"");
 		}else if(dateInterval2.equals(DateInterval.FIVEDAYS)){
 			inFlowSums = flowRtService.findSum(FlowConstant.TYPE_INSTATION,beginDate,endDate);
-			outFlowSums = flowRtService.findSum(FlowConstant.TYPE_OUTSTATION,beginDate,endDate);
+			//outFlowSums = flowRtService.findSum(FlowConstant.TYPE_OUTSTATION,beginDate,endDate);
 			for(FlowSum flowSum:inFlowSums){
 				if(null==flowSum){
 					continue;
 				}
 				flowSumService.saveSumq(DateUtils.formatDateTime(beginDate),flowSum.getSumq(),FlowConstant.TYPE_INSTATION,DateInterval.FIVEDAYS.getType()+"");
 			}
-			for(FlowSum flowSum:outFlowSums){
-				if(null==flowSum){
-					continue;
-				}
-				flowSumService.saveSumq(DateUtils.formatDateTime(beginDate),flowSum.getSumq(),FlowConstant.TYPE_OUTSTATION,DateInterval.FIVEDAYS.getType()+"");
-			}
+//			for(FlowSum flowSum:outFlowSums){
+//				if(null==flowSum){
+//					continue;
+//				}
+//				flowSumService.saveSumq(DateUtils.formatDateTime(beginDate),flowSum.getSumq(),FlowConstant.TYPE_OUTSTATION,DateInterval.FIVEDAYS.getType()+"");
+//			}
 		}else if(dateInterval2.equals(DateInterval.TENDAYS)){
 			inFlowSums = flowRtService.findSum(FlowConstant.TYPE_INSTATION,beginDate,endDate);
-			outFlowSums = flowRtService.findSum(FlowConstant.TYPE_OUTSTATION,beginDate,endDate);
+			//outFlowSums = flowRtService.findSum(FlowConstant.TYPE_OUTSTATION,beginDate,endDate);
 			for(FlowSum flowSum:inFlowSums){
 				flowSumService.saveSumq(DateUtils.formatDateTime(beginDate),flowSum.getSumq(),FlowConstant.TYPE_INSTATION,DateInterval.TENDAYS.getType()+"");
 			}
-			for(FlowSum flowSum:outFlowSums){
-				if(null==flowSum){
-					continue;
-				}
-				flowSumService.saveSumq(DateUtils.formatDateTime(beginDate),flowSum.getSumq(),FlowConstant.TYPE_OUTSTATION,DateInterval.TENDAYS.getType()+"");
-			}
+//			for(FlowSum flowSum:outFlowSums){
+//				if(null==flowSum){
+//					continue;
+//				}
+//				flowSumService.saveSumq(DateUtils.formatDateTime(beginDate),flowSum.getSumq(),FlowConstant.TYPE_OUTSTATION,DateInterval.TENDAYS.getType()+"");
+//			}
 		}else if(dateInterval2.equals(DateInterval.MONTH)){
 			inFlowSums = flowRtService.findMonthSum(FlowConstant.TYPE_INSTATION,beginDate,endDate);
-			outFlowSums = flowRtService.findMonthSum(FlowConstant.TYPE_OUTSTATION,beginDate,endDate);
+			//outFlowSums = flowRtService.findMonthSum(FlowConstant.TYPE_OUTSTATION,beginDate,endDate);
 			flowSumService.saveSumq(inFlowSums,FlowConstant.TYPE_INSTATION,dateInterval2.getType()+"");
-			flowSumService.saveSumq(outFlowSums,FlowConstant.TYPE_OUTSTATION,dateInterval2.getType()+"");
+			//flowSumService.saveSumq(outFlowSums,FlowConstant.TYPE_OUTSTATION,dateInterval2.getType()+"");
 		}else if(dateInterval2.equals(DateInterval.YEAR)){
 			inFlowSums = flowRtService.findYearSum(FlowConstant.TYPE_INSTATION,beginDate,endDate);
-			outFlowSums = flowRtService.findYearSum(FlowConstant.TYPE_OUTSTATION,beginDate,endDate);
+			//outFlowSums = flowRtService.findYearSum(FlowConstant.TYPE_OUTSTATION,beginDate,endDate);
 			flowSumService.saveSumq(inFlowSums,FlowConstant.TYPE_INSTATION,dateInterval2.getType()+"");
-			flowSumService.saveSumq(outFlowSums,FlowConstant.TYPE_OUTSTATION,dateInterval2.getType()+"");
+			//flowSumService.saveSumq(outFlowSums,FlowConstant.TYPE_OUTSTATION,dateInterval2.getType()+"");
 		}
 	}
 

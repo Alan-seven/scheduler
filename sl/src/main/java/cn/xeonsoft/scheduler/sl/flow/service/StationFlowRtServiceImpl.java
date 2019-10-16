@@ -78,4 +78,15 @@ public class StationFlowRtServiceImpl implements StationFlowRtService {
 	public void updateZ(String stcd,Date tm,Float z){
 		stationFlowRtRepository.updateZ(stcd,tm,z);
 	}
+
+	/**
+	 * 查询引洱入宾统计数据
+	 * @param stcd
+	 * @param sttdrcd
+	 * @param tm
+	 * @return
+	 */
+	public List<FlowSum> findYerbSum(String stcd,String sttdrcd,Date tm){
+		return stationFlowRtRepository.findYerbSum(stcd,sttdrcd,tm);
+	}
 }

@@ -5,6 +5,7 @@ import cn.xeonsoft.scheduler.sl.flow.bo.FlowSum;
 import cn.xeonsoft.scheduler.sl.flow.service.DirectionFlowSumService;
 import cn.xeonsoft.scheduler.sl.flow.service.FlowRtService;
 import cn.xeonsoft.scheduler.sl.flow.service.FlowSumService;
+import cn.xeonsoft.scheduler.sl.flow.service.StationFlowRtService;
 import cn.xeonsoft.scheduler.sl.water.bo.Extreme;
 import cn.xeonsoft.scheduler.sl.water.service.RiverDayService;
 import cn.xeonsoft.scheduler.sl.water.service.RiverMonthAvgService;
@@ -33,7 +34,8 @@ public class Flow1HJob extends QuartzJobBean {
 	private FlowSumService flowSumService;
 	@Autowired
 	private DirectionFlowSumService directionFlowSumService;
-
+	@Autowired
+	private StationFlowRtService stationFlowRtService;
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 		saveSumq(DateInterval.DAY,DateInterval.MINUTE,FlowConstant.TYPE_INSTATION);
@@ -125,45 +127,24 @@ public class Flow1HJob extends QuartzJobBean {
 		Date beginDate = DateUtils.getBeginDate(dataInterval);
 		Date endDate = DateUtils.getEndDate(dataInterval);
 		List<FlowSum> inFlowSums = new ArrayList<>();
+		List<FlowSum> xierheList = new ArrayList<>();
+		List<FlowSum> yerbList = new ArrayList<>();
+		float w = 0f;
+		FlowSum flow = new FlowSum();
 		switch (dataInterval2){
-			case MINUTE:
-				inFlowSums = flowRtService.findMinuteSum(FlowConstant.TYPE_OUTSTATION,beginDate,endDate);
-				flowSumService.saveSumq(inFlowSums,type,dataInterval2.getType()+"");
-				break;
-			case HOUR:
-				inFlowSums = flowRtService.findHourSum(FlowConstant.TYPE_OUTSTATION,beginDate,endDate);
-				flowSumService.saveSumq(inFlowSums,type,dataInterval2.getType()+"");
-				break;
-			case DAY:
-				inFlowSums = flowRtService.findDaySum(FlowConstant.TYPE_OUTSTATION,beginDate,endDate);
-				flowSumService.saveSumq(inFlowSums,type,dataInterval2.getType()+"");
-				break;
-			case FIVEDAYS:
-				inFlowSums = flowRtService.findSum(FlowConstant.TYPE_OUTSTATION,beginDate,endDate);
-				for(FlowSum flowSum:inFlowSums){
-					if(null==flowSum){
-						continue;
-					}
-					Date tm = DateUtils.getBeginDate(DateInterval.FIVEDAYS,new Date());
-					flowSumService.saveSumq(DateUtils.formatDateTime(tm),flowSum.getSumq(),type,DateInterval.FIVEDAYS.getType()+"");
-				}
-				break;
-			case TENDAYS:
-				inFlowSums = flowRtService.findSum(FlowConstant.TYPE_OUTSTATION,beginDate,endDate);
-				for(FlowSum flowSum:inFlowSums){
-					if(null==flowSum){
-						continue;
-					}
-					Date tm = DateUtils.getBeginDate(DateInterval.TENDAYS,new Date());
-					flowSumService.saveSumq(DateUtils.formatDateTime(tm),flowSum.getSumq(),type,DateInterval.TENDAYS.getType()+"");
-				}
-				break;
-			case MONTH:
-				inFlowSums = flowRtService.findMonthSum(FlowConstant.TYPE_OUTSTATION,beginDate,endDate);
-				flowSumService.saveSumq(inFlowSums,type,dataInterval2.getType()+"");
-				break;
 			case YEAR:
-				inFlowSums = flowRtService.findYearSum(FlowConstant.TYPE_OUTSTATION,beginDate,endDate);
+				xierheList = stationFlowRtService.findXierheYearSum(beginDate,endDate);
+				yerbList = stationFlowRtService.findYerbSum("90210531", dataInterval2.getType()+"",beginDate);
+				if(xierheList.size()>0){
+					w +=xierheList.get(0).getSumq()/10000;
+				}
+				if(yerbList.size()>0){
+					w +=yerbList.get(0).getSumq();
+				}
+				flow.setSumq(w);
+				flow.setTm(DateUtils.formatDateTime(beginDate));
+				//inFlowSums = flowRtService.find(FlowConstant.TYPE_OUTSTATION,beginDate,endDate);
+				inFlowSums.add(flow);
 				flowSumService.saveSumq(inFlowSums,type,dataInterval2.getType()+"");
 				break;
 		}
