@@ -17,4 +17,6 @@ public interface StationTmService {
 
     void save(String id,String stcd,Date tm,String wqg);
 
+    StationTm get(String stcd,Date tm);
+
 }

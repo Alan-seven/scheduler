@@ -8,6 +8,7 @@ import cn.xeonsoft.scheduler.sl.szy.bo.DataCrep;
 import cn.xeonsoft.scheduler.sl.szy.bo.StationTm;
 import cn.xeonsoft.scheduler.sl.szy.respository.DataRepository;
 import cn.xeonsoft.scheduler.utils.DateUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -155,6 +156,8 @@ public class DataServiceImpl implements DataService {
             String id = UUID.randomUUID().toString().replace("-","");
             String itemId = dataList.get(i).getItemId();
             Float itemVl = dataList.get(i).getItemVl();
+            if(StringUtils.isBlank(itemId))
+                continue;
             if(findCount(itemId,tmId)<=0){
                 save(id,tmId,itemId,itemVl);
             }

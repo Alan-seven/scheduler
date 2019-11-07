@@ -38,4 +38,10 @@ public class StationTmServiceImpl implements  StationTmService{
     public void save(String id, String stcd, Date tm, String wqg) {
         stationTmRepository.save(id,stcd,tm,wqg);
     }
+
+    @Override
+    public StationTm get(String stcd,Date tm){
+        return stationTmRepository.get(stcd,tm);
+    }
+
 }

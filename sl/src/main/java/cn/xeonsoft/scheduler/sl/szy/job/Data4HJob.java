@@ -7,6 +7,7 @@ import cn.xeonsoft.scheduler.sl.szy.service.DataService;
 import cn.xeonsoft.scheduler.sl.szy.service.StationTmService;
 import cn.xeonsoft.scheduler.sl.szy.service.WrStatBService;
 import cn.xeonsoft.scheduler.sl.szy.web.ParseResult;
+import cn.xeonsoft.scheduler.sl.water.domain.Station;
 import cn.xeonsoft.scheduler.utils.DateInterval;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -49,6 +50,9 @@ public class Data4HJob extends QuartzJobBean {
             if(dataList.size() > 0 ){
                if(stationTmService.findCount(stat.getStcd(),dataList.get(0).getTm())<=0){
                   stationTmService.save(tmId,stat.getStcd(),dataList.get(0).getTm(),"");
+               }else{
+                   StationTm entity = stationTmService.get(stat.getStcd(),dataList.get(0).getTm());
+                   tmId = entity.getId();
                }
                dataService.save(dataList,tmId);
            }

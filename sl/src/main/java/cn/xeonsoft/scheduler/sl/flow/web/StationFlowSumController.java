@@ -39,32 +39,32 @@ public class StationFlowSumController {
 
 	@RequestMapping(value = "/initHour", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity initHour(@Param("tm") String tm) {
-		/*Date tt = DateUtils.parseDate(tm);
+		Date tt = DateUtils.parseDate(tm);
 		Calendar cal = Calendar.getInstance();
 		cal.clear();
 		Date beginDate = DateUtils.getBeginDate(DateInterval.YEAR);
-		cal.setTime(tt);
-		for(int i = 0 ; i < 85;i++){
+		cal.setTime(beginDate);
+		for(int i = 0 ; i < 273;i++){
 			System.out.println(cal.getTime());
 			save(DateInterval.HOUR,DateUtils.formatDate(cal.getTime()));
 			cal.add(Calendar.DAY_OF_MONTH,1);
-		}*/
-		save(DateInterval.HOUR,tm);
+		}
+		//save(DateInterval.HOUR,tm);
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/initDay", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity initDay(@Param("tm") String tm) {
-		/*Date tt = DateUtils.parseDate(tm);
+		Date tt = DateUtils.parseDate(tm);
 		Calendar cal = Calendar.getInstance();
 		cal.clear();
 		Date beginDate = DateUtils.getBeginDate(DateInterval.YEAR);
-		cal.setTime(tt);
-		for(int i = 0 ; i < 85;i++){
+		cal.setTime(beginDate);
+		for(int i = 0 ; i < 273;i++){
 			System.out.println(cal.getTime());
 			save(DateInterval.DAY,DateUtils.formatDate(cal.getTime()));
 			cal.add(Calendar.DAY_OF_MONTH,1);
-		}*/
+		}
 		save(DateInterval.DAY,tm);
 		return new ResponseEntity<>("OK", HttpStatus.OK);
 	}

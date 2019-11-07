@@ -49,7 +49,7 @@ public class FlowSumController {
 		cal.clear();
 		Date beginDate = DateUtils.getBeginDate(DateInterval.YEAR);
 		cal.setTime(beginDate);
-		for(int i = 0 ; i < 224;i++){
+		for(int i = 0 ; i < 273;i++){
 			System.out.println(cal.getTime());
 
 			Date startDate = DateUtils.getBeginDate(DateInterval.HOUR,cal.getTime());
@@ -72,7 +72,7 @@ public class FlowSumController {
 		cal.clear();
 		Date beginDate = DateUtils.getBeginDate(DateInterval.YEAR);
 		cal.setTime(beginDate);
-		for(int i = 0 ; i < 224;i++){
+		for(int i = 0 ; i < 273;i++){
 			System.out.println(cal.getTime());
 
 			save(DateInterval.DAY,DateUtils.formatDate(cal.getTime()));

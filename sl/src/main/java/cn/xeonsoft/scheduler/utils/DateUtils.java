@@ -638,21 +638,17 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 //		System.out.println(get8hEndDateTime(new Date()));
 //
 //		System.out.println(getDistanceMonthOfTwoDate(DateUtils.parseDate("2017-01-01"), new Date()));
-		System.out.println(DateUtils.getBeginDate(DateInterval.YEAR,new Date()));
-		System.out.println(DateUtils.getEndDate(DateInterval.YEAR,new Date()));
+		System.out.println(DateUtils.getBeginDate(DateInterval.DAY,new Date()));
+		System.out.println(DateUtils.getEndDate(DateInterval.DAY,new Date()));
 		System.out.println(new Date());
 		//Date startDate = DateUtils.getBeginDate(DateInterval.YEAR,DateUtils.parseDate("2017-01-01"));
 		//Date endDate = DateUtils.getEndDate(DateInterval.YEAR,DateUtils.parseDate("2017-01-01"));
 
-		Calendar calendar = Calendar.getInstance();
-		calendar.clear();
-		calendar.set(Calendar.YEAR, 2019);
-		calendar.roll(Calendar.DAY_OF_YEAR, -1);
-		Date currYearLast = calendar.getTime();
-	System.out.println(currYearLast);
+
+
 		//System.out.println(startDate);
 		//System.out.println(endDate);
-
+		System.out.println(DateUtils.getBeginDate(DateInterval.YEAR));
 
 	}
 

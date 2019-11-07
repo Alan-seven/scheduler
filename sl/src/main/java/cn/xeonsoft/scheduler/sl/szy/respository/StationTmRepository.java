@@ -39,5 +39,6 @@ public interface StationTmRepository {
     @Insert("INSERT INTO station_tm(id,stcd,tm,WQG) VALUES(#{id},#{stcd},#{tm},#{wqg})")
     void save( @Param("id") String id,@Param("stcd") String stcd, @Param("tm") Date tm, @Param("wqg") String wqg);
 
-
+    @Select("SELECT id,stcd,tm FROM station_tm WHERE stcd = #{stcd} and tm = #{tm} ")
+    StationTm get(@Param("stcd") String stcd,@Param("tm") Date tm);
 }
