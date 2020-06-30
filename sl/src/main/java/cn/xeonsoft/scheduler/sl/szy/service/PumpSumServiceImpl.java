@@ -3,6 +3,7 @@ package cn.xeonsoft.scheduler.sl.szy.service;
 import cn.xeonsoft.scheduler.sl.szy.bo.DayW;
 import cn.xeonsoft.scheduler.sl.szy.respository.PumpSumRepository;
 import cn.xeonsoft.scheduler.utils.DateUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
@@ -93,15 +94,19 @@ public class PumpSumServiceImpl implements  PumpSumService {
         return pumpSumRepository.findSum(startDate,endDate);
     }
 
-    @Async
     @Override
     public void updateFarmw( Date tm, Float w, String sttdrcd ) {
-        pumpSumRepository.updateFarmw(tm,w,sttdrcd);
+        if(null!=tm && StringUtils.isNotBlank(sttdrcd)){
+            pumpSumRepository.updateFarmw(tm,w,sttdrcd);
+        }
+
     }
 
-    @Async
+    //@Async
     @Override
     public void saveFarmw( String id, Date tm, Float w, String sttdrcd ) {
-        pumpSumRepository.saveFarmw(id,tm,w,sttdrcd);
+        if(null!=tm && StringUtils.isNotBlank(sttdrcd)) {
+            pumpSumRepository.saveFarmw(id, tm, w, sttdrcd);
+        }
     }
 }

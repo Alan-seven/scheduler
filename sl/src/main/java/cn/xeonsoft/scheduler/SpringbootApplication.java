@@ -156,11 +156,11 @@ public class SpringbootApplication {
 				.withSchedule(scheduleBuilder).build();
 	}
 
-	@Bean
-	public Trigger weather1HJobTrigger(){
-		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
-				.repeatForever();
-		return TriggerBuilder.newTrigger().forJob(weather1HJobDetail()).withIdentity("weather1HJobTrigger")
-				.withSchedule(scheduleBuilder).build();
-	}
+//	@Bean
+//	public Trigger weather1HJobTrigger(){
+//		SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule().withIntervalInHours(1)
+//				.repeatForever();
+//		return TriggerBuilder.newTrigger().forJob(weather1HJobDetail()).withIdentity("weather1HJobTrigger")
+//				.withSchedule(scheduleBuilder).build();
+//	}
 }

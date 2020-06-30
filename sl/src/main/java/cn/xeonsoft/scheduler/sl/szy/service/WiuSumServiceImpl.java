@@ -3,6 +3,7 @@ package cn.xeonsoft.scheduler.sl.szy.service;
 import cn.xeonsoft.scheduler.sl.szy.bo.DayW;
 import cn.xeonsoft.scheduler.sl.szy.respository.WiuSumRepository;
 import cn.xeonsoft.scheduler.utils.DateUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
@@ -64,15 +65,19 @@ public class WiuSumServiceImpl implements WiuSumService{
         return wiuSumRepository.findLifeCount(tm,sttdrcd);
     }
 
-    @Async
+    //@Async
     @Override
     public void updateLifew( Date tm, Float w, String sttdrcd ) {
-        wiuSumRepository.updateLifew(tm,w,sttdrcd);
+        if(null!=tm && null !=w && StringUtils.isNotBlank(sttdrcd)){
+            wiuSumRepository.updateLifew(tm,w,sttdrcd);
+        }
     }
-    @Async
+    //@Async
     @Override
     public void saveLifew( String id, Date tm, Float w, String sttdrcd ) {
-        wiuSumRepository.saveLifew(id,tm,w,sttdrcd);
+        if(null!=tm && null !=w && StringUtils.isNotBlank(sttdrcd)) {
+            wiuSumRepository.saveLifew(id, tm, w, sttdrcd);
+        }
     }
 
     @Override

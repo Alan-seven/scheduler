@@ -4,6 +4,7 @@ import cn.xeonsoft.scheduler.sl.szy.bo.DayW;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.Date;
 import java.util.List;
@@ -22,7 +23,7 @@ public interface PumpSumRepository {
     @Insert("INSERT INTO STATIS_PUMP_SUM(tm,W,STTDRCD) VALUES(#{tm},#{w},#{sttdrcd})")
     void saveSumw( @Param("tm") Date tm, @Param("w") Float w, @Param("sttdrcd") String sttdrcd);
 
-    @Select("SELECT COUNT(1) FROM STATIS_PUMP_SUM WHERE tm = #{tm} and sttdrcd = #{sttdrcd}")
+    @Select("SELECT COUNT(1) t FROM STATIS_OUTERUSE WHERE tm = #{tm} and sttdrcd = #{sttdrcd}")
     Integer findFarmCount(@Param("tm") Date tm,@Param("sttdrcd") String sttdrcd);
 
     @Insert("UPDATE STATIS_OUTERUSE SET farming = #{w} WHERE tm = #{tm} and sttdrcd = #{sttdrcd}")
